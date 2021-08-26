@@ -1,14 +1,14 @@
 function SignUpUser() {
   return (
     <div className="container d-flex justify-content-center my-5 bg-light p-4 border border-4 rounded">
-      <form id="userSignUpForm">
+      <form method="post" id="userSignUpForm" action="http://localhost:3005/signup/user">
         <div className="mb-2 d-flex flex-column align-items-start">
           <p className="mb-1">Имя</p>
-          <input required name="firstname" type="text" className="form-control" />
+          <input required name="firstName" type="text" className="form-control" />
         </div>
         <div className="mb-2 d-flex flex-column align-items-start">
           <p className="mb-1">Фамилия</p>
-          <input required name="lastname" type="text" className="form-control" />
+          <input required name="lastName" type="text" className="form-control" />
         </div>
         <div className="mb-2 d-flex flex-column align-items-start">
           <p className="mb-1">Email</p>

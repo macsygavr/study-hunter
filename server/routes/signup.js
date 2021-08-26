@@ -2,13 +2,14 @@ const router = require('express').Router();
 const db = require('../db/models');
 
 router.post('/user', async (req, res) => {
-  console.log('signup');
-  const { name, lastname, email, password } = req.body;
+  const { firstName, lastName, email, password } = req.body;
   const user = await db.User.findOne({ where: { email: email.toLowerCase() } });
+  console.log(user === true);
   if (user) {
-    res.sendStatus(404);
-  } else {
-    const newUser = await db.User.create({ name, lastname, email: email.toLowerCase(), password });
+      res.sendStatus(404);
+    } else {
+    console.log(firstName, lastName, email, password);
+    const newUser = await db.User.create({ firstName, lastName, email: email.toLowerCase(), password: password });
     console.log(newUser);
   }
 });
