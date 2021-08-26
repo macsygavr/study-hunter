@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const db = require('../db/models');
 
 router.post('/signin', async (req, res) => {
   res.json( {kek: 'signin'} );
