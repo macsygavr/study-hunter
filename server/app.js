@@ -9,6 +9,8 @@ const FileStore = require('session-file-store')(session);
 const morgan = require('morgan');
 
 const indexRouter = require('./routes/index');
+const signupRouter = require('./routes/signup');
+const signinRouter = require('./routes/signin');
 
 const app = express();
 const PORT = process.env.PORT;
@@ -23,6 +25,8 @@ app.use(express.urlencoded({
 app.use(express.json());
 app.use(morgan('dev'));
 app.use('/', indexRouter);
+app.use('/signup', signupRouter);
+app.use('/signin', signinRouter);
 
 
 app.listen(PORT, ()=>{
