@@ -6,15 +6,15 @@ function Posts() {
   // map
   return (
     <div className="container">
-      <div className="row">
-        <div className="col my-3 d-flex justify-content-center"><PostsItem /></div>
-        <div className="col my-3 d-flex justify-content-center"><PostsItem /></div>
-        <div className="col my-3 d-flex justify-content-center"><PostsItem /></div>
+      <div className="row justify-content-start">
+        <div className="col-4 my-3 d-flex justify-content-center"><PostsItem /></div>
+        <div className="col-4 my-3 d-flex justify-content-center"><PostsItem /></div>
+        <div className="col-4 my-3 d-flex justify-content-center"><PostsItem /></div>
       </div>
-      <div className="row">
-        <div className="col my-3 d-flex justify-content-center"><PostsItem /></div>
-        <div className="col my-3 d-flex justify-content-center"><PostsItem /></div>
-        <div className="col my-3 d-flex justify-content-center"><PostsItem /></div>
+      <div className="row justify-content-start">
+        <div className="col-4 my-3 d-flex justify-content-center"><PostsItem /></div>
+        <div className="col-4 my-3 d-flex justify-content-center"><PostsItem /></div>
+        {/* <div className="col-4 my-3 d-flex justify-content-center"><PostsItem /></div> */}
       </div>
     </div>
   );
