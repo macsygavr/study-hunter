@@ -9,11 +9,15 @@ import SignUpOrganization from './components/SignUpOrganization/SignUpOrganizati
 import SignInUser from './components/SignInUser/SignInUser';
 import SignInOrganization from './components/SignInOrganization/SignInOrganization';
 import SignInChoisePage from './components/SignInChoicePage/SignInChoicePage';
+import Search from './components/Search/Search';
 
 function App() {
   return (
     <Router>
       <div className="App">
+        <Route exact path="/">
+          <Search />
+        </Route>
         <Route exact path="/signup">
           <SignUpChoicePage />
         </Route>
