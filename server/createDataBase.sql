@@ -1,0 +1,2 @@
+CREATE DATABASE studyhunter WITH OWNER admin;
+GRANT ALL PRIVILEGES ON DATABASE studyhunter TO admin;
