@@ -4,15 +4,18 @@ const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
 
+const indexRouter = require('./routes/index');
+
 const app = express();
 
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({
-    extended: true
+  extended: true
 }));
 app.use(express.json());
 app.use(morgan('dev'));
+app.use('/', indexRouter);
 
 const PORT = process.env.PORT;
 
