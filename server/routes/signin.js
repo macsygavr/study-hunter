@@ -8,6 +8,19 @@ router.post('/user', async (req, res) => {
   if (user) {
     req.session.userEmail = user.email;
     req.session.userid = user.id;
+    const favorites = await db.Favorites.findAll({ where: {
+      user_id: user.id,
+    }});
+    const requests = await db.Request.findAll({ where: {
+      user_id: user.id,
+    }});
+    res.json({
+      firstName: user.firstName, 
+      lastName : user.lastName, 
+      phone: user.phone, 
+      email: user.email, 
+      favorites: favorites || [], 
+      requests: requests || [] });
   }
   else { res.sendStatus(401); }
 });

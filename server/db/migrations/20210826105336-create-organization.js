@@ -40,6 +40,14 @@ module.exports = {
       address: {
         type: Sequelize.TEXT,
       },
+      organizationform_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'OrganizationForms',
+          foreignKey: 'id'
+        }
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

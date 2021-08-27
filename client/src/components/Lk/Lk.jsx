@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 export default function Lk() {
   const [drag, setDrag] = useState(false);
+  const currentUser = useSelector((state) => state.currentUser);
 
   function dragStartHandler(e) {
     e.preventDefault();
@@ -27,8 +29,8 @@ export default function Lk() {
   }
 
   return (
-    <div className="lk" style={{ padding: '0 55px' }}>
-      <h4 style={{ marginBottom: '40px' }}>Личный кабинет</h4>
+    <div className="lk">
+      <h4 style={{ marginBottom: '40px', width: '1000px' }}>Личный кабинет</h4>
       <div className="lk__content">
         <div className="lk__photo">
           {/* <img src="https://www.ucheba.ru/img/userpic-empty-big.png" alt="pic" /> */}
@@ -59,7 +61,11 @@ export default function Lk() {
           {/* <input id="input_file" type="file" size="1" name="avatarFile" /> */}
         </div>
         <div>
-          <h2 className="title-name">Имя пользователя</h2>
+          <div className="container d-flex flex-column align-items-start">
+            <h2 className="title-name">{`${currentUser.firstName} ${currentUser.lastName}`}</h2>
+            <p>{currentUser.phone}</p>
+            <p>{currentUser.email}</p>
+          </div>
           <p>
             <Link to="/editUser">
               <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe0-ruYIVTiRizPu8o-RjjR1KrGv-mqXJgLQ&usqp=CAU" alt="" width="7%" />

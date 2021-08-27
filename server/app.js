@@ -23,6 +23,17 @@ app.use(express.urlencoded({
   extended: true
 }));
 app.use(express.json());
+
+app.use(cookieParser());
+app.use(session({
+  secret: 'shshsh',
+  resave: false,
+  saveUninitialized: false,
+  name: 'StudyHunter',
+  cookie: { secure: false },
+  store: new FileStore({}),
+}));
+
 app.use(morgan('dev'));
 app.use('/', indexRouter);
 app.use('/signup', signupRouter);

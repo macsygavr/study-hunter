@@ -1,7 +1,12 @@
 export default function Footer() {
   return (
     <did className="footer">
-      <nav className="bg-primary footer__nav">
+      <nav
+        className="bg-primary footer__nav"
+        style={{
+          height: '80px', position: 'absolute', left: '0', right: '0',
+        }}
+      >
         <h4>Наши контакты:</h4>
         <div>
           <span style={{ marginRight: '20px' }}>Учебным заведениям</span>
