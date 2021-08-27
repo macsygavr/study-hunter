@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <did className="footer">
+    <div className="footer">
       <nav
         className="bg-primary footer__nav"
         style={{
@@ -18,6 +18,6 @@ export default function Footer() {
           <img src="https://cdn2.iconfinder.com/data/icons/social-media-2285/512/1_Instagram_colored_svg_1-128.png" alt="in" width="40px" />
         </div>
       </nav>
-    </did>
+    </div>
   );
 }

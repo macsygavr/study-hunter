@@ -1,14 +1,14 @@
 function Search() {
   return (
     <div className="input-group" style={{ width: '1000px' }}>
-      <select className="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
-        <option selected>Специальность</option>
+      <select className="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" defaultValue="Специальность">
+        <option value="Специальность">Специальность</option>
         <option value="1">One</option>
         <option value="2">Two</option>
         <option value="3">Three</option>
       </select>
-      <select className="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
-        <option selected>Форма обучения</option>
+      <select className="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" defaultValue="Форма обучения">
+        <option value="Форма обучения">Форма обучения</option>
         <option value="1">One</option>
         <option value="2">Two</option>
         <option value="3">Three</option>
