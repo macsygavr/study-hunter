@@ -8,9 +8,9 @@ router.post('/user', async (req, res) => {
       res.sendStatus(404);
     } else {
     const newUser = await db.User.create({ firstName, lastName, phone, email: email.toLowerCase(), password });
-    console.log(newUser);
     req.session.userEmail = newUser.email;
     req.session.userid = newUser.id;
+    console.log('session ======>', req.session.userEmail,  req.session.userid);
     res.json({
       firstName: newUser.firstName, 
       lastName : newUser.lastName, 

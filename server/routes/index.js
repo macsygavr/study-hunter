@@ -1,8 +1,11 @@
 const router = require('express').Router();
 const db = require('../db/models');
 
-router.post('/logout', async (req, res) => {
-  res.json( {kek: 'logout'} ); 
+router.get('/logout', async (req, res) => {
+  req.session.destroy();
+  res.clearCookie('StudyHunter');
+  res.cookie('StudyHunter', '', { expire: 1 });
+  res.sendStatus(200);
 });
 
 router.post('/profile', async (req, res) => {
