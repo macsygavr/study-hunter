@@ -15,7 +15,7 @@ function SignUpUser() {
   };
 
   return (
-    <div className="container d-flex justify-content-center my-5 bg-light p-4 border border-4 rounded">
+    <div className="container d-flex justify-content-center my-5 bg-light p-4 border border-4 rounded" style={{ width: '270px' }}>
       <form id="userSignUpForm" onSubmit={submitHandler}>
         <div className="mb-2 d-flex flex-column align-items-start">
           <p className="mb-1">Имя</p>

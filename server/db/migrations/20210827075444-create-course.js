@@ -31,9 +31,13 @@ module.exports = {
       price: {
         type: Sequelize.STRING
       },
-      type: {
-        type: Sequelize.STRING,
-        allowNull: false,
+      courseform_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,  
+        references: {
+          model: 'CourseForms',
+          foreignKey: 'id'
+        }
       },
       description: {
         type: Sequelize.TEXT

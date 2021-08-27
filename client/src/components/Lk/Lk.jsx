@@ -2,11 +2,11 @@ import { Link } from 'react-router-dom';
 
 export default function Lk() {
   return (
-    <div className="lk" style={{ padding: '0 55px' }}>
-      <h4 style={{ marginBottom: '40px' }}>Личный кабинет</h4>
+    <div className="lk">
+      <h4 style={{ marginBottom: '40px', width: '1000px' }}>Личный кабинет</h4>
       <div className="lk__content">
         <div className="lk__photo">
-          <img src="https://www.ucheba.ru/img/userpic-empty-big.png" alt="pic" width="135px" />
+          <img style={{ margin: '20px' }} src="https://www.ucheba.ru/img/userpic-empty-big.png" alt="pic" width="135px" />
           <input id="input_file" type="file" size="1" name="avatarFile" />
         </div>
         <div style={{ marginLeft: '-165px' }}>
