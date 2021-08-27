@@ -32,7 +32,6 @@ export const registerUserStart = (firstName, lastName, phone, email, password) =
     });
     console.log(response.data);
     dispatch(registerUserSuccess(response.data));
-    // getting json {firstName, lastName, phone, email, favorites [], requests []}
   } catch {
     console.log('Unable to register');
     dispatch(registerUserFail());
