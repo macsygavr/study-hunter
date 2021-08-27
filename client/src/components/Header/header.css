@@ -1,0 +1,11 @@
+.headerLinkButton {
+  padding: 10px;
+  border-radius: 10px;
+  margin-left: 30px;
+  background-color: rgba(0, 8, 255, 0.132);
+}
+
+.headerLinkButton:hover {
+  background-color: rgba(0, 8, 255, 0.235);
+  color: white
+}

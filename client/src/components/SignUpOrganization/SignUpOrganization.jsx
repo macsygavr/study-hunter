@@ -1,6 +1,6 @@
 function SignUpOrganization() {
   return (
-    <div className="container d-flex justify-content-center my-5 bg-light p-4 border border-4 rounded">
+    <div className="container d-flex justify-content-center my-5 bg-light p-4 border border-4 rounded" style={{ width: '270px' }}>
       <form id="organizationSignUpForm" method="post" action="http://localhost:3005/signup/organization">
         <div className="mb-2 d-flex flex-column align-items-start">
           <p className="mb-1">Наименование огранизации</p>

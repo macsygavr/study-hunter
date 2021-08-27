@@ -1,15 +1,15 @@
-// import {
-//   BrowserRouter as Router,
-//   Switch,
-//   Route,
-//   // Redirect,
-// } from "react-router-dom";
+import './header.css';
 import { Link } from 'react-router-dom';
 
 export default function Header() {
   return (
     <div className="header">
-      <nav className="navbar navbar-dark bg-primary" style={{ padding: '0 55px', height: '60px', marginBottom: '60px' }}>
+      <nav
+        className="navbar navbar-dark bg-primary"
+        style={{
+          padding: '0 55px', height: '80px', display: 'flex', justifyContent: 'space-between', position: 'absolute', left: '0', right: '0',
+        }}
+      >
         <Link to="/">
           <div style={{ transform: 'scale(1)' }}>
             <svg width="320" height="55.124514580282074" viewBox="0 0 320 55.124514580282074" className="css-1j8o68f">
@@ -25,10 +25,12 @@ export default function Header() {
             </svg>
           </div>
         </Link>
-        <Link to="/profile">ЛК </Link>
-        <Link to="/signin">Вход </Link>
-        <Link to="/signup">Регистрация </Link>
-        <Link to="/logout">Выход </Link>
+        <div>
+          <Link className="headerLinkButton" to="/profile">ЛК </Link>
+          <Link className="headerLinkButton" to="/signin">Вход </Link>
+          <Link className="headerLinkButton" to="/signup">Регистрация </Link>
+          <Link className="headerLinkButton" to="/logout">Выход </Link>
+        </div>
       </nav>
     </div>
   );
