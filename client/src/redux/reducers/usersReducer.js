@@ -1,5 +1,11 @@
 import {
-  GET_CURRENT_USER, LOGOUT_USER, REGISTER_USER_FAIL, REGISTER_USER_SUCCESS,
+  GET_CURRENT_USER,
+  LOGIN_USER_FAIL,
+  LOGIN_USER_SUCCESS,
+  LOGOUT_USER_SUCCESS,
+  LOGOUT_USER_FAIL,
+  REGISTER_USER_FAIL,
+  REGISTER_USER_SUCCESS,
 } from '../types/usersTypes';
 
 function usersReducer(state = {}, action) {
@@ -13,7 +19,16 @@ function usersReducer(state = {}, action) {
     case REGISTER_USER_FAIL:
       return {};
 
-    case LOGOUT_USER:
+    case LOGOUT_USER_SUCCESS:
+      return {};
+
+    case LOGOUT_USER_FAIL:
+      return state;
+
+    case LOGIN_USER_SUCCESS:
+      return action.payload;
+
+    case LOGIN_USER_FAIL:
       return {};
 
     default:

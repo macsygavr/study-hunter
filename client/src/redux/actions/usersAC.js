@@ -1,34 +1,32 @@
 import axios from 'axios';
 import {
-  GET_CURRENT_USER,
   REGISTER_USER_SUCCESS,
   REGISTER_USER_FAIL,
-  LOGOUT_USER,
+  LOGOUT_USER_SUCCESS,
+  LOGOUT_USER_FAIL,
+  LOGIN_USER_SUCCESS,
+  LOGIN_USER_FAIL,
 } from '../types/usersTypes';
 
-// export const getCurrentUserStart = () => (dispatch) => {
-//   // axios.get(`http://localhost:3005/rooms/${id}`)
-//   //   .then(res => dispatch(getCurrentRoomDevices(res.data)));
-// };
+// logout ACs
+export const logoutUserSuccess = () => ({
+  type: LOGOUT_USER_SUCCESS,
+});
 
-export const logoutUser = () => ({
-  type: LOGOUT_USER,
+export const logoutUserFail = () => ({
+  type: LOGOUT_USER_FAIL,
 });
 
 export const logoutUserStart = () => (dispatch) => {
   axios.get('http://192.168.1.38:3005/logout')
     .then((res) => {
       if (res.data === 'OK') {
-        dispatch(logoutUser());
+        dispatch(logoutUserSuccess());
       }
     });
 };
 
-export const getCurrentUser = (currentUser) => ({
-  type: GET_CURRENT_USER,
-  payload: currentUser,
-});
-
+// register ACs
 export const registerUserSuccess = (currentUser) => ({
   type: REGISTER_USER_SUCCESS,
   payload: currentUser,
@@ -44,10 +42,33 @@ export const registerUserStart = (firstName, lastName, phone, email, password) =
     const response = await axios.post('http://192.168.1.38:3005/signup/user', {
       firstName, lastName, phone, email, password,
     });
-    console.log(response.data);
+    // console.log(response.data);
     dispatch(registerUserSuccess(response.data));
   } catch {
     console.log('Unable to register');
     dispatch(registerUserFail());
+  }
+};
+
+// login ACs
+export const loginUserSuccess = (currentUser) => ({
+  type: LOGIN_USER_SUCCESS,
+  payload: currentUser,
+});
+
+export const loginUserFail = () => ({
+  type: LOGIN_USER_FAIL,
+});
+
+export const loginUserStart = (email, password) => async (dispatch) => {
+  try {
+    const response = await axios.post('http://192.168.1.38:3005/signin/user', {
+      email, password,
+    });
+    // console.log(response.data);
+    dispatch(loginUserSuccess(response.data));
+  } catch {
+    console.log('Unable to login');
+    dispatch(loginUserFail());
   }
 };
