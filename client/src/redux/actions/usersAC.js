@@ -21,7 +21,7 @@ export const registerUserSuccess = (currentUser) => ({
 });
 
 export const registerUserFail = () => ({
-  TYPE: REGISTER_USER_FAIL,
+  type: REGISTER_USER_FAIL,
 });
 
 // eslint-disable-next-line max-len
