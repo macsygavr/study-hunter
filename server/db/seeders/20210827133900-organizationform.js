@@ -2,25 +2,25 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-      await queryInterface.bulkInsert('CourseForms', [{
-        form: 'очная',
+      await queryInterface.bulkInsert('OrganizationForms', [{
+        form: 'ВУЗ',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        form: 'заочная',
+        form: 'колледж',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        form: 'онлайн',
+        form: 'курс',
         createdAt: new Date(),
         updatedAt: new Date(),
-      },
+      }
     ], {});
   },
 
   down: async (queryInterface, Sequelize) => {
-      await queryInterface.bulkDelete('CourseForms', null, {});
+      await queryInterface.bulkDelete('OrganizationForms', null, {});
   }
 };
