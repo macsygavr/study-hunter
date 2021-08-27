@@ -1,4 +1,6 @@
-import { GET_CURRENT_USER, REGISTER_USER_FAIL, REGISTER_USER_SUCCESS } from '../types/usersTypes';
+import {
+  GET_CURRENT_USER, LOGOUT_USER, REGISTER_USER_FAIL, REGISTER_USER_SUCCESS,
+} from '../types/usersTypes';
 
 function usersReducer(state = {}, action) {
   switch (action.type) {
@@ -9,6 +11,9 @@ function usersReducer(state = {}, action) {
       return action.payload;
 
     case REGISTER_USER_FAIL:
+      return {};
+
+    case LOGOUT_USER:
       return {};
 
     default:
