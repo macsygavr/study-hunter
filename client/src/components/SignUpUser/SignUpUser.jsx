@@ -1,9 +1,12 @@
 // import { useEffect } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { Redirect } from 'react-router';
 import { registerUserStart } from '../../redux/actions/usersAC';
 
 function SignUpUser() {
   const dispatch = useDispatch();
+  const [login, setLogin] = useState(false);
   // const { currentUser } = useSelector((state) => state);
 
   const submitHandler = (event) => {
@@ -14,6 +17,7 @@ function SignUpUser() {
     console.log(firstName.value, lastName.value, phone.value, email.value, password.value);
     // eslint-disable-next-line max-len
     dispatch(registerUserStart(firstName.value, lastName.value, phone.value, email.value, password.value));
+    setLogin((prev) => !prev);
   };
 
   return (
@@ -41,6 +45,7 @@ function SignUpUser() {
         </div>
         <button type="submit" className="btn btn-primary">Зарегистрироваться</button>
       </form>
+      {login ? <Redirect to="/" /> : null}
     </div>
   );
 }
