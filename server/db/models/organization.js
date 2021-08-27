@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.TEXT,
     site: DataTypes.TEXT,
     address: DataTypes.TEXT,
+    organizationform_id: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'Organization',
