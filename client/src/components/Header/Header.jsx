@@ -1,9 +1,15 @@
 import './header.css';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { logoutUserStart } from '../../redux/actions/usersAC';
 
 export default function Header() {
   const currentUser = useSelector((state) => state.currentUser);
+  const dispatch = useDispatch();
+
+  const logoutHandler = () => {
+    dispatch(logoutUserStart());
+  };
 
   return (
     currentUser.email ? (
@@ -31,7 +37,9 @@ export default function Header() {
           </Link>
           <div>
             <Link className="headerLinkButton" to="/profile">ЛК </Link>
-            <Link className="headerLinkButton" to="/logout">Выход </Link>
+            <Link onClick={logoutHandler} className="headerLinkButton" to="/">
+              Выход
+            </Link>
           </div>
         </nav>
       </div>

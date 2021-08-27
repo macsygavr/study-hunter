@@ -3,12 +3,26 @@ import {
   GET_CURRENT_USER,
   REGISTER_USER_SUCCESS,
   REGISTER_USER_FAIL,
+  LOGOUT_USER,
 } from '../types/usersTypes';
 
 // export const getCurrentUserStart = () => (dispatch) => {
 //   // axios.get(`http://localhost:3005/rooms/${id}`)
 //   //   .then(res => dispatch(getCurrentRoomDevices(res.data)));
 // };
+
+export const logoutUser = () => ({
+  type: LOGOUT_USER,
+});
+
+export const logoutUserStart = () => (dispatch) => {
+  axios.get('http://192.168.1.38:3005/logout')
+    .then((res) => {
+      if (res.data === 'OK') {
+        dispatch(logoutUser());
+      }
+    });
+};
 
 export const getCurrentUser = (currentUser) => ({
   type: GET_CURRENT_USER,
