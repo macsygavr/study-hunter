@@ -15,6 +15,7 @@ import SignInUser from '../SignInUser/SignInUser';
 import SignInOrganization from '../SignInOrganization/SignInOrganization';
 import SignInChoisePage from '../SignInChoicePage/SignInChoicePage';
 import Search from '../Search/Search';
+// import Posts from '../Posts/Posts';
 
 export default function Main() {
   return (

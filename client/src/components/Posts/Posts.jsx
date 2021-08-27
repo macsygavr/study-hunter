@@ -2,20 +2,58 @@ import React from 'react';
 import PostsItem from '../PostsItem/PostsItem';
 
 function Posts() {
+  // Сделана временная имитация результата поиска
   // Будет подтягивание инфы с базы и динамическая рисовка нужного количества постов
-  // map
+
+  const dbImitation = [{
+    id: 1,
+    organization_id: 1,
+    name: 'Имя курса',
+    speciality_id: 1,
+    price: '100000',
+    type: 'очное',
+    description: 'Описание курса',
+  }, {
+    id: 2,
+    organization_id: 1,
+    name: 'Имя курса22',
+    speciality_id: 12,
+    price: '120000',
+    type: 'очное',
+    description: 'Описание курса',
+  }, {
+    id: 1,
+    organization_id: 1,
+    name: 'Имя курса',
+    speciality_id: 1,
+    price: '100000',
+    type: 'очное',
+    description: 'Описание курса',
+  }, {
+    id: 1,
+    organization_id: 1,
+    name: 'Имя курса',
+    speciality_id: 1,
+    price: '100000',
+    type: 'очное',
+    description: 'Описание курса',
+  }, {
+    id: 1,
+    organization_id: 1,
+    name: 'Имя курса',
+    speciality_id: 1,
+    price: '100000',
+    type: 'очное',
+    description: 'Описание курса',
+  }];
+
+  const renderPosts = () => dbImitation.map((post) => (
+    <div key={post.id}><PostsItem {...post} /></div>
+  ));
+
   return (
-    <div className="container">
-      <div className="row justify-content-start">
-        <div className="col-4 my-3 d-flex justify-content-center"><PostsItem /></div>
-        <div className="col-4 my-3 d-flex justify-content-center"><PostsItem /></div>
-        <div className="col-4 my-3 d-flex justify-content-center"><PostsItem /></div>
-      </div>
-      <div className="row justify-content-start">
-        <div className="col-4 my-3 d-flex justify-content-center"><PostsItem /></div>
-        <div className="col-4 my-3 d-flex justify-content-center"><PostsItem /></div>
-        {/* <div className="col-4 my-3 d-flex justify-content-center"><PostsItem /></div> */}
-      </div>
+    <div className="d-flex flex-wrap justify-content-start">
+      {renderPosts()}
     </div>
   );
 }
