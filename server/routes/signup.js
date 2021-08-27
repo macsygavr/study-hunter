@@ -3,14 +3,15 @@ const db = require('../db/models');
 
 router.post('/user', async (req, res) => {
   const { firstName, lastName, phone, email, password } = req.body;
+  console.log(req.body);
   const user = await db.User.findOne({ where: { email: email.toLowerCase() } });
   if (user) {
       res.sendStatus(404);
     } else {
     const newUser = await db.User.create({ firstName, lastName, phone, email: email.toLowerCase(), password });
     console.log(newUser);
-    req.session.userEmail = newUser.email;
-    req.session.userid = newUser.id;
+    req.session.userEmail = newUser.dataValues.email;
+    req.session.userid = newUser.dataValues.id;
     res.json({
       firstName: newUser.firstName, 
       lastName : newUser.lastName, 
