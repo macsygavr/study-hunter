@@ -24,9 +24,21 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      checked: {
+      is_checked: {
         type: Sequelize.BOOLEAN,
         defaultValue: false
+      },
+      logo: {
+        type: Sequelize.TEXT,
+      },
+      description: {
+        type: Sequelize.TEXT,
+      },
+      site: {
+        type: Sequelize.TEXT,
+      },
+      address: {
+        type: Sequelize.TEXT,
       },
       createdAt: {
         allowNull: false,
