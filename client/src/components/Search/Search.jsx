@@ -8,7 +8,7 @@ function Search({ searchHandler }) {
   const [arrOfTypesOptions, setArrOfTypesOptions] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:3005/options')
+    axios.get('http://192.168.1.38:3005/options')
       .then((res) => {
         setArrOfSpecialitiesOptions(res.data.arrOfSpecialitiesOptions);
         setArrOfTypesOptions(res.data.arrOfTypesOptions);
@@ -24,12 +24,12 @@ function Search({ searchHandler }) {
         onSubmit={searchHandler}
         className="input-group"
       >
-        <select className="form-select" id="speciatity_id" aria-label="Example select with button addon" defaultValue="Специальность">
-          <option disabled value="Специальность">Специальность</option>
+        <select className="form-select" id="speciatity_id" aria-label="Example select with button addon">
+          <option>Специальность</option>
           {arrOfSpecialitiesOptions.map((item) => <SearchOption key={item.id} value={item.id} name={item.name} />)}
         </select>
         <select className="form-select" id="type_id" aria-label="Example select with button addon" defaultValue="Форма обучения">
-          <option disabled value="Форма обучения">Форма обучения</option>
+          <option>Форма обучения</option>
           {arrOfTypesOptions.map((item) => <SearchOption key={item.id} value={item.id} name={item.form} />)}
         </select>
         <input type="text" className="form-control" id="price_min" placeholder="Цена от (руб.)" aria-label="Recipient's username" aria-describedby="button-addon2" />

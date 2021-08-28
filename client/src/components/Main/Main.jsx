@@ -25,7 +25,7 @@ export default function Main() {
   // const [searchResult, setSearchResult] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:3005/')
+    axios.get('http://192.168.1.38:3005/')
       .then((res) => setRandomSixCourses(res.data));
   }, []);
 
@@ -36,7 +36,7 @@ export default function Main() {
     const priceMin = e.target.price_min.value;
     const priceMax = e.target.price_max.value;
     console.log(specialityId, typeId, priceMin, priceMax);
-    axios.post('http://localhost:3005/', {
+    axios.post('http://192.168.1.38:3005/', {
       specialityId,
       typeId,
       priceMin,

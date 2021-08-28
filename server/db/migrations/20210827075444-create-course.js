@@ -29,7 +29,7 @@ module.exports = {
         }
       },
       price: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       courseform_id: {
         type: Sequelize.INTEGER,
