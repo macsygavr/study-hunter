@@ -1,122 +1,38 @@
 const router = require('express').Router();
 const db = require('../db/models');
+const { Op } = require("sequelize");
 
-const DB = {
-  courses: [
-    {
-      id: 1,
-      OrganizationId: 1,
-      name: 'Автомеханик 1',
-      SpecialityId: 1,
-      price: '100',
-      type_id: 1,
-      description: 'Описание курса1',
-    }, 
-    {
-      id: 2,
-      OrganizationId: 1,
-      name: 'Бухгалтер 2',
-      SpecialityId: 2,
-      price: '120000',
-      type_id: 3,
-      description: 'Описание курса2',
-    }, 
-    {
-      id: 3,
-      OrganizationId: 1,
-      name: 'Программист 3',
-      SpecialityId: 3,
-      price: '300000',
-      type_id: 2,
-      description: 'Описание курса3',
-    }, 
-    {
-      id: 4,
-      OrganizationId: 1,
-      name: 'Врач 4',
-      SpecialityId: 4,
-      price: '40000',
-      type_id: 2,
-      description: 'Описание курса4',
-    }, 
-    {
-      id: 5,
-      OrganizationId: 1,
-      name: 'Математик 5',
-      SpecialityId: 5,
-      price: '50000',
-      type_id: 1,
-      description: 'Описание курса5',
-    }
-  ],
-  specialities: [
-    {
-      id: 1,
-      name: 'автомеханика'
-    },
-    {
-      id: 2,
-      name: 'бухгалтерия'
-    },
-    {
-      id: 3,
-      name: 'IT'
-    },
-    {
-      id: 4,
-      name: 'медицина'
-    },
-    {
-      id: 5,
-      name: 'точные науки'
-    },
-  ],
-  courseForms: [
-    {
-      id: 1,
-      form: 'Очное'
-    },
-    {
-      id: 2,
-      form: 'Заочное'
-    },
-    {
-      id: 3,
-      form: 'Дистанционное'
-    },
-  ]
+function getRandomIntInclusive(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min; 
 }
 
-router.get('/', (req, res) => {
-  const arrOfCourses = []
-  for (let i = 0; i < 3; i++) {
-    let num = ((Math.random() * 10 / 2)).toFixed(0)
-    if (num < 0) {
-      num += 1
+router.get('/options', async (req, res) => {
+  const arrOfSpecialitiesOptions = await db.Speciality.findAll({ raw: true })
+  const arrOfTypesOptions = await db.CourseForm.findAll({ raw: true })
+  res.json({ arrOfSpecialitiesOptions, arrOfTypesOptions });
+});
+
+router.get('/', async (req, res) => {
+  const arrOfCourses = await db.Course.findAll({raw: true})
+  const randomCourses = []
+  const arrOfRandomNums = []
+  for (let i = 0; arrOfRandomNums.length < 6; i++) {
+    const num = getRandomIntInclusive(0, arrOfCourses.length - 1)
+    if (!arrOfRandomNums.includes(num)) {
+      arrOfRandomNums.push(num)
+      randomCourses.push(arrOfCourses[num])
     }
-    if (num >= 5) {
-      num -= 1
-    }
-    console.log(num);
-    arrOfCourses.push(DB.courses[num])
   }
-  res.json({arrOfCourses})
+  res.json(randomCourses)
 })
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   const {specialityId, typeId, priceMin, priceMax} = req.body
   let searchResult;
-  console.log(specialityId, typeId);
-  if (specialityId && typeId) {
-    console.log('specialityId && typeId');
-    searchResult = DB.courses.filter(item => item.SpecialityId === Number(specialityId)).filter(item => item.type_id === Number(typeId))
-  } else if (specialityId) {
-    console.log('specialityId');
-    searchResult = DB.courses.filter(item => item.SpecialityId === Number(specialityId))
-  }
-  // const searchResult = DB.courses.filter(item => item.SpecialityId === Number(specialityId))
-  // const searchResult = DB.courses.filter(item => item.type_id === Number(typeId))
-  // const searchResult = DB.courses.filter(item => Number(priceMin) <= Number(item.price) &&  Number(item.price) <= Number(priceMax))
+  console.log(specialityId, typeId, priceMin, priceMax);
+  searchResult = await db.Course.findAll({where: { SpecialityId: specialityId, CourseFormId: typeId,  price: {[Op.and]: [{[Op.gte]: Number(priceMin)}, {[Op.lte]: Number(priceMax)}]}}})
   res.json(searchResult)
 })
 
@@ -130,5 +46,6 @@ router.get('/logout', async (req, res) => {
 router.post('/profile', async (req, res) => {
   res.json( {kek: 'profile'} );
 });
+
 
 module.exports = router;
