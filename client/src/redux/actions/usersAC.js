@@ -87,9 +87,9 @@ export const addToFavUserFail = () => ({
 
 export const addToFavUserStart = (userId, courseId) => async (dispatch) => {
   try {
-    const response = await axios.post('http://192.168.1.38:3005/addtofav/user', { userId, courseId });
-    console.log(response.data); // принимаю обновленный массив любимых курсов пользователя
-    dispatch(addToFavUserSuccess(response.data));
+    const response = await axios.post('http://192.168.1.38:3005/favorites', { userId, courseId });
+    // принимаю обновленный массив любимых курсов пользователя
+    dispatch(addToFavUserSuccess(response.data.userFavorites));
   } catch {
     console.log('couldn\'t add the course to favorites');
     dispatch(addToFavUserFail());

@@ -10,6 +10,7 @@ const morgan = require('morgan');
 const indexRouter = require('./routes/index');
 const signupRouter = require('./routes/signup');
 const signinRouter = require('./routes/signin');
+const favoritesRouter = require('./routes/favorites');
 
 const app = express();
 const PORT = process.env.PORT;
@@ -35,7 +36,7 @@ app.use(morgan('dev'));
 app.use('/', indexRouter);
 app.use('/signup', signupRouter);
 app.use('/signin', signinRouter);
-
+app.use('/favorites', favoritesRouter);
 
 app.listen(PORT, ()=>{
     console.log('Server has been started on PORT ' + PORT);

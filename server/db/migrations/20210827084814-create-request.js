@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      user_id: {
+      UserId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
@@ -31,7 +31,7 @@ module.exports = {
       text: {
         type: Sequelize.TEXT
       },
-      course_id: {
+      CourseId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {

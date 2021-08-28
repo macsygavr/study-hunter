@@ -40,7 +40,7 @@ module.exports = {
       address: {
         type: Sequelize.TEXT,
       },
-      organizationform_id: {
+      OrganizationFormId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
