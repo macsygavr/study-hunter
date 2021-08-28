@@ -7,8 +7,9 @@ router.post('/', async (req, res) => {
   if (newFavCourse) res.status(403).send();
   else {
     await db.Favorites.create({ UserId: userId, CourseId: courseId });
-    const userFavorites = await db.Favorites.findAll({where: {UserId: userId}, include: {model: db.Course}});
-    console.log(userFavorites);
+    const userFavoritesFromDb = await db.Favorites.findAll({raw: true, where: {UserId: userId}, include: {model: db.Course}});
+    // console.log(userFavorites);
+    const userFavorites = userFavoritesFromDb.map(course => course.Course);
     res.json({userFavorites});
   }
 });
