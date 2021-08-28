@@ -6,6 +6,8 @@ import {
   LOGOUT_USER_FAIL,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAIL,
+  ADD_TO_FAV_USER_SUCCESS,
+  ADD_TO_FAV_USER_FAIL,
 } from '../types/usersTypes';
 
 // logout ACs
@@ -70,5 +72,26 @@ export const loginUserStart = (email, password) => async (dispatch) => {
   } catch {
     console.log('Unable to login');
     dispatch(loginUserFail());
+  }
+};
+
+// adding to favorites
+export const addToFavUserSuccess = (userFavCourses) => ({
+  type: ADD_TO_FAV_USER_SUCCESS,
+  payload: userFavCourses, // array
+});
+
+export const addToFavUserFail = () => ({
+  type: ADD_TO_FAV_USER_FAIL,
+});
+
+export const addToFavUserStart = (userId, courseId) => async (dispatch) => {
+  try {
+    const response = await axios.post('http://192.168.1.38:3005/addtofav/user', { userId, courseId });
+    console.log(response.data); // принимаю обновленный массив любимых курсов пользователя
+    dispatch(addToFavUserSuccess(response.data));
+  } catch {
+    console.log('couldn\'t add the course to favorites');
+    dispatch(addToFavUserFail());
   }
 };

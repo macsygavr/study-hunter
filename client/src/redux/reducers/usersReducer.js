@@ -6,6 +6,7 @@ import {
   LOGOUT_USER_FAIL,
   REGISTER_USER_FAIL,
   REGISTER_USER_SUCCESS,
+  ADD_TO_FAV_USER_SUCCESS,
 } from '../types/usersTypes';
 
 function usersReducer(state = {}, action) {
@@ -30,6 +31,12 @@ function usersReducer(state = {}, action) {
 
     case LOGIN_USER_FAIL:
       return {};
+
+    case ADD_TO_FAV_USER_SUCCESS:
+      return {
+        ...state,
+        favorites: action.payload,
+      };
 
     default:
       return state;

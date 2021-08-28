@@ -7,7 +7,7 @@ function SignInUser() {
   const loginHandler = (event) => {
     event.preventDefault();
     const { email, password } = event.target;
-    console.log(email, password);
+    // console.log(email, password);
     dispatch(loginUserStart(email.value, password.value));
   };
 

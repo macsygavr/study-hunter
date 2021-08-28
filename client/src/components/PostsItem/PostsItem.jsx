@@ -1,21 +1,31 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import FavoritesButton from '../FavoritesButton/FavoritesButton';
 // import { Link } from 'react-router-dom';
 
 function PostsItem(props) {
-  // PostsItem - карточка для отрисовки превью заведения или курса
-  // Изображение заведения, заголовок, краткое описание, ссылка на страницу заведения/курса
+  // PostsItem - карточка для отрисовки превью курса
+  // props - для того, чтобы компонент отрисовывал определенный курс
   const {
-    name, price, type, description,
+    id, name, price, type, description,
   } = props;
+
+  const { currentUser } = useSelector((state) => state);
+
   return (
     <div className="m-5 d-flex justify-content-center">
       <div className="card p-3" style={{ width: '18rem' }}>
         <div className="card-body">
-          <h5 className="card-title">{name}</h5>
+          <h5 className="card-title">
+            <span className="mx-1">{name}</span>
+          </h5>
+          {Object.keys(currentUser).length
+            ? <FavoritesButton userId={currentUser.id} courseId={id} />
+            : null}
           <p className="card-text">{type}</p>
           <p className="card-text">{price}</p>
           <p className="card-text">{description}</p>
-          {/* Все это завернуто в линк на подробную страницу организации
+          {/* Все это завернуто в линк на подробную страницу курса
           <Link to="/course/${id}" /> */}
         </div>
       </div>

@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import Posts from '../Posts/Posts';
 
 export default function Lk() {
   const currentUser = useSelector((state) => state.currentUser);
-  console.log('from lk component', currentUser);
+  // console.log('from lk component', currentUser);
 
   return (
     <div className="lk">
@@ -29,6 +30,7 @@ export default function Lk() {
       </div>
       <h3 style={{ textAlign: 'left' }}>Избранное</h3>
       <hr style={{ marginBottom: '40px' }} />
+      <Posts resultToRender={currentUser.favorites} />
     </div>
   );
 }
