@@ -12,6 +12,7 @@ router.post('/user', async (req, res) => {
     req.session.userid = newUser.id;
     console.log('session ======>', req.session.userEmail,  req.session.userid);
     res.json({
+      id: newUser.id,
       firstName: newUser.firstName, 
       lastName : newUser.lastName, 
       phone: newUser.phone, 
