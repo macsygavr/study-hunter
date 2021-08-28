@@ -18,7 +18,7 @@ export const logoutUserFail = () => ({
 });
 
 export const logoutUserStart = () => (dispatch) => {
-  axios.get('http://192.168.1.38:3005/logout')
+  axios.get('http://localhost:3005/logout')
     .then((res) => {
       if (res.data === 'OK') {
         dispatch(logoutUserSuccess());
@@ -39,7 +39,7 @@ export const registerUserFail = () => ({
 // eslint-disable-next-line max-len
 export const registerUserStart = (firstName, lastName, phone, email, password) => async (dispatch) => {
   try {
-    const response = await axios.post('http://192.168.1.38:3005/signup/user', {
+    const response = await axios.post('http://localhost:3005/signup/user', {
       firstName, lastName, phone, email, password,
     });
     // console.log(response.data);
@@ -62,7 +62,7 @@ export const loginUserFail = () => ({
 
 export const loginUserStart = (email, password) => async (dispatch) => {
   try {
-    const response = await axios.post('http://192.168.1.38:3005/signin/user', {
+    const response = await axios.post('http://localhost:3005/signin/user', {
       email, password,
     });
     // console.log(response.data);

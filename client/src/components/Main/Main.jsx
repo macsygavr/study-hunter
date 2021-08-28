@@ -28,6 +28,7 @@ export default function Main() {
           </Route>
           <Route exact path="/">
             <Search />
+            {/* <Posts /> */}
           </Route>
           <Route exact path="/signup">
             <SignUpChoicePage />
