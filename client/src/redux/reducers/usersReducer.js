@@ -7,6 +7,7 @@ import {
   REGISTER_USER_FAIL,
   REGISTER_USER_SUCCESS,
   ADD_TO_FAV_USER_SUCCESS,
+  ADD_TO_FAV_USER_FAIL,
 } from '../types/usersTypes';
 
 function usersReducer(state = {}, action) {
@@ -36,6 +37,11 @@ function usersReducer(state = {}, action) {
       return {
         ...state,
         favorites: action.payload,
+      };
+
+    case ADD_TO_FAV_USER_FAIL:
+      return {
+        ...state,
       };
 
     default:

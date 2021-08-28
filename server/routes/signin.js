@@ -9,10 +9,10 @@ router.post('/user', async (req, res) => {
     req.session.userEmail = user.email;
     req.session.userid = user.id;
     const favorites = await db.Favorites.findAll({ where: {
-      user_id: user.id,
+      UserId: user.id,
     }});
     const requests = await db.Request.findAll({ where: {
-      user_id: user.id,
+      UserId: user.id,
     }});
     res.json({
       id: user.id,
