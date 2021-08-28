@@ -24,7 +24,7 @@ export default function Lk() {
     const [uploadFile] = files;
     const formData = new FormData();
     formData.file = uploadFile;
-    axios.post('http://192.168.1.38:3005', formData);
+    axios.post('http://localhost:3005', formData);
     console.log(formData, files);
     setDrag(false);
   }

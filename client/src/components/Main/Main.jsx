@@ -22,10 +22,10 @@ import Posts from '../Posts/Posts';
 
 export default function Main() {
   const [randomSixCourses, setRandomSixCourses] = useState([]);
-  // const [searchResult, setSearchResult] = useState([]);
+  const [searchResult, setSearchResult] = useState([]);
 
   useEffect(() => {
-    axios.get('http://192.168.1.38:3005/')
+    axios.get('http://localhost:3005/')
       .then((res) => setRandomSixCourses(res.data));
   }, []);
 
@@ -33,16 +33,26 @@ export default function Main() {
     e.preventDefault();
     const specialityId = e.target.speciatity_id.value;
     const typeId = e.target.type_id.value;
-    const priceMin = e.target.price_min.value;
-    const priceMax = e.target.price_max.value;
+    let priceMin = e.target.price_min.value;
+    if (e.target.price_min.value.trim()) {
+      priceMin = e.target.price_min.value;
+    } else {
+      priceMin = 0;
+    }
+    let priceMax;
+    if (e.target.price_max.value.trim()) {
+      priceMax = e.target.price_max.value;
+    } else {
+      priceMax = 100000000000000000000000000000000;
+    }
     console.log(specialityId, typeId, priceMin, priceMax);
-    axios.post('http://192.168.1.38:3005/', {
+    axios.post('http://localhost:3005/', {
       specialityId,
       typeId,
       priceMin,
       priceMax,
     })
-      .then((res) => console.log(res.data));
+      .then((res) => setSearchResult(res.data));
   };
 
   return (
@@ -52,7 +62,7 @@ export default function Main() {
         <Switch>
           <Route exact path="/">
             <Search searchHandler={searchHandler} />
-            <Posts resultToRender={randomSixCourses} />
+            <Posts resultToRender={searchResult || randomSixCourses} />
           </Route>
           <Route exact path="/profile">
             <Lk />
