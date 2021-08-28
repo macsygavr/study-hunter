@@ -1,7 +1,6 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require("cors");
-const logger = require('morgan');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
@@ -14,8 +13,6 @@ const signinRouter = require('./routes/signin');
 
 const app = express();
 const PORT = process.env.PORT;
-
-app.use(logger('dev'));
 
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));

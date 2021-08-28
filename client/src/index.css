@@ -35,6 +35,9 @@ a {
   margin-right: 30px;
   display: flex;
   flex-direction: column;
+  width: 135px;
+  height: 135px;
+  background: url('https://www.ucheba.ru/img/userpic-empty-big.png') no-repeat;
 }
 
 .footer {
@@ -55,4 +58,14 @@ a {
 
 .courses__info {
   padding: 0 55px;  
+}
+
+.drop-area {
+  border: 2px dashed black;
+  border-radius: 50%;
+  width: 135px;
+  height: 135px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
