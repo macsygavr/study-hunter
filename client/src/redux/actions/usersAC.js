@@ -64,7 +64,7 @@ export const loginUserFail = () => ({
 
 export const loginUserStart = (email, password) => async (dispatch) => {
   try {
-    const response = await axios.post('http://localhost:3005/signin/user', {
+    const response = await axios.post('http://192.168.1.38:3005/signin/user', {
       email, password,
     });
     // console.log(response.data);

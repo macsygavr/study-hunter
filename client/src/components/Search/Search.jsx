@@ -8,7 +8,7 @@ function Search() {
     const priceMin = e.target.price_min.value;
     const priceMax = e.target.price_max.value;
     console.log(specialityId, typeId, priceMin, priceMax);
-    axios.post('http://localhost:3005/', {
+    axios.post('http://192.168.1.38:3005/', {
       specialityId,
       typeId,
       priceMin,
@@ -19,14 +19,14 @@ function Search() {
 
   return (
     <form onSubmit={searchHandler} className="input-group" style={{ width: '1000px' }}>
-      <select className="form-select" id="speciatity_id" aria-label="Example select with button addon">
-        <option disabled selected>Специальность</option>
+      <select className="form-select" id="speciatity_id" aria-label="Example select with button addon" defaultValue="">
+        <option value="" className="alert alert-secondary">Специальность</option>
         <option value="1">автомеханика</option>
         <option value="2">бухгалтерия</option>
         <option value="3">IT</option>
       </select>
-      <select className="form-select" id="type_id" aria-label="Example select with button addon">
-        <option disabled selected>Форма обучения</option>
+      <select className="form-select" id="type_id" aria-label="Example select with button addon" defaultValue="">
+        <option value="" className="alert alert-secondary">Форма обучения</option>
         <option value="1">Очное</option>
         <option value="2">Заочное</option>
         <option value="3">Дистанционное</option>
