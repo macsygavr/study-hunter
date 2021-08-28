@@ -2,7 +2,7 @@ import axios from 'axios';
 import GET_CURRENT_SEARCH_RESULT from '../types/searchTypes';
 
 export const getCurrentSearchResultStart = (speciality, price, type) => (dispatch) => {
-  // axios.get(`http://192.168.1.38:3005/rooms/${id}`)
+  // axios.get(`http://localhost:3005/rooms/${id}`)
   //   .then(res => dispatch(getCurrentRoomDevices(res.data)));
 };
 
