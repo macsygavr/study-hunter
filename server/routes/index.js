@@ -5,45 +5,45 @@ const DB = {
   courses: [
     {
       id: 1,
-      organization_id: 1,
+      OrganizationId: 1,
       name: 'Автомеханик 1',
-      speciality_id: 1,
+      SpecialityId: 1,
       price: '100',
       type_id: 1,
       description: 'Описание курса1',
     }, 
     {
       id: 2,
-      organization_id: 1,
+      OrganizationId: 1,
       name: 'Бухгалтер 2',
-      speciality_id: 2,
+      SpecialityId: 2,
       price: '120000',
       type_id: 3,
       description: 'Описание курса2',
     }, 
     {
       id: 3,
-      organization_id: 1,
+      OrganizationId: 1,
       name: 'Программист 3',
-      speciality_id: 3,
+      SpecialityId: 3,
       price: '300000',
       type_id: 2,
       description: 'Описание курса3',
     }, 
     {
       id: 4,
-      organization_id: 1,
+      OrganizationId: 1,
       name: 'Врач 4',
-      speciality_id: 4,
+      SpecialityId: 4,
       price: '40000',
       type_id: 2,
       description: 'Описание курса4',
     }, 
     {
       id: 5,
-      organization_id: 1,
+      OrganizationId: 1,
       name: 'Математик 5',
-      speciality_id: 5,
+      SpecialityId: 5,
       price: '50000',
       type_id: 1,
       description: 'Описание курса5',
@@ -109,12 +109,12 @@ router.post('/', (req, res) => {
   console.log(specialityId, typeId);
   if (specialityId && typeId) {
     console.log('specialityId && typeId');
-    searchResult = DB.courses.filter(item => item.speciality_id === Number(specialityId)).filter(item => item.type_id === Number(typeId))
+    searchResult = DB.courses.filter(item => item.SpecialityId === Number(specialityId)).filter(item => item.type_id === Number(typeId))
   } else if (specialityId) {
     console.log('specialityId');
-    searchResult = DB.courses.filter(item => item.speciality_id === Number(specialityId))
+    searchResult = DB.courses.filter(item => item.SpecialityId === Number(specialityId))
   }
-  // const searchResult = DB.courses.filter(item => item.speciality_id === Number(specialityId))
+  // const searchResult = DB.courses.filter(item => item.SpecialityId === Number(specialityId))
   // const searchResult = DB.courses.filter(item => item.type_id === Number(typeId))
   // const searchResult = DB.courses.filter(item => Number(priceMin) <= Number(item.price) &&  Number(item.price) <= Number(priceMax))
   res.json(searchResult)

@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      organization_id: {
+      OrganizationId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
@@ -20,7 +20,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      speciality_id: {
+      SpecialityId: {
         type: Sequelize.INTEGER,
         allowNull: false,  
         references: {
@@ -31,7 +31,7 @@ module.exports = {
       price: {
         type: Sequelize.STRING
       },
-      courseform_id: {
+      CourseFormId: {
         type: Sequelize.INTEGER,
         allowNull: false,  
         references: {
