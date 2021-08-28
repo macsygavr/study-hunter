@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import Posts from '../Posts/Posts';
 
 export default function Lk() {
+  const [file, setFile] = useState(null);
   const [drag, setDrag] = useState(false);
   const currentUser = useSelector((state) => state.currentUser);
 
@@ -18,16 +19,29 @@ export default function Lk() {
     setDrag(false);
   }
 
-  function onDropHandler(e) {
-    e.preventDefault();
-    const files = [...e.dataTransfer.files];
+  async function onDropHandler(event) {
+    event.preventDefault();
+    const files = [...event.dataTransfer.files];
     const [uploadFile] = files;
     const formData = new FormData();
-    formData.file = uploadFile;
-    axios.post('http://192.168.1.38:3005', formData);
-    console.log(formData, files);
+    formData.append('file', uploadFile);
+
+    console.log(formData.get('file'));
+    axios.post('http://localhost:3005/loadimage', { formData }, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
     setDrag(false);
   }
+  const clickHandler = () => {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      setFile(reader.result);
+      console.log(reader.result);
+    };
+  };
 
   return (
     <div className="lk">
@@ -78,6 +92,9 @@ export default function Lk() {
       <h3 style={{ textAlign: 'left' }}>Избранное</h3>
       <hr style={{ marginBottom: '40px' }} />
       <Posts resultToRender={currentUser.favorites} />
+      <input type="file" onChange={onDropHandler} />
+      <button type="button" onClick={clickHandler}>Click</button>
+      <img src={file} alt="zadnica" />
     </div>
   );
 }
