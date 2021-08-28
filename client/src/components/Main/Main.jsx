@@ -4,6 +4,8 @@ import {
   Route,
   // Redirect,
 } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Lk from '../Lk/Lk';
@@ -16,69 +18,44 @@ import SignInOrganization from '../SignInOrganization/SignInOrganization';
 import SignInChoisePage from '../SignInChoicePage/SignInChoicePage';
 import Search from '../Search/Search';
 import Posts from '../Posts/Posts';
+// import { useSelector } from 'react-redux';
 
 export default function Main() {
-  const randomSixCourses = [{
-    id: 1,
-    organization_id: 1,
-    name: 'Имя курса',
-    speciality_id: 1,
-    price: '100000',
-    type: 'очное',
-    description: 'Описание курса',
-  }, {
-    id: 2,
-    organization_id: 1,
-    name: 'Имя курса22',
-    speciality_id: 12,
-    price: '120000',
-    type: 'очное',
-    description: 'Описание курса',
-  }, {
-    id: 3,
-    organization_id: 1,
-    name: 'Имя курса',
-    speciality_id: 1,
-    price: '100000',
-    type: 'очное',
-    description: 'Описание курса',
-  }, {
-    id: 4,
-    organization_id: 1,
-    name: 'Имя курса',
-    speciality_id: 1,
-    price: '100000',
-    type: 'очное',
-    description: 'Описание курса',
-  }, {
-    id: 5,
-    organization_id: 1,
-    name: 'Имя курса',
-    speciality_id: 1,
-    price: '100000',
-    type: 'очное',
-    description: 'Описание курса',
-  }, {
-    id: 6,
-    organization_id: 1,
-    name: 'Имя курса',
-    speciality_id: 1,
-    price: '100000',
-    type: 'очное',
-    description: 'Описание курса',
-  }];
+  const [randomSixCourses, setRandomSixCourses] = useState([]);
+  // const [searchResult, setSearchResult] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://localhost:3005/')
+      .then((res) => setRandomSixCourses(res.data));
+  }, []);
+
+  const searchHandler = (e) => {
+    e.preventDefault();
+    const specialityId = e.target.speciatity_id.value;
+    const typeId = e.target.type_id.value;
+    const priceMin = e.target.price_min.value;
+    const priceMax = e.target.price_max.value;
+    console.log(specialityId, typeId, priceMin, priceMax);
+    axios.post('http://localhost:3005/', {
+      specialityId,
+      typeId,
+      priceMin,
+      priceMax,
+    })
+      .then((res) => console.log(res.data));
+  };
 
   return (
     <>
       <Router>
         <Header />
         <Switch>
+          <Route exact path="/">
+            <Search searchHandler={searchHandler} />
+            <Posts resultToRender={randomSixCourses} />
+          </Route>
           <Route exact path="/profile">
             <Lk />
-          </Route>
-          <Route exact path="/">
-            <Search />
-            <Posts resultToRender={randomSixCourses} />
           </Route>
           <Route exact path="/signup">
             <SignUpChoicePage />

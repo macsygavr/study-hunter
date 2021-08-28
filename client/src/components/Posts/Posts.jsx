@@ -1,5 +1,4 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PostsItem from '../PostsItem/PostsItem';
 
 function Posts({ resultToRender }) {
@@ -12,7 +11,7 @@ function Posts({ resultToRender }) {
     ))
     : <div>Здесь пока нет постов</div>);
   return (
-    <div className="d-flex flex-wrap justify-content-start">
+    <div className="d-flex flex-wrap justify-content-around" style={{ width: '80vw' }}>
       {renderPosts()}
     </div>
   );
