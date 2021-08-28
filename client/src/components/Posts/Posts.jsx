@@ -11,7 +11,7 @@ function Posts({ resultToRender }) {
     ))
     : <div>Здесь пока нет постов</div>);
   return (
-    <div className="d-flex flex-wrap justify-content-start">
+    <div className="d-flex flex-wrap justify-content-around" style={{ width: '80vw' }}>
       {renderPosts()}
     </div>
   );

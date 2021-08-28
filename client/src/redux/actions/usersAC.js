@@ -20,7 +20,7 @@ export const logoutUserFail = () => ({
 });
 
 export const logoutUserStart = () => (dispatch) => {
-  axios.get('http://localhost:3005/logout')
+  axios.get('http://192.168.1.38:3005/logout')
     .then((res) => {
       if (res.data === 'OK') {
         dispatch(logoutUserSuccess());
