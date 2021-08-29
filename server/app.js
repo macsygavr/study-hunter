@@ -15,9 +15,23 @@ const favoritesRouter = require('./routes/favorites');
 const app = express();
 const PORT = process.env.SERVER_PORT;
 
+// cors whitelist - адреса, с которых можно получать данные с нашего сервера
+const corsWhitelist = [
+  `${process.env.CLIENT_APP_URL}:${process.env.CLIENT_APP_PORT}`,
+  `http://localhost:${process.env.CLIENT_APP_PORT}`,
+  `http://127.0.0.1:${process.env.CLIENT_APP_PORT}`
+];
+
+
 app.use(cookieParser());
 app.use(cors({
-  origin: `${process.env.CORS_ORIGIN}:${process.env.CLIENT_PORT}`, 
+  origin: function (origin, callback) {
+    if (corsWhitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  },
   // находясь на каком ресурсе мы можем запрашивать и получать данные
   // и куки как их ресурсов мы можем принимать
   credentials: true,

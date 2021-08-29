@@ -31,6 +31,7 @@ export default function Main() {
 
   // useEffect для подгрузки пользователя, если он зашел под собой
   useEffect(() => {
+    console.log(process.env.REACT_APP_SERVER_URL);
     if (!Object.keys(currentUser).length) {
       axios(`${process.env.REACT_APP_SERVER_URL}/profile`, {
         method: 'get',
