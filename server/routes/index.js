@@ -5,7 +5,7 @@ const { Op } = require("sequelize");
 function getRandomIntInclusive(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min; 
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 router.get('/options', async (req, res) => {
@@ -15,7 +15,7 @@ router.get('/options', async (req, res) => {
 });
 
 router.get('/', async (req, res) => {
-  const arrOfCourses = await db.Course.findAll({raw: true})
+  const arrOfCourses = await db.Course.findAll({ raw: true })
   const randomCourses = []
   const arrOfRandomNums = []
   for (let i = 0; arrOfRandomNums.length < 6; i++) {
@@ -29,10 +29,17 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-  const {specialityId, typeId, priceMin, priceMax} = req.body
-  let searchResult;
-  console.log(specialityId, typeId, priceMin, priceMax);
-  searchResult = await db.Course.findAll({where: { SpecialityId: specialityId, CourseFormId: typeId,  price: {[Op.and]: [{[Op.gte]: Number(priceMin)}, {[Op.lte]: Number(priceMax)}]}}})
+  const { specialityId, typeId, priceMin, priceMax } = req.body
+  const filters = {
+    price: { [Op.and]: [{ [Op.gte]: Number(priceMin) }, { [Op.lte]: Number(priceMax) }] }
+  };
+  if (specialityId !== 'Специальность') {
+    filters.SpecialityId = Number(specialityId)
+  }
+  if (typeId !== 'Форма обучения') {
+    filters.CourseFormId = Number(typeId)
+  }
+  const searchResult = await db.Course.findAll({ where: filters })
   res.json(searchResult)
 })
 
