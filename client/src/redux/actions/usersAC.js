@@ -8,6 +8,8 @@ import {
   LOGIN_USER_FAIL,
   ADD_TO_FAV_USER_SUCCESS,
   ADD_TO_FAV_USER_FAIL,
+  REMOVE_FROM_FAV_USER_SUCCESS,
+  REMOVE_FROM_FAV_USER_FAIL,
 } from '../types/usersTypes';
 
 // logout ACs
@@ -94,5 +96,28 @@ export const addToFavUserStart = (userId, courseId) => async (dispatch) => {
   } catch {
     console.log('couldn\'t add the course to favorites');
     dispatch(addToFavUserFail());
+  }
+};
+
+// removing from favorites
+export const removeFromFavUserSuccess = (userFavorites) => ({
+  type: REMOVE_FROM_FAV_USER_SUCCESS,
+  payload: userFavorites,
+});
+
+export const removeFromFavUserFail = () => ({
+  type: REMOVE_FROM_FAV_USER_FAIL,
+});
+
+export const removeFromFavUserStart = (userId, courseId) => async (dispatch) => {
+  try {
+    const response = await axios(`${process.env.REACT_APP_SERVER_URL}/favorites`, {
+      method: 'delete',
+      data: { userId, courseId },
+    }, { withCredentials: true });
+    dispatch(removeFromFavUserSuccess(response.data.userFavorites));
+  } catch {
+    console.log('couldn\'t remove the course from favorites');
+    dispatch(removeFromFavUserFail());
   }
 };
