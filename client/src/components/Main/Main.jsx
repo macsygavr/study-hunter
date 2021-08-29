@@ -24,15 +24,14 @@ import { loginUserFail, loginUserSuccess } from '../../redux/actions/usersAC';
 
 export default function Main() {
   const [randomSixCourses, setRandomSixCourses] = useState([]);
-  
+
   const dispatch = useDispatch();
-  // const [searchResult, setSearchResult] = useState([]);
+  const [searchResult, setSearchResult] = useState([]);
 
   const { currentUser } = useSelector((state) => state);
 
   // useEffect для подгрузки пользователя, если он зашел под собой
   useEffect(() => {
-    console.log(process.env.REACT_APP_SERVER_URL);
     if (!Object.keys(currentUser).length) {
       axios(`${process.env.REACT_APP_SERVER_URL}/profile`, {
         method: 'get',
@@ -68,7 +67,7 @@ export default function Main() {
     } else {
       priceMax = 100000000000000000000000000000000;
     }
-    console.log(specialityId, typeId, priceMin, priceMax);
+    // console.log(specialityId, typeId, priceMin, priceMax);
     axios.post(`${process.env.REACT_APP_SERVER_URL}`, { // env variable
       specialityId,
       typeId,
@@ -85,7 +84,7 @@ export default function Main() {
         <Switch>
           <Route exact path="/">
             <Search searchHandler={searchHandler} />
-            <Posts resultToRender={searchResult || randomSixCourses} />
+            <Posts resultToRender={searchResult.length ? searchResult : randomSixCourses} />
           </Route>
           <Route exact path="/profile">
             <Lk />
