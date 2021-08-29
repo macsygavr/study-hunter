@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Lk from '../Lk/Lk';
@@ -18,14 +19,36 @@ import SignInOrganization from '../SignInOrganization/SignInOrganization';
 import SignInChoisePage from '../SignInChoicePage/SignInChoicePage';
 import Search from '../Search/Search';
 import Posts from '../Posts/Posts';
+import { loginUserFail, loginUserSuccess } from '../../redux/actions/usersAC';
 // import { useSelector } from 'react-redux';
 
 export default function Main() {
   const [randomSixCourses, setRandomSixCourses] = useState([]);
-  const [searchResult, setSearchResult] = useState([]);
+  
+  const dispatch = useDispatch();
+  // const [searchResult, setSearchResult] = useState([]);
+
+  const { currentUser } = useSelector((state) => state);
+
+  // useEffect для подгрузки пользователя, если он зашел под собой
+  useEffect(() => {
+    console.log(process.env.REACT_APP_SERVER_URL);
+    if (!Object.keys(currentUser).length) {
+      axios(`${process.env.REACT_APP_SERVER_URL}/profile`, {
+        method: 'get',
+        withCredentials: true,
+      })
+        .then((response) => {
+          if (response.status !== 401) {
+            dispatch(loginUserSuccess(response.data));
+          } else dispatch(loginUserFail());
+        })
+        .catch(() => dispatch(loginUserFail()));
+    }
+  }, []);
 
   useEffect(() => {
-    axios.get('http://localhost:3005/')
+    axios.get(`${process.env.REACT_APP_SERVER_URL}`) // env variable
       .then((res) => setRandomSixCourses(res.data));
   }, []);
 
@@ -46,7 +69,7 @@ export default function Main() {
       priceMax = 100000000000000000000000000000000;
     }
     console.log(specialityId, typeId, priceMin, priceMax);
-    axios.post('http://localhost:3005/', {
+    axios.post(`${process.env.REACT_APP_SERVER_URL}`, { // env variable
       specialityId,
       typeId,
       priceMin,

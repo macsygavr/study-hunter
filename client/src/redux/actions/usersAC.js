@@ -20,9 +20,10 @@ export const logoutUserFail = () => ({
 });
 
 export const logoutUserStart = () => (dispatch) => {
-  axios.get('http://localhost:3005/logout')
+  axios.get(`${process.env.REACT_APP_SERVER_URL}/logout`, { withCredentials: true })
+
     .then((res) => {
-      if (res.data === 'OK') {
+      if (res.status === 200) {
         dispatch(logoutUserSuccess());
       }
     });
@@ -41,9 +42,9 @@ export const registerUserFail = () => ({
 // eslint-disable-next-line max-len
 export const registerUserStart = (firstName, lastName, phone, email, password) => async (dispatch) => {
   try {
-    const response = await axios.post('http://localhost:3005/signup/user', {
+    const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/signup/user`, {
       firstName, lastName, phone, email, password,
-    });
+    }, { withCredentials: true });
     // console.log(response.data);
     dispatch(registerUserSuccess(response.data));
   } catch {
@@ -64,9 +65,9 @@ export const loginUserFail = () => ({
 
 export const loginUserStart = (email, password) => async (dispatch) => {
   try {
-    const response = await axios.post('http://localhost:3005/signin/user', {
+    const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/signin/user`, {
       email, password,
-    });
+    }, { withCredentials: true });
     // console.log(response.data);
     dispatch(loginUserSuccess(response.data));
   } catch {
@@ -87,9 +88,9 @@ export const addToFavUserFail = () => ({
 
 export const addToFavUserStart = (userId, courseId) => async (dispatch) => {
   try {
-    const response = await axios.post('http://localhost:3005/favorites', { userId, courseId });
+    const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/favorites`, { userId, courseId }, { withCredentials: true });
     // принимаю обновленный массив любимых курсов пользователя
-    console.log(response.data.userFavorites);
+    // console.log(response.data.userFavorites);
     dispatch(addToFavUserSuccess(response.data.userFavorites));
   } catch {
     console.log('couldn\'t add the course to favorites');
