@@ -37,14 +37,32 @@ router.post('/', async (req, res) => {
 })
 
 router.get('/logout', async (req, res) => {
-  req.session.destroy();
   res.clearCookie('StudyHunter');
   res.cookie('StudyHunter', '', { expire: 1 });
-  res.sendStatus(200);
+  req.session.destroy();
+  res.status(200).send();
 });
 
-router.post('/profile', async (req, res) => {
-  res.json( {kek: 'profile'} );
+router.get('/profile', async (req, res) => {
+  console.log('getting profile --> ', req.session.userid);
+  if (req.session.userid) {
+    const user = await db.User.findOne({raw: true, where: {id: req.session.userid}});
+    const favoritesFromDB = await db.Favorites.findAll({ raw: true, nest: true, where: {
+      UserId: user.id,
+    }, include: {model: db.Course} });
+    const favorites = favoritesFromDB.map(course => course.Course);
+    const requests = await db.Request.findAll({ raw: true, where: {
+      UserId: user.id,
+    } });
+    return res.json({
+      id: user.id,
+      firstName: user.firstName, 
+      lastName : user.lastName, 
+      phone: user.phone, 
+      email: user.email, 
+      favorites: favorites || [], 
+      requests: requests || [] });
+  } else return res.status(401).end();
 });
 
 

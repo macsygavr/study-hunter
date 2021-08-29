@@ -8,7 +8,7 @@ function Search({ searchHandler }) {
   const [arrOfTypesOptions, setArrOfTypesOptions] = useState([]);
 
   useEffect(() => {
-    axios.get('http://192.168.1.38:3005/options')
+    axios.get(`${process.env.REACT_APP_SERVER_URL}/options`) // env variable
       .then((res) => {
         setArrOfSpecialitiesOptions(res.data.arrOfSpecialitiesOptions);
         setArrOfTypesOptions(res.data.arrOfTypesOptions);

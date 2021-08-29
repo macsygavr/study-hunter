@@ -13,22 +13,27 @@ const signinRouter = require('./routes/signin');
 const favoritesRouter = require('./routes/favorites');
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.SERVER_PORT;
 
-app.use(cors());
+app.use(cookieParser());
+app.use(cors({
+  origin: `${process.env.CORS_ORIGIN}:${process.env.CLIENT_PORT}`, 
+  // находясь на каком ресурсе мы можем запрашивать и получать данные
+  // и куки как их ресурсов мы можем принимать
+  credentials: true,
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({
   extended: true
 }));
 app.use(express.json());
 
-app.use(cookieParser());
 app.use(session({
-  secret: 'shshsh',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
   name: 'StudyHunter',
-  cookie: { secure: false },
+  cookie: { secure: false, httpOnly: true },
   store: new FileStore({}),
 }));
 
@@ -38,6 +43,6 @@ app.use('/signup', signupRouter);
 app.use('/signin', signinRouter);
 app.use('/favorites', favoritesRouter);
 
-app.listen(PORT, ()=>{
+app.listen(PORT, ()=> {
     console.log('Server has been started on PORT ' + PORT);
 });
