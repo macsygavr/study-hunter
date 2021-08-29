@@ -76,9 +76,9 @@ export const loginUserStart = (email, password) => async (dispatch) => {
 };
 
 // adding to favorites
-export const addToFavUserSuccess = (userFavCourses) => ({
+export const addToFavUserSuccess = (userFavorites) => ({
   type: ADD_TO_FAV_USER_SUCCESS,
-  payload: userFavCourses, // array
+  payload: userFavorites, // array
 });
 
 export const addToFavUserFail = () => ({
@@ -89,6 +89,7 @@ export const addToFavUserStart = (userId, courseId) => async (dispatch) => {
   try {
     const response = await axios.post('http://localhost:3005/favorites', { userId, courseId });
     // принимаю обновленный массив любимых курсов пользователя
+    console.log(response.data.userFavorites);
     dispatch(addToFavUserSuccess(response.data.userFavorites));
   } catch {
     console.log('couldn\'t add the course to favorites');
