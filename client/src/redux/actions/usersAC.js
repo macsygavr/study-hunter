@@ -47,7 +47,6 @@ export const registerUserStart = (firstName, lastName, phone, email, password) =
     const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/signup/user`, {
       firstName, lastName, phone, email, password,
     }, { withCredentials: true });
-    // console.log(response.data);
     dispatch(registerUserSuccess(response.data));
   } catch {
     console.log('Unable to register');
@@ -70,7 +69,6 @@ export const loginUserStart = (email, password) => async (dispatch) => {
     const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/signin/user`, {
       email, password,
     }, { withCredentials: true });
-    // console.log(response.data);
     dispatch(loginUserSuccess(response.data));
   } catch {
     console.log('Unable to login');
