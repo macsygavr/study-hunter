@@ -4,10 +4,7 @@ const db = require("../db/models");
 router.post("/", async function (req, res) {
   let { userPhotoId } = req.body;
   let filedata = req.file;
-
-  const modifyPath = filedata.path.replace('public', '.')
-  console.log(modifyPath);
-  // console.log(filedata.path);
+  const modifyPath = filedata.path.replace('public', '');
 
   if (userPhotoId) {
     await db.User.update({logo: modifyPath}, {
