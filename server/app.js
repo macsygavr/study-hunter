@@ -22,7 +22,6 @@ const corsWhitelist = [
   `http://127.0.0.1:${process.env.CLIENT_APP_PORT}`
 ];
 
-
 app.use(cookieParser());
 app.use(cors({
   origin: function (origin, callback) {
