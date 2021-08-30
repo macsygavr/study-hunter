@@ -6,6 +6,7 @@ import Posts from '../Posts/Posts';
 
 export default function Lk() {
   const [file, setFile] = useState(null);
+  console.log(file);
   const [drag, setDrag] = useState(false);
   const currentUser = useSelector((state) => state.currentUser);
 
@@ -21,28 +22,37 @@ export default function Lk() {
 
   async function onDropHandler(event) {
     event.preventDefault();
-    const files = [...event.dataTransfer.files];
-    const [uploadFile] = files;
+    // const files = [...event.dataTransfer.files];
+    // const [userPhoto] = files;
     const formData = new FormData();
-    formData.append('file', uploadFile);
+    // formData.append('file', userPhoto);
 
     console.log(formData.get('file'));
-    axios.post('http://localhost:3005/loadimage', { formData }, {
+    axios.post('http://localhost:3005/upload', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     });
     setDrag(false);
   }
-  const clickHandler = () => {
-    const reader = new FileReader();
+  // const clickHandler = () => {
+  //   const reader = new FileReader();
 
-    reader.onload = () => {
-      setFile(reader.result);
-      console.log(reader.result);
-    };
+  //   reader.onload = () => {
+  //     setFile(reader.result);
+  //     console.log(reader.result);
+  //   };
+  // };
+  const fileSend = async (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    const imagefile = document.querySelector('#file');
+
+    formData.append('filedata', imagefile.files[0]);
+    console.log('formData--- >', formData);
+    const response = await axios.post('http://localhost:3005/upload', formData);
+    setFile(`http://localhost:3005/${response.data}`);
   };
-
   return (
     <div className="lk">
       <h4 style={{ marginBottom: '40px', width: '1000px' }}>Личный кабинет</h4>
@@ -92,9 +102,12 @@ export default function Lk() {
       <h3 style={{ textAlign: 'left' }}>Избранное</h3>
       <hr style={{ marginBottom: '40px' }} />
       <Posts resultToRender={currentUser.favorites} />
-      <input type="file" onChange={onDropHandler} />
-      <button type="button" onClick={clickHandler}>Click</button>
-      <img src={file} alt="zadnica" />
+      <form onSubmit={(event) => fileSend(event)}>
+        <input type="file" name="filedata" id="file" />
+        <input type="submit" value="Send" />
+        {/* <button type="button" onClick={clickHandler}>Click</button> */}
+        <img src={file} alt="userPhoto" />
+      </form>
     </div>
   );
 }
