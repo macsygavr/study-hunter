@@ -86,7 +86,7 @@ export default function Main() {
         <Switch>
           <Route exact path="/">
             <Search searchHandler={searchHandler} />
-            <Posts resultToRender={searchResult.length ? searchResult : randomSixCourses} />
+            <Posts resultToRender={searchResult || randomSixCourses} />
           </Route>
           <Route exact path="/profile">
             <Lk />
