@@ -25,7 +25,7 @@ const corsWhitelist = [
 app.use(cookieParser());
 app.use(cors({
   origin: function (origin, callback) {
-    if (corsWhitelist.indexOf(origin) !== -1) {
+    if (!origin || corsWhitelist.indexOf(origin) !== -1) {
       callback(null, true)
     } else {
       callback(new Error('Not allowed by CORS'))

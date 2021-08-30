@@ -4,6 +4,8 @@ import {
   LOGIN_ORGANIZATION_SUCCESS,
   REGISTER_ORGANIZATION_FAIL,
   REGISTER_ORGANIZATION_SUCCESS,
+  LOGOUT_ORGANIZATION_SUCCESS,
+  LOGOUT_ORGANIZATION_FAIL,
 } from '../types/organizationsTypes';
 
 // organization registration
@@ -42,7 +44,7 @@ export const loginOrganizationFail = () => ({
 
 export const loginOrganizationStart = (email, password) => async (dispatch) => {
   try {
-    const response = axios.post(`${process.env.REACT_APP_SERVER_URL}/signin/organization`, {
+    const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/signin/organization`, {
       email, password,
     }, { withCredentials: true });
     dispatch(loginOrganizationSuccess(response.data));
@@ -50,4 +52,21 @@ export const loginOrganizationStart = (email, password) => async (dispatch) => {
     console.log('unable to login as organization');
     dispatch(loginOrganizationFail());
   }
+};
+
+export const logoutOrganizationSuccess = () => ({
+  type: LOGOUT_ORGANIZATION_SUCCESS,
+});
+
+export const logoutOrganizationFail = () => ({
+  type: LOGOUT_ORGANIZATION_FAIL,
+});
+
+export const logoutOrganizationStart = () => (dispatch) => {
+  axios.get(`${process.env.REACT_APP_SERVER_URL}/logout`, { withCredentials: true })
+    .then((res) => {
+      if (res.status === 200) {
+        dispatch(logoutOrganizationSuccess());
+      }
+    });
 };
