@@ -4,7 +4,7 @@ import renderStarIconEmpty from './renderStarIconEmpty';
 import { addToFavUserStart, removeFromFavUserStart } from '../../redux/actions/usersAC';
 import renderStarIconFilled from './renderStarIconFilled';
 
-function FavoritesButton({ userId, courseId }) {
+function FavoritesButton({ userId, courseId, styleProp }) {
   const dispatch = useDispatch();
 
   const { favorites } = useSelector((state) => state.currentUser);
@@ -21,12 +21,12 @@ function FavoritesButton({ userId, courseId }) {
   const renderButton = () => {
     if (currentFavorite) {
       return (
-        <button onClick={removeFromFavHandler} type="button" className="btn btn-light m-1 position-absolute top-0 end-0">
+        <button onClick={removeFromFavHandler} type="button" className={styleProp || 'btn btn-light position-absolute top-0 end-0'}>
           {renderStarIconFilled()}
         </button>
       );
     } return (
-      <button onClick={addToFavHandler} type="button" className="btn btn-light m-1 position-absolute top-0 end-0">
+      <button onClick={addToFavHandler} type="button" className={styleProp || 'btn btn-light position-absolute top-0 end-0'}>
         {renderStarIconEmpty()}
       </button>
     );

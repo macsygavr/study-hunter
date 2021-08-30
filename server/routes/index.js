@@ -22,7 +22,12 @@ router.get('/', async (req, res) => {
     const num = getRandomIntInclusive(0, arrOfCourses.length - 1)
     if (!arrOfRandomNums.includes(num)) {
       arrOfRandomNums.push(num)
-      randomCourses.push(arrOfCourses[num])
+      const currentType = await db.CourseForm.findOne({where: { id: arrOfCourses[num].CourseFormId }})
+      const courseObj = {
+        ...arrOfCourses[num],
+        type: currentType.form
+      }
+      randomCourses.push(courseObj)
     }
   }
   res.json(randomCourses)
@@ -76,5 +81,25 @@ router.get('/profile/user', async (req, res) => {
   } else return res.status(401).end();
 });
 
+router.get('/course/:id', async (req, res) => {
+  const { id } = req.params
+  const currentCourse = await db.Course.findOne({where: { id }})
+  const currentCourseType = await db.CourseForm.findOne({where: { id: currentCourse.CourseFormId }})
+  const currentCourseOrganization = await db.Organization.findOne({where: { id: currentCourse.OrganizationId }})
+  const currentCourseObj = {
+    ...currentCourse,
+    organization: currentCourseOrganization.name,
+    form: currentCourseType.form,
+  }
+  res.json(currentCourseObj)
+})
+
+router.get('/organization/:id', async (req, res) => {
+  const { id } = req.params
+  const currentOrganization = await db.Organization.findOne({where: { id }})
+  const currentOrganizationType = await db.OrganizationForm.findOne({where: { id: currentOrganization.OrganizationFormId }})
+  const currentOrganizationCourses = await db.Course.findAll({where: { OrganizationId: currentOrganization.id }})
+  res.json({currentOrganization, currentOrganizationCourses, currentOrganizationType});
+})
 
 module.exports = router;
