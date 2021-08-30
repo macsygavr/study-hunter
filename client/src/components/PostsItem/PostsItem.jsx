@@ -14,7 +14,12 @@ function PostsItem(props) {
 
   return (
     <div className="m-5 d-flex justify-content-center">
-      <div className="card p-3" style={{ width: '18rem' }}>
+      <div
+        className="card p-3"
+        style={{
+          width: '18rem', height: '25rem', overflowY: 'auto',
+        }}
+      >
         <div className="card-body">
           <h5 className="card-title">
             <span className="mx-1">{name}</span>
@@ -23,7 +28,13 @@ function PostsItem(props) {
             ? <FavoritesButton userId={currentUser.id} courseId={id} />
             : null}
           <p className="card-text">{type}</p>
-          <p className="card-text">{price}</p>
+          <p className="card-text">
+            Цена:
+            &nbsp;
+            {price}
+            {' '}
+            руб.
+          </p>
           <p className="card-text">{description}</p>
           {/* Все это завернуто в линк на подробную страницу курса
           <Link to="/course/${id}" /> */}

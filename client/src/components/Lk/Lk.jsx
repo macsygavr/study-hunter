@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -34,6 +35,7 @@ export default function Lk() {
         </div>
         <div>
           <div className="container d-flex flex-column align-items-start">
+            <p style={{ color: 'blue' }}>{(currentUser.admin && currentUser.superadmin) ? 'superadmin' : currentUser.admin ? 'admin' : ''}</p>
             <h2 className="title-name">{`${currentUser.firstName} ${currentUser.lastName}`}</h2>
             <p>{currentUser.phone}</p>
             <p>{currentUser.email}</p>
@@ -46,9 +48,19 @@ export default function Lk() {
           </p>
         </div>
       </div>
-      <h3 style={{ textAlign: 'left' }}>Избранное</h3>
-      <hr style={{ marginBottom: '40px' }} />
-      <Posts resultToRender={currentUser.favorites} />
+      {currentUser.superadmin ? (
+        <div>
+          <h3 style={{ textAlign: 'left' }}>Назначить админа</h3>
+          <hr style={{ marginBottom: '40px' }} />
+        </div>
+      ) : (
+        <div>
+          <h3 style={{ textAlign: 'left' }}>Избранное</h3>
+          <hr style={{ marginBottom: '40px' }} />
+          <Posts resultToRender={currentUser.favorites} />
+        </div>
+      )}
+
     </div>
   );
 }
