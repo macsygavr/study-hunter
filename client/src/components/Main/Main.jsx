@@ -22,7 +22,7 @@ import Posts from '../Posts/Posts';
 
 export default function Main() {
   const [randomSixCourses, setRandomSixCourses] = useState([]);
-  const [searchResult, setSearchResult] = useState([]);
+  const [searchResult, setSearchResult] = useState();
 
   useEffect(() => {
     axios.get('http://localhost:3005/')
@@ -31,26 +31,28 @@ export default function Main() {
 
   const searchHandler = (e) => {
     e.preventDefault();
-    const specialityId = e.target.speciatity_id.value;
-    const typeId = e.target.type_id.value;
-    let priceMin = e.target.price_min.value;
-    if (e.target.price_min.value.trim()) {
-      priceMin = e.target.price_min.value;
+    const specialityId = e.target.speciatityId.value;
+    const typeId = e.target.typeId.value;
+    let priceMinValue = e.target.priceMin.value;
+    if (e.target.priceMin.value.trim()) {
+      priceMinValue = e.target.priceMin.value;
     } else {
-      priceMin = 0;
+      priceMinValue = 0;
     }
-    let priceMax;
-    if (e.target.price_max.value.trim()) {
-      priceMax = e.target.price_max.value;
+    let priceMaxValue;
+    if (e.target.priceMax.value.trim()) {
+      priceMaxValue = e.target.priceMax.value;
     } else {
-      priceMax = 100000000000000000000000000000000;
+      priceMaxValue = 1e50;
     }
-    console.log(specialityId, typeId, priceMin, priceMax);
+    const courseNameValue = e.target.courseName.value;
+    console.log(specialityId, typeId, priceMinValue, priceMaxValue, courseNameValue);
     axios.post('http://localhost:3005/', {
       specialityId,
       typeId,
-      priceMin,
-      priceMax,
+      priceMinValue,
+      priceMaxValue,
+      courseNameValue,
     })
       .then((res) => setSearchResult(res.data));
   };
