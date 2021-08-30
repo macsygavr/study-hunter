@@ -33,7 +33,7 @@ export default function Main() {
   // useEffect для подгрузки пользователя, если он зашел под собой
   useEffect(() => {
     if (!Object.keys(currentUser).length) {
-      axios(`${process.env.REACT_APP_SERVER_URL}/profile`, {
+      axios(`${process.env.REACT_APP_SERVER_URL}/profile/user`, {
         method: 'get',
         withCredentials: true,
       })
@@ -88,7 +88,7 @@ export default function Main() {
             <Search searchHandler={searchHandler} />
             <Posts resultToRender={searchResult || randomSixCourses} />
           </Route>
-          <Route exact path="/profile">
+          <Route exact path="/profile/user">
             <Lk />
           </Route>
           <Route exact path="/signup">

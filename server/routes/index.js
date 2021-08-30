@@ -53,7 +53,7 @@ router.get('/logout', async (req, res) => {
   res.status(200).send();
 });
 
-router.get('/profile', async (req, res) => {
+router.get('/profile/user', async (req, res) => {
   if (req.session.userid) {
     const user = await db.User.findOne({raw: true, where: {id: req.session.userid}});
     const favoritesFromDB = await db.Favorites.findAll({ raw: true, nest: true, where: {

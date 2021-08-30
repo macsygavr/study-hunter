@@ -36,7 +36,7 @@ export default function Header() {
             </div>
           </Link>
           <div>
-            <Link className="headerLinkButton" to="/profile">ЛК </Link>
+            <Link className="headerLinkButton" to="/profile/user">{`${currentUser.firstName} ${currentUser.lastName}`}</Link>
             <Link onClick={logoutHandler} className="headerLinkButton" to="/">
               Выход
             </Link>
