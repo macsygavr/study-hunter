@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 /* eslint-disable no-nested-ternary */
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -20,15 +19,6 @@ export default function Lk() {
     console.log('formData--- >', formData);
 
     const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/upload`, formData, { withCredentials: true });
-    // const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/upload`, {
-    //   credentials: 'include',
-    //   method: 'post',
-    //   headers: {
-    //     'Content-Type': 'application/x-www-form-urlencoded',
-    //     Accept: 'application/json',
-    //   },
-    //   body: formData,
-    // });
     setFile(`${process.env.REACT_APP_SERVER_URL}${response.data}`);
     console.log('response-->', response);
   };
