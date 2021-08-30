@@ -15,12 +15,15 @@ router.post('/user', async (req, res) => {
     const requests = await db.Request.findAll({ raw: true, where: {
       UserId: user.id,
     } });
+    console.log(user);
     res.json({
       id: user.id,
       firstName: user.firstName, 
       lastName : user.lastName, 
       phone: user.phone, 
       email: user.email, 
+      admin: user.admin,
+      superadmin: user.superadmin,
       favorites: favorites || [], 
       requests: requests || [] });
   }
