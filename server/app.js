@@ -13,22 +13,41 @@ const signinRouter = require('./routes/signin');
 const favoritesRouter = require('./routes/favorites');
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.SERVER_PORT;
 
-app.use(cors());
+// cors whitelist - адреса, с которых можно получать данные с нашего сервера
+const corsWhitelist = [
+  `${process.env.CLIENT_APP_URL}:${process.env.CLIENT_APP_PORT}`,
+  `http://localhost:${process.env.CLIENT_APP_PORT}`,
+  `http://127.0.0.1:${process.env.CLIENT_APP_PORT}`
+];
+
+
+app.use(cookieParser());
+app.use(cors({
+  origin: function (origin, callback) {
+    if (corsWhitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  },
+  // находясь на каком ресурсе мы можем запрашивать и получать данные
+  // и куки как их ресурсов мы можем принимать
+  credentials: true,
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({
   extended: true
 }));
 app.use(express.json());
 
-app.use(cookieParser());
 app.use(session({
-  secret: 'shshsh',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
   name: 'StudyHunter',
-  cookie: { secure: false },
+  cookie: { secure: false, httpOnly: true },
   store: new FileStore({}),
 }));
 
@@ -38,6 +57,6 @@ app.use('/signup', signupRouter);
 app.use('/signin', signinRouter);
 app.use('/favorites', favoritesRouter);
 
-app.listen(PORT, ()=>{
+app.listen(PORT, ()=> {
     console.log('Server has been started on PORT ' + PORT);
 });
