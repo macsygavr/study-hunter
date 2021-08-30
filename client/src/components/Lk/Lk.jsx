@@ -28,7 +28,7 @@ export default function Lk() {
     // formData.append('file', userPhoto);
 
     console.log(formData.get('file'));
-    axios.post('http://localhost:3005/upload', formData, {
+    axios.post(`${process.env.REACT_APP_SERVER_URL}`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },

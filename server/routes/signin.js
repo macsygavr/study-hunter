@@ -8,12 +8,13 @@ router.post('/user', async (req, res) => {
   if (user) {
     req.session.userEmail = user.email;
     req.session.userid = user.id;
-    const favorites = await db.Favorites.findAll({ where: {
+    const favoritesFromDB = await db.Favorites.findAll({ raw: true, nest: true, where: {
       UserId: user.id,
-    }});
-    const requests = await db.Request.findAll({ where: {
+    }, include: {model: db.Course} });
+    const favorites = favoritesFromDB.map(course => course.Course);
+    const requests = await db.Request.findAll({ raw: true, where: {
       UserId: user.id,
-    }});
+    } });
     res.json({
       id: user.id,
       firstName: user.firstName, 

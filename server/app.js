@@ -14,7 +14,7 @@ const signinRouter = require("./routes/signin");
 const favoritesRouter = require("./routes/favorites");
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.SERVER_PORT;
 
 /////MULTER/////
 // //настройка движка хранения файла
@@ -26,75 +26,56 @@ const storage = multer.diskStorage({
       file.originalname.toLowerCase()
     );
   },
-});
+});  
 
-// // переменную загрузки
-// const upload = multer({
-//   storage: storage,
-//   limits: { fileSize: 2000000 }, //ставим лимит на размер файла 2мб
-//   fileFilter: function (req, file, callback) {
-//     checkFileType(file, callback);
-//   },
-// }).single('image');
-
-// //пишем функцию которая проверяет тип файла
-// //Проверяем не только расширение, но и mimetype(например: 'application/json' или 'image/jpeg')
-// function checkFileType(file, cb) {
-//   // разрешенные расширения
-//   const filetypes = /jpeg|jpg|png|gif/;
-//   //проверка расширения
-//   const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-
-//   //проверка mimetype
-//   const mimetype = filetypes.test(file.mimetype);
-
-//   if (extname && mimetype) {
-//     return cb(null, true);
-//   } else {
-//     cb('Ошибка: Загрузите пожалуйста изображения!');
-//   }
-// }
-
-app.use(cors());
-app.use(express.static(path.join(__dirname, "public")));
-app.use(
-  express.urlencoded({
-    extended: true,
-  })
-);
-app.use(express.json());
+// cors whitelist - адреса, с которых можно получать данные с нашего сервера
+const corsWhitelist = [
+  `${process.env.CLIENT_APP_URL}:${process.env.CLIENT_APP_PORT}`,
+  `http://localhost:${process.env.CLIENT_APP_PORT}`,
+  `http://127.0.0.1:${process.env.CLIENT_APP_PORT}`
+];
 
 app.use(cookieParser());
-app.use(
-  session({
-    secret: "shshsh",
-    resave: false,
-    saveUninitialized: false,
-    name: "StudyHunter",
-    cookie: { secure: false },
-    store: new FileStore({}),
-  })
-);
+app.use(cors({
+  origin: function (origin, callback) {
+    if (corsWhitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  },
+  // находясь на каком ресурсе мы можем запрашивать и получать данные
+  // и куки как их ресурсов мы можем принимать
+  credentials: true,
+}));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.urlencoded({
+  extended: true
+}));
+app.use(express.json());
 
-app.use(morgan("dev"));
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  name: 'StudyHunter',
+  cookie: { secure: false, httpOnly: true },
+  store: new FileStore({}),
+}));
+
+app.use(morgan('dev'));
 app.use(multer({ storage }).single("filedata"));
-app.use("/", indexRouter);
-app.use("/signup", signupRouter);
-app.use("/signin", signinRouter);
-app.use("/favorites", favoritesRouter);
+app.use('/', indexRouter);
+app.use('/signup', signupRouter);
+app.use('/signin', signinRouter);
+app.use('/favorites', favoritesRouter);
 
-// app.post("/loadimage", multer(), (req, res) => {
-//   console.log(req.body);
-//   //   res.json({image: JSON.stringify(req.body.image)})
-// });
 app.post("/upload", function (req, res, next) {
   let filedata = req.file;
   console.log(filedata);
-  // if (!filedata) res.send("Ошибка при загрузке файла");
-  // else res.send("Файл загружен");
   res.json(filedata.path.slice(7))
 });
-
-app.listen(PORT, () => {
-  console.log("Server has been started on PORT " + PORT);
+  
+app.listen(PORT, ()=> {
+    console.log('Server has been started on PORT ' + PORT);
 });

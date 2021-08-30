@@ -14,7 +14,7 @@ function SignUpUser() {
     const {
       firstName, lastName, email, phone, password,
     } = event.target;
-    console.log(firstName.value, lastName.value, phone.value, email.value, password.value);
+    // console.log(firstName.value, lastName.value, phone.value, email.value, password.value);
     // eslint-disable-next-line max-len
     dispatch(registerUserStart(firstName.value, lastName.value, phone.value, email.value, password.value));
     setLogin((prev) => !prev);

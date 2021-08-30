@@ -1,40 +1,43 @@
+/* eslint-disable max-len */
 import axios from 'axios';
+import { useEffect, useState } from 'react';
+import SearchOption from '../SearchOption/SearchOption';
 
-function Search() {
-  const searchHandler = (e) => {
-    e.preventDefault();
-    const specialityId = e.target.speciatity_id.value;
-    const typeId = e.target.type_id.value;
-    const priceMin = e.target.price_min.value;
-    const priceMax = e.target.price_max.value;
-    console.log(specialityId, typeId, priceMin, priceMax);
-    axios.post('http://192.168.1.38:3005/', {
-      specialityId,
-      typeId,
-      priceMin,
-      priceMax,
-    })
-      .then((res) => console.log(res.data));
-  };
+function Search({ searchHandler }) {
+  const [arrOfSpecialitiesOptions, setArrOfSpecialitiesOptions] = useState([]);
+  const [arrOfTypesOptions, setArrOfTypesOptions] = useState([]);
+
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_SERVER_URL}/options`) // env variable
+      .then((res) => {
+        setArrOfSpecialitiesOptions(res.data.arrOfSpecialitiesOptions);
+        setArrOfTypesOptions(res.data.arrOfTypesOptions);
+      });
+  }, []);
 
   return (
-    <form onSubmit={searchHandler} className="input-group" style={{ width: '1000px' }}>
-      <select className="form-select" id="speciatity_id" aria-label="Example select with button addon" defaultValue="">
-        <option value="" className="alert alert-secondary">Специальность</option>
-        <option value="1">автомеханика</option>
-        <option value="2">бухгалтерия</option>
-        <option value="3">IT</option>
-      </select>
-      <select className="form-select" id="type_id" aria-label="Example select with button addon" defaultValue="">
-        <option value="" className="alert alert-secondary">Форма обучения</option>
-        <option value="1">Очное</option>
-        <option value="2">Заочное</option>
-        <option value="3">Дистанционное</option>
-      </select>
-      <input type="text" className="form-control" id="price_min" placeholder="Цена от (руб.)" aria-label="Recipient's username" aria-describedby="button-addon2" />
-      <input type="text" className="form-control" id="price_max" placeholder="Цена до (руб.)" aria-label="Recipient's username" aria-describedby="button-addon2" />
-      <button className="btn btn-outline-secondary" type="submit">Найти</button>
-    </form>
+    <div style={{
+      width: '1000px', marginTop: '270px', marginBottom: '160px',
+    }}
+    >
+      <form
+        onSubmit={searchHandler}
+        className="input-group"
+      >
+        <select className="form-select" id="speciatityId" aria-label="Example select with button addon">
+          <option>Специальность</option>
+          {arrOfSpecialitiesOptions.map((item) => <SearchOption key={item.id} value={item.id} name={item.name} />)}
+        </select>
+        <select className="form-select" id="typeId" aria-label="Example select with button addon" defaultValue="Форма обучения">
+          <option>Форма обучения</option>
+          {arrOfTypesOptions.map((item) => <SearchOption key={item.id} value={item.id} name={item.form} />)}
+        </select>
+        <input type="text" className="form-control" id="priceMin" placeholder="Цена от (руб.)" aria-label="Recipient's username" aria-describedby="button-addon2" />
+        <input type="text" className="form-control" id="priceMax" placeholder="Цена до (руб.)" aria-label="Recipient's username" aria-describedby="button-addon2" />
+        <input type="text" className="form-control" style={{ width: '155px' }} id="courseName" placeholder="Название курса" aria-label="Recipient's username" aria-describedby="button-addon2" />
+        <button className="btn btn-outline-secondary" type="submit">Найти</button>
+      </form>
+    </div>
   );
 }
 
