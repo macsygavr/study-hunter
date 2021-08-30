@@ -1,19 +1,33 @@
-require('dotenv').config();
-const express = require('express');
+require("dotenv").config();
+const express = require("express");
 const cors = require("cors");
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const session = require('express-session');
-const FileStore = require('session-file-store')(session);
-const morgan = require('morgan');
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
+const FileStore = require("session-file-store")(session);
+const morgan = require("morgan");
+const multer = require("multer");
 
-const indexRouter = require('./routes/index');
-const signupRouter = require('./routes/signup');
-const signinRouter = require('./routes/signin');
-const favoritesRouter = require('./routes/favorites');
+const indexRouter = require("./routes/index");
+const signupRouter = require("./routes/signup");
+const signinRouter = require("./routes/signin");
+const favoritesRouter = require("./routes/favorites");
+const usersPhotoRouter = require("./routes/userPhoto")
 
 const app = express();
 const PORT = process.env.SERVER_PORT;
+
+/////MULTER/////
+// //настройка движка хранения файла
+const storage = multer.diskStorage({
+  destination: './public/userPhotos',
+  filename: function (req, file, callback) {
+    callback(
+      null,
+      file.originalname.toLowerCase()
+    );
+  },
+});
 
 // cors whitelist - адреса, с которых можно получать данные с нашего сервера
 const corsWhitelist = [
@@ -51,10 +65,12 @@ app.use(session({
 }));
 
 app.use(morgan('dev'));
+app.use(multer({ storage }).single("filedata"));
 app.use('/', indexRouter);
 app.use('/signup', signupRouter);
 app.use('/signin', signinRouter);
 app.use('/favorites', favoritesRouter);
+app.use("/upload", usersPhotoRouter);
 
 app.listen(PORT, ()=> {
     console.log('Server has been started on PORT ' + PORT);

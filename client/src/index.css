@@ -35,9 +35,11 @@ a {
   margin-right: 30px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   width: 135px;
   height: 135px;
-  background: url('https://www.ucheba.ru/img/userpic-empty-big.png') no-repeat;
+  /* background: url('https://www.ucheba.ru/img/userpic-empty-big.png') no-repeat; */
+  position: relative;
 }
 
 .footer {
@@ -68,4 +70,9 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.input-file {
+  position: absolute;
+  bottom: -30px;
 }
