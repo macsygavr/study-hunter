@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+/* eslint-disable no-nested-ternary */
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -5,63 +7,36 @@ import { useSelector } from 'react-redux';
 import Posts from '../Posts/Posts';
 
 export default function Lk() {
-  const [drag, setDrag] = useState(false);
+  const [file, setFile] = useState(null);
+  console.log('state--->', file);
   const currentUser = useSelector((state) => state.currentUser);
-
-  function dragStartHandler(e) {
+  const fileSend = async (e) => {
     e.preventDefault();
-    setDrag(true);
-  }
-
-  function dragLeaveHandler(e) {
-    e.preventDefault();
-    setDrag(false);
-  }
-
-  function onDropHandler(e) {
-    e.preventDefault();
-    const files = [...e.dataTransfer.files];
-    const [uploadFile] = files;
     const formData = new FormData();
-    formData.file = uploadFile;
-    axios.post(`${process.env.REACT_APP_SERVER_URL}`, formData); // env variable
-    setDrag(false);
-  }
+    const imagefile = document.querySelector('#file');
+
+    formData.append('userPhotoId', currentUser.id);
+    formData.append('filedata', imagefile.files[0]);
+    console.log('formData--- >', formData);
+
+    const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/upload`, formData, { withCredentials: true });
+    setFile(`${process.env.REACT_APP_SERVER_URL}${response.data}`);
+    console.log('response-->', response);
+  };
 
   return (
     <div className="lk">
       <h4 style={{ marginBottom: '40px', width: '1000px' }}>Личный кабинет</h4>
       <div className="lk__content">
         <div className="lk__photo">
-          {/* <img src="https://www.ucheba.ru/img/userpic-empty-big.png" alt="pic" /> */}
-          {drag
-            ? (
-              <div
-                className="drop-area"
-                onDragStart={(e) => dragStartHandler(e)}
-                onDragLeave={(e) => dragLeaveHandler(e)}
-                onDragOver={(e) => dragStartHandler(e)}
-                onDrop={(e) => onDropHandler(e)}
-              >
-                Отпусти
-              </div>
-            )
-            : (
-              <div
-                style={{
-                  width: '135px', height: '135px', borderRadius: '50%', border: '1px solid black',
-                }}
-                onDragStart={(e) => dragStartHandler(e)}
-                onDragLeave={(e) => dragLeaveHandler(e)}
-                onDragOver={(e) => dragStartHandler(e)}
-              >
-                &nbsp;
-              </div>
-            )}
-          {/* <input id="input_file" type="file" size="1" name="avatarFile" /> */}
+          {file
+            ? <img src={file} alt="pic" style={{ borderRadius: '50%', height: '100%' }} />
+            : <img src="https://www.ucheba.ru/img/userpic-empty-big.png" alt="pic" />}
+          <input className="input-file" type="file" name="filedata" id="file" onChange={(e) => fileSend(e)} />
         </div>
         <div>
           <div className="container d-flex flex-column align-items-start">
+            <p style={{ color: 'blue' }}>{(currentUser.admin && currentUser.superadmin) ? 'superadmin' : currentUser.admin ? 'admin' : ''}</p>
             <h2 className="title-name">{`${currentUser.firstName} ${currentUser.lastName}`}</h2>
             <p>{currentUser.phone}</p>
             <p>{currentUser.email}</p>
@@ -74,9 +49,19 @@ export default function Lk() {
           </p>
         </div>
       </div>
-      <h3 style={{ textAlign: 'left' }}>Избранное</h3>
-      <hr style={{ marginBottom: '40px' }} />
-      <Posts resultToRender={currentUser.favorites} />
+      {currentUser.superadmin ? (
+        <div>
+          <h3 style={{ textAlign: 'left' }}>Назначить админа</h3>
+          <hr style={{ marginBottom: '40px' }} />
+        </div>
+      ) : (
+        <div>
+          <h3 style={{ textAlign: 'left' }}>Избранное</h3>
+          <hr style={{ marginBottom: '40px' }} />
+          <Posts resultToRender={currentUser.favorites} />
+        </div>
+      )}
+
     </div>
   );
 }

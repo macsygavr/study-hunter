@@ -74,6 +74,8 @@ router.get('/profile/user', async (req, res) => {
       lastName : user.lastName, 
       phone: user.phone, 
       email: user.email, 
+      admin: user.admin,
+      superadmin: user.superadmin,
       favorites: favorites || [], 
       requests: requests || [] });
   } else return res.status(401).end();

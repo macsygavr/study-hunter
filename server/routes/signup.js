@@ -16,6 +16,8 @@ router.post('/user', async (req, res) => {
       lastName : newUser.lastName, 
       phone: newUser.phone, 
       email: newUser.email, 
+      admin: newUser.admin,
+      superadmin: newUser.superadmin,
       favorites: [], 
       requests: []});
   }
