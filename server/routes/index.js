@@ -14,6 +14,11 @@ router.get('/options', async (req, res) => {
   res.json({ arrOfSpecialitiesOptions, arrOfTypesOptions });
 });
 
+router.get('/options/forms', async (req, res) => {
+  const arrOfOrgForms = await db.OrganizationForm.findAll({raw: true});
+  res.json({arrOfOrgForms});
+})
+
 router.get('/', async (req, res) => {
   const arrOfCourses = await db.Course.findAll({ raw: true })
   const randomCourses = []
