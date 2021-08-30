@@ -10,7 +10,6 @@ router.post('/user', async (req, res) => {
     const newUser = await db.User.create({ firstName, lastName, phone, email: email.toLowerCase(), password });
     req.session.userEmail = newUser.email;
     req.session.userid = newUser.id;
-    console.log('session ======>', req.session.userEmail,  req.session.userid);
     res.json({
       id: newUser.id,
       firstName: newUser.firstName, 
