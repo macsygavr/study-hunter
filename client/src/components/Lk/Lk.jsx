@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable no-nested-ternary */
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -6,61 +7,41 @@ import { useSelector } from 'react-redux';
 import Posts from '../Posts/Posts';
 
 export default function Lk() {
-  const [drag, setDrag] = useState(false);
+  const [file, setFile] = useState(null);
+  console.log('state--->', file);
   const currentUser = useSelector((state) => state.currentUser);
-
-  function dragStartHandler(e) {
+  const fileSend = async (e) => {
     e.preventDefault();
-    setDrag(true);
-  }
-
-  function dragLeaveHandler(e) {
-    e.preventDefault();
-    setDrag(false);
-  }
-
-  function onDropHandler(e) {
-    e.preventDefault();
-    const files = [...e.dataTransfer.files];
-    const [uploadFile] = files;
     const formData = new FormData();
-    formData.file = uploadFile;
-    axios.post(`${process.env.REACT_APP_SERVER_URL}`, formData); // env variable
-    console.log(formData, files);
-    setDrag(false);
-  }
+    const imagefile = document.querySelector('#file');
+
+    formData.append('userPhotoId', currentUser.id);
+    formData.append('filedata', imagefile.files[0]);
+    console.log('formData--- >', formData);
+
+    const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/upload`, formData, { withCredentials: true });
+    // const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/upload`, {
+    //   credentials: 'include',
+    //   method: 'post',
+    //   headers: {
+    //     'Content-Type': 'application/x-www-form-urlencoded',
+    //     Accept: 'application/json',
+    //   },
+    //   body: formData,
+    // });
+    setFile(`${process.env.REACT_APP_SERVER_URL}${response.data}`);
+    console.log('response-->', response);
+  };
 
   return (
     <div className="lk">
       <h4 style={{ marginBottom: '40px', width: '1000px' }}>Личный кабинет</h4>
       <div className="lk__content">
         <div className="lk__photo">
-          {/* <img src="https://www.ucheba.ru/img/userpic-empty-big.png" alt="pic" /> */}
-          {drag
-            ? (
-              <div
-                className="drop-area"
-                onDragStart={(e) => dragStartHandler(e)}
-                onDragLeave={(e) => dragLeaveHandler(e)}
-                onDragOver={(e) => dragStartHandler(e)}
-                onDrop={(e) => onDropHandler(e)}
-              >
-                Отпусти
-              </div>
-            )
-            : (
-              <div
-                style={{
-                  width: '135px', height: '135px', borderRadius: '50%', border: '1px solid black',
-                }}
-                onDragStart={(e) => dragStartHandler(e)}
-                onDragLeave={(e) => dragLeaveHandler(e)}
-                onDragOver={(e) => dragStartHandler(e)}
-              >
-                &nbsp;
-              </div>
-            )}
-          {/* <input id="input_file" type="file" size="1" name="avatarFile" /> */}
+          {file
+            ? <img src={file} alt="pic" style={{ borderRadius: '50%', height: '100%' }} />
+            : <img src="https://www.ucheba.ru/img/userpic-empty-big.png" alt="pic" />}
+          <input className="input-file" type="file" name="filedata" id="file" onChange={(e) => fileSend(e)} />
         </div>
         <div>
           <div className="container d-flex flex-column align-items-start">
