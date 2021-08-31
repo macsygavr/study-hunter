@@ -170,4 +170,10 @@ router.get('/organization/:id', async (req, res) => {
   res.json({currentOrganization, currentOrganizationCourses, currentOrganizationType});
 });
 
+router.post('/request', async (req, res) => {
+  const { userId, courseId } = req.body
+  await db.Request.create({ UserId: userId, CourseId: courseId })
+  res.end()
+})
+
 module.exports = router;

@@ -16,21 +16,6 @@ module.exports = {
           foreignKey: 'id'
         }
       },
-      user_name: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      user_phone: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      user_email: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      text: {
-        type: Sequelize.TEXT
-      },
       CourseId: {
         type: Sequelize.INTEGER,
         allowNull: false,
