@@ -18,10 +18,6 @@ module.exports = (sequelize, DataTypes) => {
   };
   Request.init({
     UserId: DataTypes.INTEGER,
-    user_name: DataTypes.STRING,
-    user_phone: DataTypes.STRING,
-    user_email: DataTypes.STRING,
-    text: DataTypes.TEXT,
     CourseId: DataTypes.INTEGER
   }, {
     sequelize,
