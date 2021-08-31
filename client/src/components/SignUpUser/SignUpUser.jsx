@@ -15,8 +15,9 @@ function SignUpUser() {
     const {
       firstName, lastName, email, phone, password,
     } = event.target;
+
     // eslint-disable-next-line max-len
-    dispatch(registerUserStart(firstName.value, lastName.value, phone.value, email.value, password.value));
+    dispatch(registerUserStart(firstName.value.trim(), lastName.value.trim(), phone.value.trim(), email.value.trim(), password.value.trim()));
 
     if (currentUser?.id) setDisplay('none');
     if (!currentUser?.id) setDisplay('block');
@@ -51,7 +52,7 @@ function SignUpUser() {
         </div>
         <button type="submit" className="btn btn-primary">Зарегистрироваться</button>
         {login ? <Redirect to="/" /> : (
-          // eslint-disable-next-line object-shorthand
+        // eslint-disable-next-line object-shorthand
           <p style={{
             color: 'red', display, marginTop: '15px', marginBottom: '0',
           }}
