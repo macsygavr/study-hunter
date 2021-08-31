@@ -40,6 +40,7 @@ const corsWhitelist = [
 app.use(cookieParser());
 app.use(cors({
   origin: function (origin, callback) {
+    console.log('origiiiiin --->', origin);
     if (!origin || corsWhitelist.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
