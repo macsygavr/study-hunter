@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import CoursesTable from '../CoursesTable/CoursesTable';
 
 export default function OrgLk() {
   const [file, setFile] = useState(null);
@@ -60,8 +61,19 @@ export default function OrgLk() {
         </div>
       </div>
       <div>
-        <h3 style={{ textAlign: 'left' }}>Направления</h3>
+        <h3 style={{ textAlign: 'left' }}>Текущие направления</h3>
         <hr style={{ marginBottom: '40px' }} />
+        <div style={{ marginLeft: '30px' }}>
+          {Object.keys(currentOrganization).length
+            ? currentOrganization.OrganizationCourses.map((course) => (
+              <CoursesTable
+                key={course.id}
+                courseName={course.name}
+                coursePrice={course.price}
+                courseId={course.id}
+              />
+            )) : 'Здесь пока ничего нет'}
+        </div>
       </div>
     </div>
   );
