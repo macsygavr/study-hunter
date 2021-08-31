@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import style from './postItem.module.css';
+import './postItem.css';
 import FavoritesButton from '../FavoritesButton/FavoritesButton';
 
 function PostsItem(props) {
@@ -14,11 +14,15 @@ function PostsItem(props) {
   const { currentUser } = useSelector((state) => state);
 
   return (
-    <div className="card-body" style={{ border: '1px solid #000', height: '100%' }}>
+    <div className="card-body card-my-style">
       {Object.keys(currentUser).length
-        ? <FavoritesButton userId={currentUser.id} courseId={id} />
+        ? (
+          <div className="favoriteButtonDiv">
+            <FavoritesButton userId={currentUser.id} courseId={id} />
+          </div>
+        )
         : null}
-      <Link className={style.postItemLink} to={`/course/${id}`}>
+      <Link className="postItemHomeLink" to={`/course/${id}`}>
         <h5 className="card-title">
           <span className="mx-1">{name}</span>
         </h5>
