@@ -12,7 +12,7 @@ function CourseInfoPage() {
   const { currentUser } = useSelector((state) => state);
 
   useEffect(() => {
-    axios.get(`http://192.168.1.188:3005/course/${id}`)
+    axios.get(`${process.env.REACT_APP_SERVER_URL}/course/${id}`)
       .then((res) => setCurrentCourse(res.data));
   }, []);
 

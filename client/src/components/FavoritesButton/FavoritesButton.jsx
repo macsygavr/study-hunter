@@ -8,7 +8,7 @@ function FavoritesButton({ userId, courseId, styleProp }) {
   const dispatch = useDispatch();
 
   const { favorites } = useSelector((state) => state.currentUser);
-  const [currentFavorite] = favorites.filter((course) => course.id === courseId);
+  const [currentFavorite] = favorites ? favorites.filter((course) => course.id === courseId) : null;
 
   const addToFavHandler = () => {
     dispatch(addToFavUserStart(userId, courseId));

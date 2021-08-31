@@ -10,6 +10,7 @@ router.post('/user', async (req, res) => {
     const newUser = await db.User.create({ firstName, lastName, phone, email: email.toLowerCase(), password });
     req.session.userEmail = newUser.email;
     req.session.userid = newUser.id;
+    // console.log('session ======>', req.session.userEmail,  req.session.userid);
     res.json({
       id: newUser.id,
       firstName: newUser.firstName, 
@@ -24,15 +25,23 @@ router.post('/user', async (req, res) => {
 });
 
 router.post('/organization', async (req, res) => {
-  console.log('signup organization');
-  // const { name, phone, email, password } = req.body;
-  // const organization = await db.Organization.findOne({ where: { email: email.toLowerCase() } });
-  // if (organization) {
-  //   res.sendStatus(404);
-  // } else {
-  //   const newOrganization = await db.Organization.create({ name, phone, email: email.toLowerCase(), password });
-  //   console.log(newOrganization);
-  // }
+  const {name, phone, email, form, password} = req.body;
+  console.log(name, phone, email, form, password);
+  const organization = await db.Organization.findOne({ where: { email: email.toLowerCase() } });
+  if (organization) {
+    res.status(409).send();
+  } else {
+    const newOrganization = await db.Organization.create({ 
+      name, 
+      phone, 
+      email: email.toLowerCase(), 
+      password, 
+      OrganizationFormId: Number(form) 
+    });
+    req.session.orgEmail = newOrganization.email;
+    req.session.orgId = newOrganization.id;
+    res.json(newOrganization);
+  }
 });
 
 module.exports = router;
