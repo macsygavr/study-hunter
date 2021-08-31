@@ -23,7 +23,6 @@ export const logoutUserFail = () => ({
 
 export const logoutUserStart = () => (dispatch) => {
   axios.get(`${process.env.REACT_APP_SERVER_URL}/logout`, { withCredentials: true })
-
     .then((res) => {
       if (res.status === 200) {
         dispatch(logoutUserSuccess());

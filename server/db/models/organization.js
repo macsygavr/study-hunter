@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       this.hasMany(models.Course);
+      this.belongsTo(models.OrganizationForm)
     }
   }
   Organization.init({

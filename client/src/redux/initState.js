@@ -1,5 +1,6 @@
 const state = {
   currentUser: {},
+  currentOrganization: {},
   currentCourse: {},
   searchResult: [],
 };
