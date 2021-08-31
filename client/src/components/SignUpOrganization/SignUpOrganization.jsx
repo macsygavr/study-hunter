@@ -24,11 +24,11 @@ function SignUpOrganization() {
       name, phone, email, form, password,
     } = event.target;
     dispatch(registerOrganizationStart(
-      name.value,
-      phone.value,
-      email.value,
-      form.value,
-      password.value,
+      name.value.trim(),
+      phone.value.trim(),
+      email.value.trim(),
+      form.value.trim(),
+      password.value.trim(),
     ));
 
     if (currentOrganization?.id) setDisplay('none');
