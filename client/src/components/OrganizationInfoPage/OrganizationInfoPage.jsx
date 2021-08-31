@@ -18,7 +18,7 @@ function OrganizationInfoPage() {
       .then((res) => setCurrentOrganization(res.data));
   }, []);
 
-  console.log(currentOrganization);
+  // console.log(currentOrganization);
 
   return (Object.keys(currentOrganization).length ? (
     <div className="container my-organization-container">
@@ -30,7 +30,7 @@ function OrganizationInfoPage() {
       </p>
       <div style={{ marginLeft: '30px' }}>
         <p className="courseInfoPageP">Курсы</p>
-        {currentOrganization.currentOrganizationCourses.map((item) => <CoursesTable courseName={item.name} coursePrice={item.price} courseId={item.id} />)}
+        {currentOrganization.currentOrganizationCourses.map((item) => <CoursesTable key={item.id} courseName={item.name} coursePrice={item.price} courseId={item.id} />)}
       </div>
       <p className="courseInfoPageP">
         Контакты:
