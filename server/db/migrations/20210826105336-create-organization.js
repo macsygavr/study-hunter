@@ -28,6 +28,10 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         defaultValue: false
       },
+      is_allowed: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+      },
       logo: {
         type: Sequelize.TEXT,
       },
