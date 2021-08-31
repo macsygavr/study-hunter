@@ -3,9 +3,12 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import CoursesTable from '../CoursesTable/CoursesTable';
+import Modal from '../Modal/Modal';
 
 export default function OrgLk() {
   const [file, setFile] = useState(null);
+  const [isModalOpened, setIsModalOpened] = useState(false);
+
   const { currentOrganization } = useSelector((state) => state);
 
   useEffect(() => {
@@ -24,6 +27,10 @@ export default function OrgLk() {
     if (response.data) {
       setFile(response.data);
     }
+  };
+
+  const addCourseButtonHandler = () => {
+    setIsModalOpened((state) => !state);
   };
 
   return (
@@ -61,7 +68,13 @@ export default function OrgLk() {
         </div>
       </div>
       <div>
-        <h3 style={{ textAlign: 'left' }}>Текущие направления</h3>
+        <h3 className="d-flex justify-content-between">
+          <span>Текущие направления</span>
+          <button onClick={addCourseButtonHandler} type="button" className="btn btn-primary">Добавить направление</button>
+        </h3>
+        {isModalOpened ? (
+          <Modal setIsModalOpened={setIsModalOpened} />
+        ) : null}
         <hr style={{ marginBottom: '40px' }} />
         <div style={{ marginLeft: '30px' }}>
           {Object.keys(currentOrganization).length
