@@ -1,17 +1,19 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router';
 import { loginUserStart } from '../../redux/actions/usersAC';
 
 function SignInUser() {
   const dispatch = useDispatch();
   const [login, setLogin] = useState(false);
+  const currentUser = useSelector((state) => state.currentUser);
 
   const loginHandler = (event) => {
     event.preventDefault();
     const { email, password } = event.target;
     dispatch(loginUserStart(email.value, password.value));
-    setLogin((prev) => !prev);
+    // setLogin((prev) => !prev);
+    if (currentUser.id) setLogin((prev) => !prev);
   };
 
   return (
@@ -27,7 +29,14 @@ function SignInUser() {
         </div>
         <button type="submit" className="btn btn-primary">Войти</button>
       </form>
-      {login ? <Redirect to="/" /> : null}
+      {login ? <Redirect to="/" /> : (
+        <p>
+          ALERT! ALERT!
+          <br />
+          {' '}
+          Введите корректный пароль!
+        </p>
+      )}
     </div>
   );
 }
