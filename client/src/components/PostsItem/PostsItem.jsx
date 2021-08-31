@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './postItem.css';
 import FavoritesButton from '../FavoritesButton/FavoritesButton';
+import RequestsButton from '../RequestsButton/RequestsButton';
 
 function PostsItem(props) {
   // PostsItem - карточка для отрисовки превью курса
@@ -15,30 +16,39 @@ function PostsItem(props) {
 
   return (
     <div className="card-body card-my-style">
-      {Object.keys(currentUser).length
-        ? (
-          <div className="favoriteButtonDiv">
-            <FavoritesButton userId={currentUser.id} courseId={id} />
-          </div>
-        )
-        : null}
-      <Link className="postItemHomeLink" to={`/course/${id}`}>
-        <h5 className="card-title">
-          <span className="mx-1">{name}</span>
-        </h5>
-        <p className="card-text">
-          Цена:
-          &nbsp;
-          {price}
-          {' '}
-          руб.
-        </p>
-        <p className="card-text">
-          Форма обучения:
-          &nbsp;
-          {type}
-        </p>
-      </Link>
+      <div>
+        {Object.keys(currentUser).length
+          ? (
+            <div className="favoriteButtonDiv">
+              <FavoritesButton userId={currentUser.id} courseId={id} />
+            </div>
+          )
+          : null}
+        <Link className="postItemHomeLink" to={`/course/${id}`}>
+          <h5 className="card-title">
+            <span className="mx-1">{name}</span>
+          </h5>
+          <p className="card-text">
+            Цена:
+            &nbsp;
+            {price}
+            {' '}
+            руб.
+          </p>
+          <p className="card-text">
+            Форма обучения:
+            &nbsp;
+            {type}
+          </p>
+        </Link>
+      </div>
+      <div>
+        {Object.keys(currentUser).length
+          ? (
+            <RequestsButton />
+          )
+          : null}
+      </div>
     </div>
   );
 }
