@@ -1,0 +1,21 @@
+.courseInfoPageP {
+  display: flex;
+  justify-content: start;
+  text-align: start;
+  margin: 30px;
+}
+
+.container.my-organization-container {
+  margin-top: 200px;
+  margin-bottom: 200px;
+  margin-left: 150px;
+  width: 75vw;
+}
+
+.postItemLink {
+  color: rgb(0, 0, 179);
+}
+
+.postItemLink:hover {
+  color: rgb(0, 0, 179);
+}

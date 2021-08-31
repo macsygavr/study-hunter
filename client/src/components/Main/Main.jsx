@@ -22,6 +22,8 @@ import Search from '../Search/Search';
 import Posts from '../Posts/Posts';
 import { loginUserFail, loginUserSuccess } from '../../redux/actions/usersAC';
 import { loginOrganizationFail, loginOrganizationSuccess } from '../../redux/actions/organizationsAC';
+import CourseInfoPage from '../CourseInfoPage/CourseInfoPage';
+import OrganizationInfoPage from '../OrganizationInfoPage/OrganizationInfoPage';
 // import { useSelector } from 'react-redux';
 
 export default function Main() {
@@ -74,7 +76,6 @@ export default function Main() {
     } else {
       priceMaxValue = 1e50;
     }
-    // console.log(specialityId, typeId, priceMin, priceMax);
     axios.post(`${process.env.REACT_APP_SERVER_URL}`, { // env variable
       specialityId,
       typeId,
@@ -117,6 +118,12 @@ export default function Main() {
           </Route>
           <Route exact path="/signin/organization">
             <SignInOrganization />
+          </Route>
+          <Route exact path="/course/:id">
+            <CourseInfoPage />
+          </Route>
+          <Route exact path="/organization/:id">
+            <OrganizationInfoPage />
           </Route>
         </Switch>
         <Footer />
