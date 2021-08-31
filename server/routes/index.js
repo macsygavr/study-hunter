@@ -14,11 +14,6 @@ router.get('/options', async (req, res) => {
   res.json({ arrOfSpecialitiesOptions, arrOfTypesOptions });
 });
 
-router.get('/options/forms', async (req, res) => {
-  const arrOfOrgForms = await db.OrganizationForm.findAll({raw: true});
-  res.json({arrOfOrgForms});
-})
-
 router.get('/', async (req, res) => {
   const arrOfCourses = await db.Course.findAll({ raw: true })
   const randomCourses = []
@@ -63,12 +58,9 @@ router.get('/logout', async (req, res) => {
   res.status(200).send();
 });
 
-router.get('/profile/current', async (req, res) => {
-  const isUser = req.session.userid;
-  const isOrg = req.session.orgId;
-  console.log(isUser, isOrg);
-  if (isUser) {
-    const user = await db.User.findOne({raw: true, where: {id: isUser}});
+router.get('/profile/user', async (req, res) => {
+  if (req.session.userid) {
+    const user = await db.User.findOne({raw: true, where: {id: req.session.userid}});
     const favoritesFromDB = await db.Favorites.findAll({ raw: true, nest: true, where: {
       UserId: user.id,
     }, include: {model: db.Course} });

@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Lk from '../Lk/Lk';
-import OrgLk from '../OrgLk/OrgLk';
 
 import SignUpChoicePage from '../SignUpChoicePage/SignUpChoicePage';
 import SignUpUser from '../SignUpUser/SignUpUser';
@@ -21,7 +20,6 @@ import SignInChoisePage from '../SignInChoicePage/SignInChoicePage';
 import Search from '../Search/Search';
 import Posts from '../Posts/Posts';
 import { loginUserFail, loginUserSuccess } from '../../redux/actions/usersAC';
-import { loginOrganizationFail, loginOrganizationSuccess } from '../../redux/actions/organizationsAC';
 import CourseInfoPage from '../CourseInfoPage/CourseInfoPage';
 import OrganizationInfoPage from '../OrganizationInfoPage/OrganizationInfoPage';
 // import { useSelector } from 'react-redux';
@@ -32,25 +30,20 @@ export default function Main() {
   const dispatch = useDispatch();
   const [searchResult, setSearchResult] = useState();
 
-  const { currentUser, currentOrganization } = useSelector((state) => state);
+  const { currentUser } = useSelector((state) => state);
 
   // useEffect для подгрузки пользователя, если он зашел под собой
   useEffect(() => {
-    if (!Object.keys(currentUser).length || !Object.keys(currentOrganization)) {
-      axios(`${process.env.REACT_APP_SERVER_URL}/profile/current`, {
-        method: 'get',
+    if (!Object.keys(currentUser).length) {
+      axios.get(`${process.env.REACT_APP_SERVER_URL}/profile/user`, {
         withCredentials: true,
       })
         .then((response) => {
-          // console.log(response.data);
-          if (response.status === 201) {
+          if (response.status !== 401) {
             dispatch(loginUserSuccess(response.data));
-          } else dispatch(loginOrganizationSuccess(response.data));
+          } else dispatch(loginUserFail());
         })
-        .catch(() => {
-          dispatch(loginUserFail());
-          dispatch(loginOrganizationFail());
-        });
+        .catch(() => dispatch(loginUserFail()));
     }
   }, []);
 
@@ -97,9 +90,6 @@ export default function Main() {
           </Route>
           <Route exact path="/profile/user">
             <Lk />
-          </Route>
-          <Route exact path="/profile/organization">
-            <OrgLk />
           </Route>
           <Route exact path="/signup">
             <SignUpChoicePage />
