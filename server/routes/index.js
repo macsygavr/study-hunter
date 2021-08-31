@@ -14,11 +14,6 @@ router.get('/options', async (req, res) => {
   res.json({ arrOfSpecialitiesOptions, arrOfTypesOptions });
 });
 
-router.get('/options/forms', async (req, res) => {
-  const arrOfOrgForms = await db.OrganizationForm.findAll({raw: true});
-  res.json({arrOfOrgForms});
-})
-
 router.get('/', async (req, res) => {
   const arrOfCourses = await db.Course.findAll({ raw: true })
   const randomCourses = []
@@ -63,12 +58,9 @@ router.get('/logout', async (req, res) => {
   res.status(200).send();
 });
 
-router.get('/profile/current', async (req, res) => {
-  const isUser = req.session.userid;
-  const isOrg = req.session.orgId;
-  console.log(isUser, isOrg);
-  if (isUser) {
-    const user = await db.User.findOne({raw: true, where: {id: isUser}});
+router.get('/profile/user', async (req, res) => {
+  if (req.session.userid) {
+    const user = await db.User.findOne({raw: true, where: {id: req.session.userid}});
     const favoritesFromDB = await db.Favorites.findAll({ raw: true, nest: true, where: {
       UserId: user.id,
     }, include: {model: db.Course} });
@@ -76,42 +68,18 @@ router.get('/profile/current', async (req, res) => {
     const requests = await db.Request.findAll({ raw: true, where: {
       UserId: user.id,
     } });
-    return res.status(201).json({
-        id: user.id,
-        firstName: user.firstName, 
-        lastName : user.lastName, 
-        phone: user.phone, 
-        email: user.email, 
-        favorites: favorites || [], 
-        requests: requests || [],
-    });
-  };
-
-  if (isOrg) {
-    const organization = await db.Organization.findOne({
-      raw: true, 
-      nest: true,
-      where: {id: isOrg}, 
-      include: {
-        model: db.OrganizationForm
-      }});
-    console.log(organization);
-    return res.status(202).json({
-        id: organization.id,
-        name: organization.name,
-        phone: organization.phone,
-        email: organization.email,
-        is_checked: organization.is_checked,
-        logo: organization.logo,
-        description: organization.description,
-        site: organization.site,
-        address: organization.address,
-        OrganizationFormId: organization.OrganizationFormId,
-        OrganizationForm: organization.OrganizationForm.form
-    })
-  }
-  console.log('none');
-  res.status(401).end();
+    return res.json({
+      id: user.id,
+      firstName: user.firstName, 
+      lastName : user.lastName, 
+      phone: user.phone, 
+      email: user.email, 
+      logo: user.logo,
+      admin: user.admin,
+      superadmin: user.superadmin,
+      favorites: favorites || [], 
+      requests: requests || [] });
+  } else return res.status(401).end();
 });
 
 router.get('/course/:id', async (req, res) => {
