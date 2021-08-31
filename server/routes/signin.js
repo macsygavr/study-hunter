@@ -2,7 +2,6 @@ const router = require('express').Router();
 const db = require('../db/models');
 
 router.post('/user', async (req, res) => {
-  console.log('signin user');
   const { email, password } = req.body;
   const user = await db.User.findOne({ where: { email: email.toLowerCase(), password } });
   if (user) {
@@ -15,7 +14,6 @@ router.post('/user', async (req, res) => {
     const requests = await db.Request.findAll({ raw: true, where: {
       UserId: user.id,
     } });
-    console.log(user);
     res.json({
       id: user.id,
       firstName: user.firstName, 
@@ -32,9 +30,7 @@ router.post('/user', async (req, res) => {
 });
 
 router.post('/organization', async (req, res) => {
-  console.log('signin organization');
   const { email, password } = req.body;
-  console.log(email, password);
   const organization = await db.Organization.findOne({
     raw: true, 
     nest: true,

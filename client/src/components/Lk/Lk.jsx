@@ -4,6 +4,8 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import Posts from '../Posts/Posts';
+import UserList from '../UserList/UserList';
+import RegisterList from '../RegisterList/RegisterList';
 
 export default function Lk() {
   const [file, setFile] = useState(null);
@@ -53,11 +55,14 @@ export default function Lk() {
       </div>
       {currentUser.superadmin ? (
         <div>
+          { currentUser.admin ? <RegisterList /> : ''}
           <h3 style={{ textAlign: 'left' }}>Назначить админа</h3>
           <hr style={{ marginBottom: '40px' }} />
+          <UserList />
         </div>
       ) : (
         <div>
+          { currentUser.admin ? <RegisterList /> : ''}
           <h3 style={{ textAlign: 'left' }}>Избранное</h3>
           <hr style={{ marginBottom: '40px' }} />
           <Posts resultToRender={currentUser.favorites} />
