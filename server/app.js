@@ -51,7 +51,7 @@ app.use(cors({
   // и куки как их ресурсов мы можем принимать
   credentials: true,
 }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(process.env.PWD, 'public')));
 app.use(express.urlencoded({
   extended: true
 }));

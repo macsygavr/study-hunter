@@ -14,7 +14,7 @@ function OrganizationInfoPage() {
   // const { currentUser } = useSelector((state) => state);
 
   useEffect(() => {
-    axios.get(`http://192.168.1.188:3005/organization/${id}`)
+    axios.get(`${process.env.REACT_APP_SERVER_URL}/organization/${id}`)
       .then((res) => setCurrentOrganization(res.data));
   }, []);
 
