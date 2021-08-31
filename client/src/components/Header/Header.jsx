@@ -71,7 +71,7 @@ export default function Header() {
             </div>
           </Link>
           <div>
-            <Link className="headerLinkButton" to="/profile/organization">{`${currentOrganization.name} ${currentOrganization.email}`}</Link>
+            <Link className="headerLinkButton" to="/profile/organization">{`${currentOrganization.name}`}</Link>
             <Link onClick={OrgLogoutHandler} className="headerLinkButton" to="/">
               Выход
             </Link>

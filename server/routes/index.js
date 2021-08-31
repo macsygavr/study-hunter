@@ -98,7 +98,6 @@ router.get('/profile/current', async (req, res) => {
       include: {
         model: db.OrganizationForm
       }});
-    console.log(organization);
     return res.status(202).json({
         id: organization.id,
         name: organization.name,
@@ -113,7 +112,6 @@ router.get('/profile/current', async (req, res) => {
         OrganizationForm: organization.OrganizationForm.form
     })
   }
-  console.log('none');
   res.status(401).end();
 });
 
