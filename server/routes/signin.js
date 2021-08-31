@@ -22,6 +22,7 @@ router.post('/user', async (req, res) => {
       lastName : user.lastName, 
       phone: user.phone, 
       email: user.email, 
+      logo: user.logo,
       admin: user.admin,
       superadmin: user.superadmin,
       favorites: favorites || [], 

@@ -1,15 +1,16 @@
-/* eslint-disable max-len */
 /* eslint-disable no-nested-ternary */
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 import Posts from '../Posts/Posts';
 
 export default function Lk() {
   const [file, setFile] = useState(null);
-  console.log('state--->', file);
   const currentUser = useSelector((state) => state.currentUser);
+  useEffect(() => {
+    setFile(currentUser.logo);
+  }, [currentUser.logo]);
   const fileSend = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -17,11 +18,12 @@ export default function Lk() {
 
     formData.append('userPhotoId', currentUser.id);
     formData.append('filedata', imagefile.files[0]);
-    console.log('formData--- >', formData);
 
     const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/upload`, formData, { withCredentials: true });
-    setFile(`${process.env.REACT_APP_SERVER_URL}${response.data}`);
-    console.log('response-->', response);
+    // setFile(`${process.env.REACT_APP_SERVER_URL}${response.data}`);
+    if (response.data) {
+      setFile(response.data);
+    }
   };
 
   return (
@@ -30,7 +32,7 @@ export default function Lk() {
       <div className="lk__content">
         <div className="lk__photo">
           {file
-            ? <img src={file} alt="pic" style={{ borderRadius: '50%', height: '100%' }} />
+            ? <img src={`${process.env.REACT_APP_SERVER_URL}${file}`} alt="pic" style={{ borderRadius: '50%', height: '100%' }} />
             : <img src="https://www.ucheba.ru/img/userpic-empty-big.png" alt="pic" />}
           <input className="input-file" type="file" name="filedata" id="file" onChange={(e) => fileSend(e)} />
         </div>
