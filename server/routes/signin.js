@@ -34,31 +34,12 @@ router.post('/user', async (req, res) => {
 router.post('/organization', async (req, res) => {
   console.log('signin organization');
   const { email, password } = req.body;
-  console.log(email, password);
-  const organization = await db.Organization.findOne({
-    raw: true, 
-    nest: true,
-    where: {email, password}, 
-    include: {
-      model: db.OrganizationForm
-    }});
+  const organization = await db.Organization.findOne({ where: { email: email.toLowerCase(), password } });
   if (organization) {
-    req.session.orgEmail = organization.email;
-    req.session.orgId = organization.id;
-    res.status(202).json({
-      id: organization.id,
-      name: organization.name,
-      phone: organization.phone,
-      email: organization.email,
-      is_checked: organization.is_checked,
-      logo: organization.logo,
-      description: organization.description,
-      site: organization.site,
-      address: organization.address,
-      OrganizationFormId: organization.OrganizationFormId,
-      OrganizationForm: organization.OrganizationForm.form
-    })
+    req.session.organizaionEmail = organization.email;
+    req.session.Organizationid = organization.id;
   }
+  else { res.sendStatus(401); }
 });
 
 module.exports = router;
