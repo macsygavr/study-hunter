@@ -14,7 +14,6 @@ function PostsItem(props) {
   const { currentUser } = useSelector((state) => state);
 
   return (
-
     <div className="card-body" style={{ border: '1px solid #000', height: '100%' }}>
       {Object.keys(currentUser).length
         ? <FavoritesButton userId={currentUser.id} courseId={id} />
@@ -37,7 +36,6 @@ function PostsItem(props) {
         </p>
       </Link>
     </div>
-
   );
 }
 
