@@ -1,0 +1,21 @@
+.postItemHomeLink {
+  color: black;
+}
+
+.postItemHomeLink:hover {
+  color: black;
+}
+
+.favoriteButtonDiv{
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -15px;
+  margin-right: -7px;
+  margin-bottom: -9px;
+}
+
+.card-my-style{
+  border: 1px solid rgb(207, 217, 212);
+  border-radius: 5px;
+  height: 100%;
+}
