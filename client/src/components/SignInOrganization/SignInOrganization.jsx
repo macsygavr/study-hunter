@@ -6,16 +6,12 @@ import { loginOrganizationStart } from '../../redux/actions/organizationsAC';
 function SignInOrganization() {
   const dispatch = useDispatch();
   const [login, setLogin] = useState(false);
-  const [display, setDisplay] = useState('none');
   const currentOrganization = useSelector((state) => state.currentOrganization);
 
   const loginHandler = (event) => {
     event.preventDefault();
     const { email, password } = event.target;
     dispatch(loginOrganizationStart(email.value, password.value));
-
-    if (currentOrganization?.id) setDisplay('none');
-    if (!currentOrganization?.id) setDisplay('block');
   };
 
   useEffect(() => {
@@ -34,13 +30,13 @@ function SignInOrganization() {
           <input required name="password" type="password" className="form-control" />
         </div>
         <button type="submit" className="btn btn-primary">Войти</button>
-        {login ? <Redirect to="/" /> : (
-          // eslint-disable-next-line object-shorthand
+        {login && <Redirect to="/" />}
+        {currentOrganization?.error && (
           <p style={{
-            color: 'red', display, marginTop: '15px', marginBottom: '0',
+            color: 'red', marginTop: '15px', marginBottom: '0',
           }}
           >
-            Введите корректный пароль!
+            Введите корректный эл.адрес/пароль!
           </p>
         )}
       </form>

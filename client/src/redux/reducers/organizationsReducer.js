@@ -10,16 +10,16 @@ import {
 function organizationsReducer(state = {}, action) {
   switch (action.type) {
     case REGISTER_ORGANIZATION_SUCCESS:
-      return action.payload;
+      return { ...action.payload, error: false };
 
     case REGISTER_ORGANIZATION_FAIL:
-      return {};
+      return { ...state, error: true };
 
     case LOGIN_ORGANIZATION_SUCCESS:
-      return action.payload;
+      return { ...action.payload, error: false };
 
     case LOGIN_ORGANIZATION_FAIL:
-      return {};
+      return { ...state, error: true };
 
     case LOGOUT_ORGANIZATION_SUCCESS:
       return {};

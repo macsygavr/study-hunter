@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router';
 import { registerUserStart } from '../../redux/actions/usersAC';
 
-function SignUpUser() {
+function QuickResponseForm() {
   const dispatch = useDispatch();
   const [login, setLogin] = useState(false);
   const currentUser = useSelector((state) => state.currentUser);
@@ -45,7 +45,8 @@ function SignUpUser() {
           <p className="mb-1">Пароль</p>
           <input required name="password" type="password" className="form-control" />
         </div>
-        <button type="submit" className="btn btn-primary">Зарегистрироваться</button>
+        <p>Вы будете автоматически зарегистрированы.</p>
+        <button type="submit" className="btn btn-primary">Откликнуться!</button>
         {login && <Redirect to="/" />}
         {currentUser?.error && (
           <p style={{
@@ -60,4 +61,4 @@ function SignUpUser() {
   );
 }
 
-export default SignUpUser;
+export default QuickResponseForm;
