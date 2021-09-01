@@ -11,9 +11,11 @@ router.post('/user', async (req, res) => {
       UserId: user.id,
     }, include: {model: db.Course} });
     const favorites = favoritesFromDB.map(course => course.Course);
-    const requests = await db.Request.findAll({ raw: true, where: {
+    const requestsFromDB = await db.Request.findAll({ raw: true, nest: true, where: {
       UserId: user.id,
-    } });
+    }, include: {model: db.Course} });
+    const requests = requestsFromDB.map(course => course.Course);
+    
     res.json({
       id: user.id,
       firstName: user.firstName, 
