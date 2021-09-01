@@ -1,8 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import style from './postItem.module.css';
+import './postItem.css';
 import FavoritesButton from '../FavoritesButton/FavoritesButton';
+import RequestsButton from '../RequestsButton/RequestsButton';
 
 function PostsItem(props) {
   // PostsItem - карточка для отрисовки превью курса
@@ -14,33 +15,35 @@ function PostsItem(props) {
   const { currentUser } = useSelector((state) => state);
 
   return (
-    <div className="m-4 d-flex justify-content-center">
-      <div
-        className="card p-2"
-        style={{ width: '15rem' }}
-      >
-        <div className="card-body">
-          {Object.keys(currentUser).length
-            ? <FavoritesButton userId={currentUser.id} courseId={id} />
-            : null}
-          <Link className={style.postItemLink} to={`/course/${id}`}>
-            <h5 className="card-title">
-              <span className="mx-1">{name}</span>
-            </h5>
-            <p className="card-text">
-              Цена:
-              &nbsp;
-              {price}
-              {' '}
-              руб.
-            </p>
-            <p className="card-text">
-              Форма обучения:
-              &nbsp;
-              {type}
-            </p>
-          </Link>
-        </div>
+    <div className="card-body card-my-style">
+      <div>
+        {Object.keys(currentUser).length
+          ? (
+            <div className="favoriteButtonDiv">
+              <FavoritesButton userId={currentUser.id} courseId={id} />
+            </div>
+          )
+          : null}
+        <Link className="postItemHomeLink" to={`/course/${id}`}>
+          <h5 className="card-title">
+            <span className="mx-1">{name}</span>
+          </h5>
+          <p className="card-text">
+            Цена:
+            &nbsp;
+            {price}
+            {' '}
+            руб.
+          </p>
+          <p className="card-text">
+            Форма обучения:
+            &nbsp;
+            {type}
+          </p>
+        </Link>
+      </div>
+      <div>
+        <RequestsButton userId={currentUser.id} courseId={id} />
       </div>
     </div>
   );

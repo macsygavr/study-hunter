@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -10,6 +11,7 @@ function CourseInfoPage() {
   const { id } = useParams();
   const [currentCourse, setCurrentCourse] = useState([]);
   const { currentUser } = useSelector((state) => state);
+  const styleProp = 'btn btn-light';
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_SERVER_URL}/course/${id}`)
@@ -21,7 +23,7 @@ function CourseInfoPage() {
       <h2 className="courseInfoPageP" style={{ marginTop: '-50px', display: 'flex', justifyContent: 'space-between' }}>
         {currentCourse.dataValues.name}
         {Object.keys(currentUser).length
-          ? <FavoritesButton styleProp="btn btn-light" userId={currentUser.id} courseId={currentCourse.dataValues.id} />
+          ? <FavoritesButton styleProp={styleProp} userId={currentUser.id} courseId={currentCourse.dataValues.id} />
           : null}
       </h2>
       <h4 className="courseInfoPageP">

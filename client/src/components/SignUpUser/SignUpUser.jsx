@@ -1,23 +1,31 @@
 // import { useEffect } from 'react';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router';
 import { registerUserStart } from '../../redux/actions/usersAC';
 
 function SignUpUser() {
   const dispatch = useDispatch();
+  const [display, setDisplay] = useState('none');
   const [login, setLogin] = useState(false);
-  // const { currentUser } = useSelector((state) => state);
+  const currentUser = useSelector((state) => state.currentUser);
 
   const submitHandler = (event) => {
     event.preventDefault();
     const {
       firstName, lastName, email, phone, password,
     } = event.target;
+
     // eslint-disable-next-line max-len
-    dispatch(registerUserStart(firstName.value, lastName.value, phone.value, email.value, password.value));
-    setLogin((prev) => !prev);
+    dispatch(registerUserStart(firstName.value.trim(), lastName.value.trim(), phone.value.trim(), email.value.trim(), password.value.trim()));
+
+    if (currentUser?.id) setDisplay('none');
+    if (!currentUser?.id) setDisplay('block');
   };
+
+  useEffect(() => {
+    if (currentUser?.id) setLogin((prev) => !prev);
+  }, [currentUser]);
 
   return (
     <div className="container d-flex justify-content-center my-5 bg-light p-4 border border-4 rounded" style={{ width: '270px' }}>
@@ -43,8 +51,16 @@ function SignUpUser() {
           <input required name="password" type="password" className="form-control" />
         </div>
         <button type="submit" className="btn btn-primary">Зарегистрироваться</button>
+        {login ? <Redirect to="/" /> : (
+        // eslint-disable-next-line object-shorthand
+          <p style={{
+            color: 'red', display, marginTop: '15px', marginBottom: '0',
+          }}
+          >
+            Эл.адрес должен быть уникальным!
+          </p>
+        )}
       </form>
-      {login ? <Redirect to="/" /> : null}
     </div>
   );
 }

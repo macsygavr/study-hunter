@@ -10,7 +10,6 @@ router.post('/user', async (req, res) => {
     const newUser = await db.User.create({ firstName, lastName, phone, email: email.toLowerCase(), password });
     req.session.userEmail = newUser.email;
     req.session.userid = newUser.id;
-    // console.log('session ======>', req.session.userEmail,  req.session.userid);
     res.json({
       id: newUser.id,
       firstName: newUser.firstName, 
@@ -27,7 +26,6 @@ router.post('/user', async (req, res) => {
 
 router.post('/organization', async (req, res) => {
   const {name, phone, email, form, password} = req.body;
-  console.log(name, phone, email, form, password);
   const organization = await db.Organization.findOne({ where: { email: email.toLowerCase() } });
   if (organization) {
     res.status(409).send();

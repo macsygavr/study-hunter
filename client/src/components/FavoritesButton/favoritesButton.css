@@ -1,0 +1,11 @@
+.favoriteButton {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.favoriteButton:hover {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
