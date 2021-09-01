@@ -30,30 +30,27 @@ export default function Lk() {
   };
 
   return (
-    <div className="lk">
-      <h4 style={{ marginBottom: '40px', width: '1000px' }}>Личный кабинет</h4>
-      <div className="lk__content">
-        <div className="lk__photo">
+    <div className="container my-container">
+      <div className="lkContainer">
+        <div className="avatarContainer">
           {file
-            ? <img src={`${process.env.REACT_APP_SERVER_URL}${file}`} alt="pic" style={{ borderRadius: '50%', height: '100%' }} />
-            : <img src="https://www.ucheba.ru/img/userpic-empty-big.png" alt="pic" />}
-          <input className="input-file" type="file" name="filedata" id="file" onChange={(e) => fileSend(e)} />
+            ? <img className="avatar" src={`${process.env.REACT_APP_SERVER_URL}${file}`} alt="pic" />
+            : <img className="avatar" src="https://www.ucheba.ru/img/userpic-empty-big.png" alt="pic" />}
+          <input type="file" name="filedata" id="file" onChange={(e) => fileSend(e)} />
         </div>
-        <div>
-          <div className="container d-flex flex-column align-items-start">
-            <p style={{ color: 'blue' }}>{(currentUser.admin && currentUser.superadmin) ? 'superadmin' : currentUser.admin ? 'admin' : ''}</p>
-            <h2 className="title-name">
-              {`${currentUser.firstName} ${currentUser.lastName}`}
-              <span>
-                &nbsp;
-                <Link to="/editUser">
-                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe0-ruYIVTiRizPu8o-RjjR1KrGv-mqXJgLQ&usqp=CAU" alt="" width="40px" />
-                </Link>
-              </span>
-            </h2>
-            <p>{currentUser.phone}</p>
-            <p>{currentUser.email}</p>
-          </div>
+        <div className="courseInfoPageP3">
+          <p style={{ color: 'blue' }}>{(currentUser.admin && currentUser.superadmin) ? 'superadmin' : currentUser.admin ? 'admin' : ''}</p>
+          <h2 className="title-name">
+            {`${currentUser.firstName} ${currentUser.lastName}`}
+            <span>
+              &nbsp;
+              <Link to="/editUser">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe0-ruYIVTiRizPu8o-RjjR1KrGv-mqXJgLQ&usqp=CAU" alt="" width="40px" />
+              </Link>
+            </span>
+          </h2>
+          <p>{currentUser.phone}</p>
+          <p>{currentUser.email}</p>
         </div>
       </div>
       {currentUser.superadmin ? (
@@ -65,21 +62,24 @@ export default function Lk() {
         </div>
       ) : (
         <>
-          <div>
+          <div className="courseInfoPageP2">
             { currentUser.admin ? <RegisterList /> : ''}
             <h3 style={{ textAlign: 'left' }}>Избранное</h3>
-            <hr style={{ marginBottom: '40px' }} />
-            <Posts resultToRender={currentUser.favorites} />
+            <hr style={{ marginTop: 0 }} />
+            <div className="courseInfoPageP3">
+              <Posts resultToRender={currentUser.favorites} />
+            </div>
           </div>
-          <div>
+          <div className="courseInfoPageP2">
             { currentUser.admin ? <RegisterList /> : ''}
             <h3 style={{ textAlign: 'left' }}>Отклики</h3>
-            <hr style={{ marginBottom: '40px' }} />
-            <Posts resultToRender={currentUser.requests} />
+            <hr style={{ marginTop: 0 }} />
+            <div className="courseInfoPageP3">
+              <Posts resultToRender={currentUser.requests} />
+            </div>
           </div>
         </>
       )}
-
     </div>
   );
 }

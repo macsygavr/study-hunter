@@ -1,0 +1,46 @@
+.avatar{
+  width: 170px;
+  border-radius: 50%;
+  height: 100%;
+}
+
+.avatar:hover{
+  transition: 0.5s;
+}
+
+.my-container{
+  margin-top: 80px;
+  margin-bottom: 80px;
+  border: 1px solid rgb(207, 217, 212);
+  border-radius: 5px;
+  background-color: rgb(255, 255, 255);
+}
+
+.courseInfoPageP {
+  display: flex;
+  text-align: start;
+  margin: 30px;
+}
+
+.courseInfoPageP2 {
+  display: flex;
+  flex-direction: column;
+  margin: 30px;
+}
+
+.courseInfoPageP3 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.lkContainer{
+  display: flex;
+  margin: 30px;
+}
+
+.avatarContainer{
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+}

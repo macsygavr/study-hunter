@@ -48,7 +48,7 @@ function CourseInfoPage() {
           {currentCourse.organization}
         </Link>
       </p>
-      <p className="courseInfoPageP2">
+      <div className="courseInfoPageP2">
         <h3 style={{ textAlign: 'left' }}>Описание</h3>
         <hr style={{ marginTop: 0 }} />
         <div className="courseInfoPageP3">
@@ -57,7 +57,7 @@ function CourseInfoPage() {
             {currentCourse.dataValues.description}
           </p>
         </div>
-      </p>
+      </div>
     </div>
   ) : (
     null
