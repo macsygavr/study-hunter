@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <div className="footer">
       <nav className="bg-primary footer__nav footer my-footer-style">
-        <span>made by Tigers</span>
+        <span>&#9825; made by Tigers &#9825;</span>
       </nav>
     </div>
   );

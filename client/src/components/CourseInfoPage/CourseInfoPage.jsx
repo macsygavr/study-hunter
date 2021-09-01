@@ -11,7 +11,6 @@ function CourseInfoPage() {
   const { id } = useParams();
   const [currentCourse, setCurrentCourse] = useState([]);
   const { currentUser } = useSelector((state) => state);
-  const styleProp = 'btn btn-light';
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_SERVER_URL}/course/${id}`)
@@ -20,11 +19,15 @@ function CourseInfoPage() {
 
   return (Object.keys(currentCourse).length ? (
     <div className="container my-container">
-      <h2 className="courseInfoPageP" style={{ marginTop: '-50px', display: 'flex', justifyContent: 'space-between' }}>
-        {currentCourse.dataValues.name}
-        {Object.keys(currentUser).length
-          ? <FavoritesButton styleProp={styleProp} userId={currentUser.id} courseId={currentCourse.dataValues.id} />
-          : null}
+      <h2 className="courseInfoPageP0">
+        <span>
+          {currentCourse.dataValues.name}
+        </span>
+        <span>
+          {Object.keys(currentUser).length
+            ? <FavoritesButton userId={currentUser.id} courseId={currentCourse.dataValues.id} />
+            : null}
+        </span>
       </h2>
       <h4 className="courseInfoPageP">
         Цена обучения:
