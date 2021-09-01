@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable no-nested-ternary */
 import './lk.css';
 import { Link } from 'react-router-dom';
@@ -65,20 +66,30 @@ export default function Lk() {
       ) : (
         <>
           <div className="courseInfoPageP2">
-            { currentUser.admin ? <RegisterList /> : ''}
             <h3 style={{ textAlign: 'left' }}>Избранное</h3>
             <hr style={{ marginTop: 0 }} />
-            <div className="courseInfoPageP3">
-              <Posts resultToRender={currentUser.favorites} />
-            </div>
+            {currentUser.favorites ? (
+              currentUser.favorites.length ? (
+                <div className="courseInfoPageP3">
+                  <Posts resultToRender={currentUser.favorites} />
+                </div>
+              )
+                : (
+                  <div className="ButtonDreamSearchDiv">
+                    <Link to="/">
+                      <button type="button" className="myLinkButton">Найти курс мечты!</button>
+                    </Link>
+                  </div>
+                )
+            ) : null }
           </div>
           <div className="courseInfoPageP2">
-            { currentUser.admin ? <RegisterList /> : ''}
             <h3 style={{ textAlign: 'left' }}>Отклики</h3>
             <hr style={{ marginTop: 0 }} />
             <div className="courseInfoPageP3">
               <Posts resultToRender={currentUser.requests} />
             </div>
+            { currentUser.admin ? <RegisterList /> : ''}
           </div>
         </>
       )}

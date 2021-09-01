@@ -1,4 +1,5 @@
 /* eslint-disable no-nested-ternary */
+import './orgLk.css';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -35,29 +36,34 @@ function OrgLk() {
   };
 
   return (
-    <div className="lk">
-      <h4 style={{ marginBottom: '40px', width: '1000px' }}>Личный кабинет</h4>
-      <div className="lk__content">
-        <div className="lk__photo">
+    <div className="container my-container">
+      <div className="lkContainer">
+        <div className="avatarContainer">
           {file
-            ? <img src={`${process.env.REACT_APP_SERVER_URL}${file}`} alt="pic" style={{ borderRadius: '50%', height: '100%' }} />
-            : <img src="https://www.ucheba.ru/img/userpic-empty-big.png" alt="pic" />}
+            ? <img className="avatar" src={`${process.env.REACT_APP_SERVER_URL}${file}`} alt="pic" style={{ borderRadius: '50%', height: '100%' }} />
+            : <img className="avatar" src="https://www.ucheba.ru/img/userpic-empty-big.png" alt="pic" />}
           <input className="input-file" type="file" name="filedata" id="file" onChange={(e) => fileSend(e)} />
         </div>
         <div>
-          <div className="container d-flex flex-column align-items-start">
-            {currentOrganization.is_checked
-              ? null
-              : <p style={{ color: 'red' }}>Еще не одобрено</p>}
-            <h2 className="title-name">
-              {`${currentOrganization.name} (${currentOrganization.OrganizationForm})`}
+          <div className="courseInfoPageP3">
+            <div className="title-name moderationSpan">
               <span>
-                &nbsp;
-                <Link to="/editUser">
-                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe0-ruYIVTiRizPu8o-RjjR1KrGv-mqXJgLQ&usqp=CAU" alt="" width="40px" />
-                </Link>
+                <h4>
+                  {`${currentOrganization.name} (${currentOrganization.OrganizationForm})`}
+                  <span>
+                    &nbsp;
+                    <Link to="/editUser">
+                      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe0-ruYIVTiRizPu8o-RjjR1KrGv-mqXJgLQ&usqp=CAU" alt="" width="40px" />
+                    </Link>
+                  </span>
+                </h4>
               </span>
-            </h2>
+              <span>
+                {currentOrganization.is_checked
+                  ? null
+                  : <span style={{ color: 'orange', fontSize: '15px' }}>Заявка находится на рассмотрении модератора</span>}
+              </span>
+            </div>
             <p style={{ textAlign: 'start' }}>Описание:</p>
             <p style={{ textAlign: 'start' }}>{`${currentOrganization.description ? currentOrganization.description : 'Не указано'}`}</p>
             <div style={{ textAlign: 'start' }}>
@@ -70,11 +76,11 @@ function OrgLk() {
           </div>
         </div>
       </div>
-      <div>
-        <h3 className="d-flex justify-content-between">
+      <div className="courseInfoPageP2">
+        <h3 style={{ textAlign: 'left' }}>
           {currentOrganization.is_checked && currentOrganization.is_allowed
             ? (
-              <div>
+              <div className="addCoursesTitleDiv">
                 {' '}
                 <span>Текущие направления</span>
                 <button onClick={addCourseButtonHandler} type="button" className="btn myLinkButton">Добавить направление</button>
@@ -85,7 +91,7 @@ function OrgLk() {
         {isModalOpened ? (
           <Modal setIsModalOpened={setIsModalOpened} orgId={currentOrganization.id} />
         ) : null}
-        <hr style={{ marginBottom: '40px' }} />
+        <hr style={{ marginTop: 0 }} />
         {currentOrganization.is_allowed
           ? (
             <div style={{ marginLeft: '30px' }}>
