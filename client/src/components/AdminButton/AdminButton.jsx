@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useState } from 'react';
 
 export default function AdminButton(item) {
+  console.log(item);
   const { id, is_checked } = item;
   const [isChecked, setIsChecked] = useState(is_checked);
   const acceptHandler = (OrgId) => {
