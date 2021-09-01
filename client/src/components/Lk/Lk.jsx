@@ -22,7 +22,7 @@ export default function Lk() {
     formData.append('userPhotoId', currentUser.id);
     formData.append('filedata', imagefile.files[0]);
 
-    const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/admin/upload`, formData, { withCredentials: true });
+    const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/upload`, formData, { withCredentials: true });
     // setFile(`${process.env.REACT_APP_SERVER_URL}${response.data}`);
     if (response.data) {
       setFile(response.data);
@@ -35,9 +35,14 @@ export default function Lk() {
       <div className="lk__content">
         <div className="lk__photo">
           {file
-            ? <img src={`${process.env.REACT_APP_SERVER_URL}${file}`} alt="pic" style={{ borderRadius: '50%', height: '100%' }} />
+            ? <img src={`${process.env.REACT_APP_SERVER_URL}${file}`} alt="pic" style={{ borderRadius: '50%', height: '200px', width: '200px' }} />
             : <img src="https://www.ucheba.ru/img/userpic-empty-big.png" alt="pic" />}
-          <input className="input-file" type="file" name="filedata" id="file" onChange={(e) => fileSend(e)} />
+          <div>
+            <label htmlFor="file" className="btn btn-primary">
+              Обновить фото
+              <input className="input-file form-control" type="file" name="filedata" id="file" onChange={(e) => fileSend(e)} style={{ width: '108px', margin: 'auto', display: 'none' }} />
+            </label>
+          </div>
         </div>
         <div>
           <div className="container d-flex flex-column align-items-start">

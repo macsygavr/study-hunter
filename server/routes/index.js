@@ -124,12 +124,20 @@ router.get('/profile/current', async (req, res) => {
 
 router.post('/request', async (req, res) => {
   const { userId, courseId } = req.body;
-  console.log(userId, courseId);
   const userRequest = await db.Request.findOne({where: {UserId: userId, CourseId: courseId}});
-  // console.log(userRequest);
   if (!userRequest) {
     await db.Request.create({ UserId: userId, CourseId: courseId });
   }
+  const requestsFromDB = await db.Request.findAll({ raw: true, nest: true, where: {
+    UserId: userId,
+  }, include: {model: db.Course, include: db.CourseForm} });
+  const requests = requestsFromDB.map(course => ({...course.Course, type: course.Course.CourseForm.form}));
+  res.json(requests);
+});
+
+router.delete('/request', async (req, res) => {
+  const { userId, courseId } = req.body;
+  await db.Request.destroy({where: {UserId: userId, CourseId: courseId}});
   const requestsFromDB = await db.Request.findAll({ raw: true, nest: true, where: {
     UserId: userId,
   }, include: {model: db.Course, include: db.CourseForm} });

@@ -12,6 +12,8 @@ import {
   REMOVE_FROM_FAV_USER_FAIL,
   ADD_REQUEST_USER_SUCCESS,
   ADD_REQUEST_USER_FAIL,
+  REMOVE_REQUEST_USER_SUCCESS,
+  REMOVE_REQUEST_USER_FAIL,
 } from '../types/usersTypes';
 
 // logout ACs
@@ -140,6 +142,28 @@ export const addRequestUserStart = (userId, courseId) => async (dispatch) => {
     dispatch(addRequestUserSuccess(response.data));
   } catch {
     console.log('unable to add request');
-    dispatch(addToFavUserFail());
+    dispatch(addRequestUserFail());
+  }
+};
+
+// remove request
+export const removeRequestUserSuccess = (requests) => ({
+  type: REMOVE_REQUEST_USER_SUCCESS,
+  payload: requests,
+});
+
+export const removeRequestUserFail = () => ({
+  type: REMOVE_REQUEST_USER_FAIL,
+});
+
+export const removeRequestUserStart = (userId, courseId) => async (dispatch) => {
+  try {
+    const response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/request`,
+      { data: { userId, courseId } },
+      { withCredentials: true });
+    dispatch(removeRequestUserSuccess(response.data));
+  } catch {
+    console.log('unable to remove request');
+    dispatch(removeRequestUserFail());
   }
 };
