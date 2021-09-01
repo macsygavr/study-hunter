@@ -1,6 +1,6 @@
 /* eslint-disable no-nested-ternary */
 import axios from 'axios';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 function RequestsButton({ userId, courseId }) {
@@ -28,4 +28,4 @@ function RequestsButton({ userId, courseId }) {
   );
 }
 
-export default RequestsButton;
+export default React.memo(RequestsButton);

@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
@@ -57,4 +57,4 @@ function CourseInfoPage() {
   );
 }
 
-export default CourseInfoPage;
+export default React.memo(CourseInfoPage);

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router';
 import { loginOrganizationStart } from '../../redux/actions/organizationsAC';
@@ -48,4 +48,4 @@ function SignInOrganization() {
   );
 }
 
-export default SignInOrganization;
+export default React.memo(SignInOrganization);

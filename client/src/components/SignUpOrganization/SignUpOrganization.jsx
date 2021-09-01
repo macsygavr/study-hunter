@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router';
 import axios from 'axios';
@@ -81,4 +81,4 @@ function SignUpOrganization() {
   );
 }
 
-export default SignUpOrganization;
+export default React.memo(SignUpOrganization);

@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable max-len */
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import AdminButton from '../AdminButton/AdminButton';
@@ -64,4 +64,4 @@ function OrganizationInfoPage() {
   );
 }
 
-export default OrganizationInfoPage;
+export default React.memo(OrganizationInfoPage);

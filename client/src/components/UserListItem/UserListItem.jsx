@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 function UserListItem(item) {
   const {
@@ -45,4 +45,4 @@ function UserListItem(item) {
   );
 }
 
-export default UserListItem;
+export default React.memo(UserListItem);
