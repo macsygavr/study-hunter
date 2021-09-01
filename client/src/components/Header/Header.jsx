@@ -18,12 +18,7 @@ export default function Header() {
     // eslint-disable-next-line no-nested-ternary
     currentUser.email ? (
       <div className="header">
-        <nav
-          className="navbar navbar-dark bg-primary"
-          style={{
-            padding: '0 55px', height: '80px', display: 'flex', justifyContent: 'space-between', position: 'absolute', left: '0', right: '0',
-          }}
-        >
+        <nav className="navbar navbar-dark bg-my-primary">
           <Link to="/">
             <div style={{ transform: 'scale(1)' }}>
               <svg width="320" height="55.124514580282074" viewBox="0 0 320 55.124514580282074" className="css-1j8o68f">
@@ -41,13 +36,7 @@ export default function Header() {
           </Link>
           <div>
             <Link className="headerLinkButton" to="/profile/user">{`${currentUser.firstName} ${currentUser.lastName}`}</Link>
-            <img
-              src={currentUser.logo ? `${process.env.REACT_APP_SERVER_URL}${currentUser.logo}` : 'https://www.ucheba.ru/img/userpic-empty-big.png'}
-              alt="logo"
-              style={{
-                width: '56px', height: '56px', borderRadius: '50%', marginLeft: '30px',
-              }}
-            />
+            <img alt="" className="logoImg" src={currentUser.logo ? `${process.env.REACT_APP_SERVER_URL}${currentUser.logo}` : 'https://www.ucheba.ru/img/userpic-empty-big.png'} />
             <Link onClick={UserLogoutHandler} className="headerLinkButton" to="/">
               Выход
             </Link>
@@ -56,12 +45,7 @@ export default function Header() {
       </div>
     ) : currentOrganization.email ? (
       <div className="header">
-        <nav
-          className="navbar navbar-dark bg-primary"
-          style={{
-            padding: '0 55px', height: '80px', display: 'flex', justifyContent: 'space-between', position: 'absolute', left: '0', right: '0',
-          }}
-        >
+        <nav className="navbar navbar-dark bg-my-primary">
           <Link to="/">
             <div style={{ transform: 'scale(1)' }}>
               <svg width="320" height="55.124514580282074" viewBox="0 0 320 55.124514580282074" className="css-1j8o68f">
@@ -79,13 +63,7 @@ export default function Header() {
           </Link>
           <div>
             <Link className="headerLinkButton" to="/profile/organization">{`${currentOrganization.name}`}</Link>
-            <img
-              src={currentOrganization.logo ? `${process.env.REACT_APP_SERVER_URL}${currentOrganization.logo}` : 'https://www.ucheba.ru/img/userpic-empty-big.png'}
-              alt="logo"
-              style={{
-                width: '56px', height: '56px', borderRadius: '50%', marginLeft: '30px',
-              }}
-            />
+            <img alt="" className="logoImg" src={currentOrganization.logo ? `${process.env.REACT_APP_SERVER_URL}${currentOrganization.logo}` : 'https://www.ucheba.ru/img/userpic-empty-big.png'} />
             <Link onClick={OrgLogoutHandler} className="headerLinkButton" to="/">
               Выход
             </Link>
@@ -94,12 +72,7 @@ export default function Header() {
       </div>
     ) : (
       <div className="header">
-        <nav
-          className="navbar navbar-dark bg-primary"
-          style={{
-            padding: '0 55px', height: '80px', display: 'flex', justifyContent: 'space-between', position: 'absolute', left: '0', right: '0',
-          }}
-        >
+        <nav className="navbar navbar-dark bg-my-primary">
           <Link to="/">
             <div style={{ transform: 'scale(1)' }}>
               <svg width="320" height="55.124514580282074" viewBox="0 0 320 55.124514580282074" className="css-1j8o68f">

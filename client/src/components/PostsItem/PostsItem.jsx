@@ -14,16 +14,9 @@ function PostsItem(props) {
 
   const { currentUser } = useSelector((state) => state);
 
-  return (
-    <div className="card-body card-my-style">
-      <div>
-        {Object.keys(currentUser).length
-          ? (
-            <div className="favoriteButtonDiv">
-              <FavoritesButton userId={currentUser.id} courseId={id} />
-            </div>
-          )
-          : null}
+  return (currentUser.superadmin ? (
+    <>
+      <div className="card-body card-my-style">
         <Link className="postItemHomeLink" to={`/course/${id}`}>
           <h5 className="card-title">
             <span className="mx-1">{name}</span>
@@ -42,10 +35,43 @@ function PostsItem(props) {
           </p>
         </Link>
       </div>
-      <div>
-        <RequestsButton userId={currentUser.id} courseId={id} />
-      </div>
-    </div>
+    </>
+  )
+    : (
+      <>
+        <div className="card-body card-my-style">
+          <div>
+            {Object.keys(currentUser).length
+              ? (
+                <div className="favoriteButtonDiv">
+                  <FavoritesButton userId={currentUser.id} courseId={id} />
+                </div>
+              )
+              : null}
+            <Link className="postItemHomeLink" to={`/course/${id}`}>
+              <h5 className="card-title">
+                <span className="mx-1">{name}</span>
+              </h5>
+              <p className="card-text">
+                Цена:
+                &nbsp;
+                {price}
+                {' '}
+                руб.
+              </p>
+              <p className="card-text">
+                Форма обучения:
+                &nbsp;
+                {type}
+              </p>
+            </Link>
+          </div>
+          <div>
+            <RequestsButton userId={currentUser.id} courseId={id} />
+          </div>
+        </div>
+      </>
+    )
   );
 }
 
