@@ -30,7 +30,7 @@ function CourseInfoPage() {
         </span>
       </h2>
       <h4 className="courseInfoPageP">
-        Цена обучения:
+        Стоимость обучения:
         &nbsp;
         {currentCourse.dataValues.price}
         &nbsp;
@@ -48,10 +48,15 @@ function CourseInfoPage() {
           {currentCourse.organization}
         </Link>
       </p>
-      <p className="courseInfoPageP">
-        Описание:
-        &nbsp;
-        {currentCourse.dataValues.description}
+      <p className="courseInfoPageP2">
+        <h3 style={{ textAlign: 'left' }}>Описание</h3>
+        <hr style={{ marginTop: 0 }} />
+        <div className="courseInfoPageP3">
+          <p style={{ textAlign: 'start' }}>
+            &nbsp;
+            {currentCourse.dataValues.description}
+          </p>
+        </div>
       </p>
     </div>
   ) : (

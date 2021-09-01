@@ -2,11 +2,11 @@
   padding: 10px;
   border-radius: 10px;
   margin-right: 30px;
-  background-color: rgba(0, 8, 255, 0.132);
+  background-color: rgb(33, 57, 92);
 }
 
 .headerLinkButton:hover {
-  background-color: rgba(0, 8, 255, 0.235);
+  background-color: rgb(26, 43, 70);
   color: white
 }
 
@@ -22,4 +22,8 @@
   width: 56px;
   border-radius: 50%;
   margin-right: 30px;
+}
+
+.bg-my-primary {
+  background-color: rgb(41, 70, 113);
 }

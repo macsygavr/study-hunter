@@ -1,3 +1,11 @@
+.my-container{
+  margin-top: 80px;
+  margin-bottom: 80px;
+  border: 1px solid rgb(207, 217, 212);
+  border-radius: 5px;
+  background-color: rgb(255, 255, 255);
+}
+
 .courseInfoPageP0 {
   display: flex;
   justify-content: space-between;
@@ -16,10 +24,4 @@
 
 .postItemLink:hover {
   color: rgb(0, 0, 179);
-}
-
-.my-container{
-  margin-top: 80px;
-  border: 1px solid rgb(207, 217, 212);
-  border-radius: 5px;
 }

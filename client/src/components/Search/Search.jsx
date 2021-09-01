@@ -34,7 +34,7 @@ function Search({ searchHandler }) {
           <input type="text" className="form-control" id="priceMin" placeholder="Цена от (руб.)" aria-label="Recipient's username" aria-describedby="button-addon2" />
           <input type="text" className="form-control" id="priceMax" placeholder="Цена до (руб.)" aria-label="Recipient's username" aria-describedby="button-addon2" />
           <input type="text" className="form-control" style={{ width: '155px' }} id="courseName" placeholder="Название курса" aria-label="Recipient's username" aria-describedby="button-addon2" />
-          <button className="btn btn-outline-secondary" type="submit" style={{ backgroundColor: 'rgb(49, 108, 244)', color: 'white' }}>Найти</button>
+          <button className="btn btn-outline-secondary" type="submit" style={{ backgroundColor: 'rgb(33, 57, 92)', color: 'white' }}>Найти</button>
         </form>
       </div>
     </div>
