@@ -6,6 +6,8 @@ import {
   REGISTER_ORGANIZATION_SUCCESS,
   LOGOUT_ORGANIZATION_SUCCESS,
   LOGOUT_ORGANIZATION_FAIL,
+  ADD_NEW_COURSE_SUCCESS,
+  ADD_NEW_COURSE_FAIL,
 } from '../types/organizationsTypes';
 
 // organization registration
@@ -54,6 +56,7 @@ export const loginOrganizationStart = (email, password) => async (dispatch) => {
   }
 };
 
+// organization logout
 export const logoutOrganizationSuccess = () => ({
   type: LOGOUT_ORGANIZATION_SUCCESS,
 });
@@ -69,4 +72,28 @@ export const logoutOrganizationStart = () => (dispatch) => {
         dispatch(logoutOrganizationSuccess());
       }
     });
+};
+
+// organization adding new course
+export const addNewCourseSuccess = (listOfCourses) => ({
+  type: ADD_NEW_COURSE_SUCCESS,
+  payload: listOfCourses,
+});
+
+export const addNewCourseFail = () => ({
+  type: ADD_NEW_COURSE_FAIL,
+});
+
+// eslint-disable-next-line max-len
+export const addNewCourseStart = (name, speciality, price, form, description, orgId) => async (dispatch) => {
+  try {
+    const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/newcourse`, {
+      name, speciality, price, form, description, orgId,
+    }, { withCredentials: true });
+    console.log(response.data);
+    dispatch(addNewCourseSuccess(response.data));
+  } catch {
+    console.log('unable to add new course');
+    dispatch(addNewCourseFail());
+  }
 };
