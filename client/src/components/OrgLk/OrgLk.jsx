@@ -72,21 +72,21 @@ function OrgLk() {
       </div>
       <div>
         <h3 className="d-flex justify-content-between">
-          { currentOrganization.is_checked && currentOrganization.is_allowed
+          {currentOrganization.is_checked && currentOrganization.is_allowed
             ? (
               <div>
                 {' '}
                 <span>Текущие направления</span>
-                <button onClick={addCourseButtonHandler} type="button" className="btn btn-primary">Добавить направление</button>
+                <button onClick={addCourseButtonHandler} type="button" className="btn myLinkButton">Добавить направление</button>
               </div>
             )
-            : <span>Статус регистрации</span> }
+            : <span>Статус регистрации</span>}
         </h3>
         {isModalOpened ? (
           <Modal setIsModalOpened={setIsModalOpened} orgId={currentOrganization.id} />
         ) : null}
         <hr style={{ marginBottom: '40px' }} />
-        { currentOrganization.is_allowed
+        {currentOrganization.is_allowed
           ? (
             <div style={{ marginLeft: '30px' }}>
               {Object.keys(currentOrganization).length
@@ -97,7 +97,7 @@ function OrgLk() {
                     coursePrice={course.price}
                     courseId={course.id}
                   />
-                )) : 'Здесь пока ничего нет' }
+                )) : 'Здесь пока ничего нет'}
             </div>
           ) : currentOrganization.is_checked ? 'Заявка отклонена модератором' : 'Заявка находится на рассмотрении модератора'}
       </div>

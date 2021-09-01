@@ -66,7 +66,7 @@ function SignUpOrganization() {
           <p className="mb-1">Пароль</p>
           <input required name="password" type="password" className="form-control" />
         </div>
-        <button type="submit" className="btn btn-primary">Зарегистрироваться</button>
+        <button type="submit" className="btn myLinkButton">Зарегистрироваться</button>
         {login ? <Redirect to="/" /> : (
           // eslint-disable-next-line object-shorthand
           <p style={{
