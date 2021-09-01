@@ -9,7 +9,7 @@ export default function RegisterList() {
   const [register, setRegister] = useState([]);
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/bid`)
+    axios.get(`${process.env.REACT_APP_SERVER_URL}/admin/bid`)
       .then((res) => setRegister(res.data));
   }, []);
 

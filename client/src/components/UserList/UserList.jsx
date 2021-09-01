@@ -9,7 +9,7 @@ function UserList() {
   const [allUsers, setAllUsers] = useState([]);
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/allusers`)
+    axios.get(`${process.env.REACT_APP_SERVER_URL}/admin/allusers`)
       .then((res) => setAllUsers(res.data));
   }, [currentUser]);
 
