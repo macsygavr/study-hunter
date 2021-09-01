@@ -1,7 +1,8 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable max-len */
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import AdminButton from '../AdminButton/AdminButton';
 import CoursesTable from '../CoursesTable/CoursesTable';
@@ -12,7 +13,7 @@ import './organizationInfoPage.css';
 function OrganizationInfoPage() {
   const { id } = useParams();
   const [currentOrganization, setCurrentOrganization] = useState([]);
-  // const { currentUser } = useSelector((state) => state);
+  const { currentUser } = useSelector((state) => state);
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_SERVER_URL}/organization/${id}`)
@@ -22,7 +23,7 @@ function OrganizationInfoPage() {
   return (Object.keys(currentOrganization).length ? (
     <div className="container my-organization-container">
       <h2 className="courseInfoPageP" style={{ marginTop: '-50px' }}>{`${currentOrganization.currentOrganization.name} (${currentOrganization.currentOrganizationType.form})`}</h2>
-      {currentOrganization.currentOrganization.is_checked ? null : <AdminButton {...currentOrganization.currentOrganization} />}
+      {currentOrganization.currentOrganization.is_checked ? null : currentUser.admin ? <AdminButton {...currentOrganization.currentOrganization} /> : null}
       <p className="courseInfoPageP">
         Описание:
         &nbsp;
