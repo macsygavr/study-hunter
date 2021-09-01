@@ -76,9 +76,10 @@ router.get('/profile/current', async (req, res) => {
       UserId: user.id,
     }, include: {model: db.Course, include: db.CourseForm} });
     const favorites = favoritesFromDB.map(course => ({...course.Course, type: course.Course.CourseForm.form}));
-    const requests = await db.Request.findAll({ raw: true, where: {
+    const requestsFromDB = await db.Request.findAll({ raw: true, nest: true, where: {
       UserId: user.id,
-    } });
+    }, include: {model: db.Course, include: db.CourseForm} });
+    const requests = requestsFromDB.map(course => ({...course.Course, type: course.Course.CourseForm.form}));
     return res.status(201).json({
         id: user.id,
         firstName: user.firstName, 
@@ -123,7 +124,11 @@ router.get('/profile/current', async (req, res) => {
 
 router.post('/request', async (req, res) => {
   const { userId, courseId } = req.body;
-  await db.Request.create({ UserId: userId, CourseId: courseId });
+  const userRequest = db.Request.findOne({where: {UserId: userId}});
+  if (!userRequest) {
+    await db.Request.create({ UserId: userId, CourseId: courseId });
+    return res.end();
+  }
   res.end();
 });
 

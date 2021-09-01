@@ -10,6 +10,7 @@ import RegisterList from '../RegisterList/RegisterList';
 export default function Lk() {
   const [file, setFile] = useState(null);
   const currentUser = useSelector((state) => state.currentUser);
+  console.log(currentUser.requests);
   useEffect(() => {
     setFile(currentUser.logo);
   }, [currentUser.logo]);
@@ -68,6 +69,9 @@ export default function Lk() {
           <h3 style={{ textAlign: 'left' }}>Избранное</h3>
           <hr style={{ marginBottom: '40px' }} />
           <Posts resultToRender={currentUser.favorites} />
+          <h3 style={{ textAlign: 'left' }}>Мои отклики</h3>
+          <hr style={{ marginBottom: '40px' }} />
+          <Posts resultToRender={currentUser.requests} />
         </div>
       )}
 
