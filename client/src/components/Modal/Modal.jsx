@@ -55,11 +55,12 @@ export default function Modal({ setIsModalOpened, orgId }) {
       name, speciality, price, form, description,
     } = newCourseForm;
     // eslint-disable-next-line max-len
-    // console.log(name.value, speciality.value, price.value, form.value, description.value);
-    if (!name.value || !speciality.value || !price.value || !form.value) {
+    if (!name.value || !speciality.value || !price.value || (Number(price.value) < 0) || !form.value) {
       if (!name.value || !name.value.trim()) newCourseForm.name.classList.add('is-invalid');
       if (!speciality.value) newCourseForm.speciality.classList.add('is-invalid');
-      if (!price.value || Number(price.value) < 0) newCourseForm.price.classList.add('is-invalid');
+      if (!price.value || (Number(price.value) < 0)) {
+        newCourseForm.price.classList.add('is-invalid');
+      }
       if (!form.value) newCourseForm.form.classList.add('is-invalid');
     } else {
       dispatch(addNewCourseStart(
