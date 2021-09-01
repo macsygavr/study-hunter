@@ -23,16 +23,16 @@ function UserListItem(item) {
         <span>
           <span>
             {firstName}
-              &nbsp;
+                &nbsp;
           </span>
           <span>
             {lastName}
-              &nbsp;
+                &nbsp;
           </span>
-          <span>
-            {email}
+        </span>
+        <span>
+          {email}
               &nbsp;
-          </span>
         </span>
         <span>
           <span>
