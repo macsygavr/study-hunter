@@ -22,7 +22,7 @@ export default function Lk() {
     formData.append('userPhotoId', currentUser.id);
     formData.append('filedata', imagefile.files[0]);
 
-    const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/upload`, formData, { withCredentials: true });
+    const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/admin/upload`, formData, { withCredentials: true });
     // setFile(`${process.env.REACT_APP_SERVER_URL}${response.data}`);
     if (response.data) {
       setFile(response.data);

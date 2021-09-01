@@ -1,4 +1,6 @@
 import {
+  ADD_NEW_COURSE_FAIL,
+  ADD_NEW_COURSE_SUCCESS,
   LOGIN_ORGANIZATION_FAIL,
   LOGIN_ORGANIZATION_SUCCESS,
   LOGOUT_ORGANIZATION_FAIL,
@@ -25,6 +27,15 @@ function organizationsReducer(state = {}, action) {
       return {};
 
     case LOGOUT_ORGANIZATION_FAIL:
+      return state;
+
+    case ADD_NEW_COURSE_SUCCESS:
+      return {
+        ...state,
+        OrganizationCourses: action.payload,
+      };
+
+    case ADD_NEW_COURSE_FAIL:
       return state;
 
     default:

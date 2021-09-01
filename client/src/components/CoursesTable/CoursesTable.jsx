@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import './coursesTable.css';
 
@@ -21,4 +22,4 @@ function CoursesTable({ courseName, coursePrice, courseId }) {
   );
 }
 
-export default CoursesTable;
+export default React.memo(CoursesTable);

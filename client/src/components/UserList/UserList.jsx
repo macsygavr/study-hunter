@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import UserListItem from '../UserListItem/UserListItem';
 
@@ -9,7 +9,7 @@ function UserList() {
   const [allUsers, setAllUsers] = useState([]);
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/allusers`)
+    axios.get(`${process.env.REACT_APP_SERVER_URL}/admin/allusers`)
       .then((res) => setAllUsers(res.data));
   }, [currentUser]);
 
@@ -20,4 +20,4 @@ function UserList() {
   );
 }
 
-export default UserList;
+export default React.memo(UserList);

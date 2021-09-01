@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 function UserListItem(item) {
   const {
@@ -8,7 +8,7 @@ function UserListItem(item) {
   const [isAdmin, setIsAdmin] = useState(admin);
 
   const adminHandler = () => {
-    axios.patch(`${process.env.REACT_APP_SERVER_URL}/changestatus`, {
+    axios.patch(`${process.env.REACT_APP_SERVER_URL}/admin/changestatus`, {
       id,
     })
       .then((res) => {
@@ -45,4 +45,4 @@ function UserListItem(item) {
   );
 }
 
-export default UserListItem;
+export default React.memo(UserListItem);

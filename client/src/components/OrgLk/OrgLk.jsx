@@ -1,16 +1,17 @@
-import { useState, useEffect } from 'react';
+/* eslint-disable no-nested-ternary */
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import CoursesTable from '../CoursesTable/CoursesTable';
 import Modal from '../Modal/Modal';
 
-export default function OrgLk() {
+function OrgLk() {
   const [file, setFile] = useState(null);
   const [isModalOpened, setIsModalOpened] = useState(false);
 
   const { currentOrganization } = useSelector((state) => state);
-
+  console.log(currentOrganization);
   useEffect(() => {
     setFile(currentOrganization.logo);
   }, [currentOrganization.logo]);
@@ -46,8 +47,8 @@ export default function OrgLk() {
         <div>
           <div className="container d-flex flex-column align-items-start">
             {currentOrganization.is_checked
-              ? <p style={{ color: 'blue' }}>Одобрено</p>
-              : <p style={{ color: 'red' }}>Еще не одобрено</p> }
+              ? null
+              : <p style={{ color: 'red' }}>Еще не одобрено</p>}
             <h2 className="title-name">
               {`${currentOrganization.name} (${currentOrganization.OrganizationForm})`}
               <span>
@@ -71,25 +72,37 @@ export default function OrgLk() {
       </div>
       <div>
         <h3 className="d-flex justify-content-between">
-          <span>Текущие направления</span>
-          <button onClick={addCourseButtonHandler} type="button" className="btn btn-primary">Добавить направление</button>
+          { currentOrganization.is_checked && currentOrganization.is_allowed
+            ? (
+              <div>
+                {' '}
+                <span>Текущие направления</span>
+                <button onClick={addCourseButtonHandler} type="button" className="btn btn-primary">Добавить направление</button>
+              </div>
+            )
+            : <span>Статус регистрации</span> }
         </h3>
         {isModalOpened ? (
-          <Modal setIsModalOpened={setIsModalOpened} />
+          <Modal setIsModalOpened={setIsModalOpened} orgId={currentOrganization.id} />
         ) : null}
         <hr style={{ marginBottom: '40px' }} />
-        <div style={{ marginLeft: '30px' }}>
-          {Object.keys(currentOrganization).length
-            ? currentOrganization.OrganizationCourses.map((course) => (
-              <CoursesTable
-                key={course.id}
-                courseName={course.name}
-                coursePrice={course.price}
-                courseId={course.id}
-              />
-            )) : 'Здесь пока ничего нет'}
-        </div>
+        { currentOrganization.is_allowed
+          ? (
+            <div style={{ marginLeft: '30px' }}>
+              {Object.keys(currentOrganization).length
+                ? currentOrganization.OrganizationCourses.map((course) => (
+                  <CoursesTable
+                    key={course.id}
+                    courseName={course.name}
+                    coursePrice={course.price}
+                    courseId={course.id}
+                  />
+                )) : 'Здесь пока ничего нет' }
+            </div>
+          ) : currentOrganization.is_checked ? 'Заявка отклонена модератором' : 'Заявка находится на рассмотрении модератора'}
       </div>
     </div>
   );
 }
+
+export default React.memo(OrgLk);

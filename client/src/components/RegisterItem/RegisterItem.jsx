@@ -1,16 +1,18 @@
-/* eslint-disable max-len */
-/* eslint-disable no-lone-blocks */
+/* eslint-disable camelcase */
+/* eslint-disable no-unused-vars */
 import { Link } from 'react-router-dom';
+import AdminButton from '../AdminButton/AdminButton';
 
 export default function RegisterItem(item) {
   const {
-    id, name,
+    id, name, is_checked,
   } = item;
-  return (
-    <p className="CoursesTableP">
+  return is_checked ? '' : (
+    <div className="CoursesTableP">
       <Link className="postItemLink" to={`/organization/${id}`}>
         {name}
       </Link>
-    </p>
+      <AdminButton {...item} />
+    </div>
   );
 }
