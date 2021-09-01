@@ -1,4 +1,5 @@
 /* eslint-disable no-nested-ternary */
+import './lk.css';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
@@ -64,15 +65,20 @@ export default function Lk() {
           <UserList />
         </div>
       ) : (
-        <div>
-          { currentUser.admin ? <RegisterList /> : ''}
-          <h3 style={{ textAlign: 'left' }}>Избранное</h3>
-          <hr style={{ marginBottom: '40px' }} />
-          <Posts resultToRender={currentUser.favorites} />
-          <h3 style={{ textAlign: 'left' }}>Мои отклики</h3>
-          <hr style={{ marginBottom: '40px' }} />
-          <Posts resultToRender={currentUser.requests} />
-        </div>
+        <>
+          <div>
+            { currentUser.admin ? <RegisterList /> : ''}
+            <h3 style={{ textAlign: 'left' }}>Избранное</h3>
+            <hr style={{ marginBottom: '40px' }} />
+            <Posts resultToRender={currentUser.favorites} />
+          </div>
+          <div>
+            { currentUser.admin ? <RegisterList /> : ''}
+            <h3 style={{ textAlign: 'left' }}>Отклики</h3>
+            <hr style={{ marginBottom: '40px' }} />
+            <Posts resultToRender={currentUser.requests} />
+          </div>
+        </>
       )}
 
     </div>

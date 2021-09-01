@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
@@ -11,7 +11,6 @@ function CourseInfoPage() {
   const { id } = useParams();
   const [currentCourse, setCurrentCourse] = useState([]);
   const { currentUser } = useSelector((state) => state);
-  const styleProp = 'btn btn-light';
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_SERVER_URL}/course/${id}`)
@@ -20,14 +19,18 @@ function CourseInfoPage() {
 
   return (Object.keys(currentCourse).length ? (
     <div className="container my-container">
-      <h2 className="courseInfoPageP" style={{ marginTop: '-50px', display: 'flex', justifyContent: 'space-between' }}>
-        {currentCourse.dataValues.name}
-        {Object.keys(currentUser).length
-          ? <FavoritesButton styleProp={styleProp} userId={currentUser.id} courseId={currentCourse.dataValues.id} />
-          : null}
+      <h2 className="courseInfoPageP0">
+        <span>
+          {currentCourse.dataValues.name}
+        </span>
+        <span>
+          {Object.keys(currentUser).length
+            ? <FavoritesButton userId={currentUser.id} courseId={currentCourse.dataValues.id} />
+            : null}
+        </span>
       </h2>
       <h4 className="courseInfoPageP">
-        Цена обучения:
+        Стоимость обучения:
         &nbsp;
         {currentCourse.dataValues.price}
         &nbsp;
@@ -45,10 +48,15 @@ function CourseInfoPage() {
           {currentCourse.organization}
         </Link>
       </p>
-      <p className="courseInfoPageP">
-        Описание:
-        &nbsp;
-        {currentCourse.dataValues.description}
+      <p className="courseInfoPageP2">
+        <h3 style={{ textAlign: 'left' }}>Описание</h3>
+        <hr style={{ marginTop: 0 }} />
+        <div className="courseInfoPageP3">
+          <p style={{ textAlign: 'start' }}>
+            &nbsp;
+            {currentCourse.dataValues.description}
+          </p>
+        </div>
       </p>
     </div>
   ) : (
@@ -57,4 +65,4 @@ function CourseInfoPage() {
   );
 }
 
-export default CourseInfoPage;
+export default React.memo(CourseInfoPage);

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router';
 import { loginUserStart } from '../../redux/actions/usersAC';
@@ -48,4 +48,4 @@ function SignInUser() {
   );
 }
 
-export default SignInUser;
+export default React.memo(SignInUser);

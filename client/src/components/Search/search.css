@@ -1,0 +1,13 @@
+.searchBackgroundDiv {
+  width: 100vw;
+  padding-top: 170px;
+  padding-bottom: 170px;
+  margin-bottom: 60px;
+  display: flex;
+  justify-content: center;
+  background-image: url(./nezavershennoe.jpg);
+}
+
+.searchInputsDiv{
+  max-width: 1000px;
+}

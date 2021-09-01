@@ -1,13 +1,11 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable max-len */
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import AdminButton from '../AdminButton/AdminButton';
 import CoursesTable from '../CoursesTable/CoursesTable';
-// import FavoritesButton from '../FavoritesButton/FavoritesButton';
-// import { useParams } from 'react-router';
 import './organizationInfoPage.css';
 
 function OrganizationInfoPage() {
@@ -19,44 +17,53 @@ function OrganizationInfoPage() {
     axios.get(`${process.env.REACT_APP_SERVER_URL}/organization/${id}`)
       .then((res) => setCurrentOrganization(res.data));
   }, []);
-  // console.log(currentOrganization.currentOrganization);
   return (Object.keys(currentOrganization).length ? (
     <div className="container my-organization-container">
-      <h2 className="courseInfoPageP" style={{ marginTop: '-50px' }}>{`${currentOrganization.currentOrganization.name} (${currentOrganization.currentOrganizationType.form})`}</h2>
+      <h2 className="courseInfoPageP">{`${currentOrganization.currentOrganization.name} (${currentOrganization.currentOrganizationType.form})`}</h2>
       {currentOrganization.currentOrganization.is_checked ? null : currentUser.admin ? <AdminButton {...currentOrganization.currentOrganization} /> : null}
-      <p className="courseInfoPageP">
-        Описание:
-        &nbsp;
-        {currentOrganization.currentOrganization.description}
+      <p className="courseInfoPageP2">
+        <h3 style={{ textAlign: 'left' }}>Описание</h3>
+        <hr style={{ marginTop: 0 }} />
+        <div className="courseInfoPageP3">
+          <p style={{ textAlign: 'start' }}>
+            &nbsp;
+            {currentOrganization.currentOrganization.description}
+          </p>
+        </div>
       </p>
-      <div style={{ marginLeft: '30px' }}>
-        <p className="courseInfoPageP">Курсы</p>
+      <div className="courseInfoPageP2">
+        <h3 style={{ textAlign: 'left' }}>Курсы</h3>
+        <hr style={{ marginTop: 0 }} />
         {currentOrganization.currentOrganizationCourses.map((item) => <CoursesTable key={item.id} courseName={item.name} coursePrice={item.price} courseId={item.id} />)}
       </div>
-      <p className="courseInfoPageP">
-        Контакты:
-        &nbsp;
-      </p>
-      <p className="courseInfoPageP">
-        Адрес:
-        &nbsp;
-        {currentOrganization.currentOrganization.address}
-      </p>
-      <p className="courseInfoPageP">
-        Тел.:
-        &nbsp;
-        {currentOrganization.currentOrganization.phone}
-      </p>
-      <a href={currentOrganization.currentOrganization.site} className="courseInfoPageP postItemLink">
-        Сайт:
-        &nbsp;
-        {currentOrganization.currentOrganization.site}
-      </a>
-      <p className="courseInfoPageP">
-        Почта:
-        &nbsp;
-        {currentOrganization.currentOrganization.email}
-      </p>
+      <div className="courseInfoPageP2">
+        <h3 style={{ textAlign: 'left' }}>Контакты</h3>
+        <hr style={{ marginTop: 0 }} />
+        <div className="courseInfoPageP3">
+          <p>
+            Адрес:
+            &nbsp;
+            {currentOrganization.currentOrganization.address}
+          </p>
+          <p>
+            Тел.:
+            &nbsp;
+            {currentOrganization.currentOrganization.phone}
+          </p>
+          <p>
+            Сайт:
+            <a href={currentOrganization.currentOrganization.site} className="postItemLink">
+              &nbsp;
+              {currentOrganization.currentOrganization.site}
+            </a>
+          </p>
+          <p>
+            Почта:
+            &nbsp;
+            {currentOrganization.currentOrganization.email}
+          </p>
+        </div>
+      </div>
     </div>
   ) : (
     null
@@ -64,4 +71,4 @@ function OrganizationInfoPage() {
   );
 }
 
-export default OrganizationInfoPage;
+export default React.memo(OrganizationInfoPage);
