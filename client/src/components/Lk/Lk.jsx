@@ -41,16 +41,18 @@ export default function Lk() {
         <div>
           <div className="container d-flex flex-column align-items-start">
             <p style={{ color: 'blue' }}>{(currentUser.admin && currentUser.superadmin) ? 'superadmin' : currentUser.admin ? 'admin' : ''}</p>
-            <h2 className="title-name">{`${currentUser.firstName} ${currentUser.lastName}`}</h2>
+            <h2 className="title-name">
+              {`${currentUser.firstName} ${currentUser.lastName}`}
+              <span>
+                &nbsp;
+                <Link to="/editUser">
+                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe0-ruYIVTiRizPu8o-RjjR1KrGv-mqXJgLQ&usqp=CAU" alt="" width="40px" />
+                </Link>
+              </span>
+            </h2>
             <p>{currentUser.phone}</p>
             <p>{currentUser.email}</p>
           </div>
-          <p>
-            <Link to="/editUser">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe0-ruYIVTiRizPu8o-RjjR1KrGv-mqXJgLQ&usqp=CAU" alt="" width="32px" />
-              Редактировать профиль
-            </Link>
-          </p>
         </div>
       </div>
       {currentUser.superadmin ? (

@@ -48,7 +48,15 @@ export default function OrgLk() {
             {currentOrganization.is_checked
               ? <p style={{ color: 'blue' }}>Одобрено</p>
               : <p style={{ color: 'red' }}>Еще не одобрено</p> }
-            <h2 className="title-name">{`${currentOrganization.name} (${currentOrganization.OrganizationForm})`}</h2>
+            <h2 className="title-name">
+              {`${currentOrganization.name} (${currentOrganization.OrganizationForm})`}
+              <span>
+                &nbsp;
+                <Link to="/editUser">
+                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe0-ruYIVTiRizPu8o-RjjR1KrGv-mqXJgLQ&usqp=CAU" alt="" width="40px" />
+                </Link>
+              </span>
+            </h2>
             <p style={{ textAlign: 'start' }}>Описание:</p>
             <p style={{ textAlign: 'start' }}>{`${currentOrganization.description ? currentOrganization.description : 'Не указано'}`}</p>
             <div style={{ textAlign: 'start' }}>
@@ -59,12 +67,6 @@ export default function OrgLk() {
               <p>{`Почта: ${currentOrganization.email}`}</p>
             </div>
           </div>
-          <p>
-            <Link to="/editUser">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe0-ruYIVTiRizPu8o-RjjR1KrGv-mqXJgLQ&usqp=CAU" alt="" width="32px" />
-              Редактировать профиль
-            </Link>
-          </p>
         </div>
       </div>
       <div>
