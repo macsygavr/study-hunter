@@ -38,7 +38,7 @@ export default function Lk() {
             ? <img src={`${process.env.REACT_APP_SERVER_URL}${file}`} alt="pic" style={{ borderRadius: '50%', height: '200px', width: '200px' }} />
             : <img src="https://www.ucheba.ru/img/userpic-empty-big.png" alt="pic" />}
           <div>
-            <label htmlFor="file" className="btn btn-primary">
+            <label htmlFor="file" className="btn btn-my-primary my-2">
               Обновить фото
               <input className="input-file form-control" type="file" name="filedata" id="file" onChange={(e) => fileSend(e)} style={{ width: '108px', margin: 'auto', display: 'none' }} />
             </label>
@@ -72,12 +72,13 @@ export default function Lk() {
         <>
           <div>
             { currentUser.admin ? <RegisterList /> : ''}
+          </div>
+          <div>
             <h3 style={{ textAlign: 'left' }}>Избранное</h3>
             <hr style={{ marginBottom: '40px' }} />
             <Posts resultToRender={currentUser.favorites} />
           </div>
           <div>
-            { currentUser.admin ? <RegisterList /> : ''}
             <h3 style={{ textAlign: 'left' }}>Отклики</h3>
             <hr style={{ marginBottom: '40px' }} />
             <Posts resultToRender={currentUser.requests} />

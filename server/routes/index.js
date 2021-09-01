@@ -187,4 +187,19 @@ router.post('/isrequested', async (req, res) => {
   else res.json(false);
 });
 
+// router.get('/organizationrequests', async (req, res) => {
+//   const { orgId } = req.body;
+//   console.log(orgId);
+//   const orgRequestsFromDB = await db.Request.findAll({
+//     raw: true,
+//     nest: true,
+//     include: [{
+//       model: db.User
+//     }, {
+//       model: db.Course
+//     }]
+//   });
+//   res.json(orgRequestsFromDB);
+// });
+
 module.exports = router;
