@@ -52,8 +52,12 @@ router.post('/', async (req, res) => {
   if (courseNameValue.trim()) {
     filters.name = { [Op.iLike]: `%${courseNameValue}%` };
   }
-  const searchResult = await db.Course.findAll({ where: filters });
-  res.json(searchResult);
+  const searchResult = await db.Course.findAll({raw: true, nest: true, where: filters, include: {model: db.CourseForm} });
+  const resultData = searchResult.map(item => ({
+    ...item,
+    type: item.CourseForm.form
+  }))
+  res.json(resultData);
 });
 
 router.get('/logout', async (req, res) => {
@@ -70,8 +74,8 @@ router.get('/profile/current', async (req, res) => {
     const user = await db.User.findOne({raw: true, where: {id: isUser}});
     const favoritesFromDB = await db.Favorites.findAll({ raw: true, nest: true, where: {
       UserId: user.id,
-    }, include: {model: db.Course} });
-    const favorites = favoritesFromDB.map(course => course.Course);
+    }, include: {model: db.Course, include: db.CourseForm} });
+    const favorites = favoritesFromDB.map(course => ({...course.Course, type: course.Course.CourseForm.form}));
     const requests = await db.Request.findAll({ raw: true, where: {
       UserId: user.id,
     } });

@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.Request);
       this.belongsTo(models.Organization);
       this.belongsTo(models.Speciality);
+      this.belongsTo(models.CourseForm);
     }
   };
   Course.init({
