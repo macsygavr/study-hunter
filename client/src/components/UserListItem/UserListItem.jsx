@@ -8,7 +8,7 @@ function UserListItem(item) {
   const [isAdmin, setIsAdmin] = useState(admin);
 
   const adminHandler = () => {
-    axios.patch(`${process.env.REACT_APP_SERVER_URL}/changestatus`, {
+    axios.patch(`${process.env.REACT_APP_SERVER_URL}/admin/changestatus`, {
       id,
     })
       .then((res) => {

@@ -8,28 +8,6 @@ function getRandomIntInclusive(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-router.patch('/changestatus', async (req, res) => {
-  if (req.body) {
-    const { id } = req.body;
-    const user = await db.User.findOne({ raw: true, where: id });
-    await db.User.update( { admin: !user.admin }, { where: { id: user.id } });
-    const newAdmin = await db.User.findOne({ raw: true, where: id });
-    res.json(newAdmin.admin);
-  } else {
-    res.sendStatus(400);
-  }
-});
-
-router.get('/bid', async (req, res) => {
-  const allRequests = await db.Organization.findAll({raw: true}, {where: {is_checked: false, is_allowed: false}});
-  console.log(allRequests);
-  const result = allRequests.map((item) => item = { 
-    id: item.id,
-    name: item.name,
-  });
-  res.json(result);
-});
-
 router.get('/options', async (req, res) => {
   const arrOfSpecialitiesOptions = await db.Speciality.findAll({ raw: true });
   const arrOfTypesOptions = await db.CourseForm.findAll({ raw: true });
@@ -58,19 +36,6 @@ router.get('/', async (req, res) => {
     }
   }
   res.json(randomCourses);
-});
-
-router.get('/allusers', async (req, res) => {
-  const userList = await db.User.findAll({ raw: true });
-  const result = userList.map((item) => item = { 
-    id: item.id,
-    firstName: item.firstName,
-    lastName: item.lastName,
-    admin: item.admin,
-    email: item.email,
-    superadmin: item.superadmin,
-  });
-  res.json(result);
 });
 
 router.post('/', async (req, res) => {
@@ -151,6 +116,12 @@ router.get('/profile/current', async (req, res) => {
   res.status(401).end();
 });
 
+router.post('/request', async (req, res) => {
+  const { userId, courseId } = req.body
+  await db.Request.create({ UserId: userId, CourseId: courseId })
+  res.end()
+})
+
 router.get('/course/:id', async (req, res) => {
   const { id } = req.params;
   const currentCourse = await db.Course.findOne({where: { id }});
@@ -171,11 +142,5 @@ router.get('/organization/:id', async (req, res) => {
   const currentOrganizationCourses = await db.Course.findAll({where: { OrganizationId: currentOrganization.id }});
   res.json({currentOrganization, currentOrganizationCourses, currentOrganizationType});
 });
-
-router.post('/request', async (req, res) => {
-  const { userId, courseId } = req.body
-  await db.Request.create({ UserId: userId, CourseId: courseId })
-  res.end()
-})
 
 module.exports = router;

@@ -68,7 +68,6 @@ export const loginUserStart = (email, password) => async (dispatch) => {
     const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/signin/user`, {
       email, password,
     }, { withCredentials: true });
-    console.log('responseeeee', response.data);
     dispatch(loginUserSuccess(response.data));
   } catch {
     console.log('Unable to login');
