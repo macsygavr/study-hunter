@@ -17,25 +17,23 @@ function PostsItem(props) {
   return (currentUser.superadmin ? (
     <>
       <div className="card-body card-my-style">
-        <div>
-          <Link className="postItemHomeLink" to={`/course/${id}`}>
-            <h5 className="card-title">
-              <span className="mx-1">{name}</span>
-            </h5>
-            <p className="card-text">
-              Цена:
-              &nbsp;
-              {price}
-              {' '}
-              руб.
-            </p>
-            <p className="card-text">
-              Форма обучения:
-              &nbsp;
-              {type}
-            </p>
-          </Link>
-        </div>
+        <Link className="postItemHomeLink" to={`/course/${id}`}>
+          <h5 className="card-title">
+            <span className="mx-1">{name}</span>
+          </h5>
+          <p className="card-text">
+            Цена:
+            &nbsp;
+            {price}
+            {' '}
+            руб.
+          </p>
+          <p className="card-text">
+            Форма обучения:
+            &nbsp;
+            {type}
+          </p>
+        </Link>
       </div>
     </>
   )

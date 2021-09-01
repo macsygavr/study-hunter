@@ -90,7 +90,9 @@ export default function Main() {
   return (
     <div className="mainDiv">
       <Router>
-        <Header />
+        <div className="headerBodyDiv">
+          <Header />
+        </div>
         <div className="mainBodyDiv">
           <Switch>
             <Route exact path="/">
@@ -129,7 +131,9 @@ export default function Main() {
             </Route>
           </Switch>
         </div>
-        <Footer />
+        <div className="footerBodyDiv">
+          <Footer />
+        </div>
       </Router>
     </div>
   );
