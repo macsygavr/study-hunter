@@ -104,6 +104,7 @@ router.get('/profile/current', async (req, res) => {
         phone: organization.phone,
         email: organization.email,
         is_checked: organization.is_checked,
+        is_allowed: organization.is_allowed,
         logo: organization.logo,
         description: organization.description,
         site: organization.site,
@@ -111,16 +112,16 @@ router.get('/profile/current', async (req, res) => {
         OrganizationFormId: organization.OrganizationFormId,
         OrganizationForm: organization.OrganizationForm.form,
         OrganizationCourses: courses,
-    })
+    });
   }
   res.status(401).end();
 });
 
 router.post('/request', async (req, res) => {
-  const { userId, courseId } = req.body
-  await db.Request.create({ UserId: userId, CourseId: courseId })
-  res.end()
-})
+  const { userId, courseId } = req.body;
+  await db.Request.create({ UserId: userId, CourseId: courseId });
+  res.end();
+});
 
 router.get('/course/:id', async (req, res) => {
   const { id } = req.params;

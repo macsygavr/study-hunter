@@ -54,6 +54,7 @@ router.post('/organization', async (req, res) => {
       phone: organization.phone,
       email: organization.email,
       is_checked: organization.is_checked,
+      is_allowed: organization.is_allowed,
       logo: organization.logo,
       description: organization.description,
       site: organization.site,
@@ -61,7 +62,7 @@ router.post('/organization', async (req, res) => {
       OrganizationFormId: organization.OrganizationFormId,
       OrganizationForm: organization.OrganizationForm.form,
       OrganizationCourses: courses,
-    })
+    });
   }
 });
 
