@@ -124,12 +124,17 @@ router.get('/profile/current', async (req, res) => {
 
 router.post('/request', async (req, res) => {
   const { userId, courseId } = req.body;
-  const userRequest = db.Request.findOne({where: {UserId: userId}});
+  console.log(userId, courseId);
+  const userRequest = await db.Request.findOne({where: {UserId: userId, CourseId: courseId}});
+  // console.log(userRequest);
   if (!userRequest) {
     await db.Request.create({ UserId: userId, CourseId: courseId });
-    return res.end();
   }
-  res.end();
+  const requestsFromDB = await db.Request.findAll({ raw: true, nest: true, where: {
+    UserId: userId,
+  }, include: {model: db.Course, include: db.CourseForm} });
+  const requests = requestsFromDB.map(course => ({...course.Course, type: course.Course.CourseForm.form}));
+  res.json(requests);
 });
 
 router.get('/course/:id', async (req, res) => {
@@ -165,6 +170,13 @@ router.post('/newcourse', async (req, res) => {
   });
   const organizationCourses = await db.Course.findAll({raw: true, where: {OrganizationId: Number(orgId)}});
   res.json(organizationCourses);
+});
+
+router.post('/isrequested', async (req, res) => {
+  const { userId, courseId } = req.body;
+  const isRequested = await db.Request.findOne({where: {UserId: userId, CourseId: courseId}});
+  if (isRequested) res.json(true) 
+  else res.json(false);
 });
 
 module.exports = router;

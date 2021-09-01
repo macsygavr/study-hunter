@@ -10,6 +10,8 @@ import {
   ADD_TO_FAV_USER_FAIL,
   REMOVE_FROM_FAV_USER_SUCCESS,
   REMOVE_FROM_FAV_USER_FAIL,
+  ADD_REQUEST_USER_SUCCESS,
+  ADD_REQUEST_USER_FAIL,
 } from '../types/usersTypes';
 
 function usersReducer(state = {}, action) {
@@ -56,6 +58,15 @@ function usersReducer(state = {}, action) {
       return {
         ...state,
       };
+
+    case ADD_REQUEST_USER_SUCCESS:
+      return {
+        ...state,
+        requests: action.payload,
+      };
+
+    case ADD_REQUEST_USER_FAIL:
+      return state;
 
     default:
       return state;

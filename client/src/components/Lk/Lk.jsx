@@ -11,7 +11,6 @@ import RegisterList from '../RegisterList/RegisterList';
 export default function Lk() {
   const [file, setFile] = useState(null);
   const currentUser = useSelector((state) => state.currentUser);
-  console.log(currentUser.requests);
   useEffect(() => {
     setFile(currentUser.logo);
   }, [currentUser.logo]);
