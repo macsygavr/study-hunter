@@ -143,4 +143,18 @@ router.get('/organization/:id', async (req, res) => {
   res.json({currentOrganization, currentOrganizationCourses, currentOrganizationType});
 });
 
+router.post('/newcourse', async (req, res) => {
+  const { name, speciality, price, form, description, orgId } = req.body;
+  await db.Course.create({
+    OrganizationId: Number(orgId),
+    name, 
+    SpecialityId: Number(speciality),
+    price: Number(price),
+    CourseFormId: Number(form),
+    description,
+  });
+  const organizationCourses = await db.Course.findAll({raw: true, where: {OrganizationId: Number(orgId)}});
+  res.json(organizationCourses);
+});
+
 module.exports = router;

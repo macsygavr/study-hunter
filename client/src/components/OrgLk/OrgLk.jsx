@@ -75,7 +75,7 @@ export default function OrgLk() {
           <button onClick={addCourseButtonHandler} type="button" className="btn btn-primary">Добавить направление</button>
         </h3>
         {isModalOpened ? (
-          <Modal setIsModalOpened={setIsModalOpened} />
+          <Modal setIsModalOpened={setIsModalOpened} orgId={currentOrganization.id} />
         ) : null}
         <hr style={{ marginBottom: '40px' }} />
         <div style={{ marginLeft: '30px' }}>
