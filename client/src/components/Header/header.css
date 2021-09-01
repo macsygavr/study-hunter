@@ -1,11 +1,19 @@
 .headerLinkButton {
   padding: 10px;
   border-radius: 10px;
-  margin-left: 30px;
+  margin-right: 30px;
   background-color: rgba(0, 8, 255, 0.132);
 }
 
 .headerLinkButton:hover {
   background-color: rgba(0, 8, 255, 0.235);
   color: white
+}
+
+.navbar{
+  height: 80px;
+}
+
+.css-1j8o68f{
+  margin-left: 30px;
 }

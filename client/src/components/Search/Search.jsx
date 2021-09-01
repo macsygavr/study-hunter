@@ -1,4 +1,5 @@
 /* eslint-disable max-len */
+import './search.css';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import SearchOption from '../SearchOption/SearchOption';
@@ -16,11 +17,8 @@ function Search({ searchHandler }) {
   }, []);
 
   return (
-    <div style={{
-      width: '100vw', paddingTop: '260px', paddingBottom: '170px', marginBottom: '60px', display: 'flex', justifyContent: 'center', backgroundImage: 'url(https://million-wallpapers.ru/wallpapers/4/36/308873093084039/nezavershennoe.jpg)',
-    }}
-    >
-      <div style={{ maxWidth: '1000px' }}>
+    <div className="searchBackgroundDiv">
+      <div className="searchInputsDiv">
         <form
           onSubmit={searchHandler}
           className="input-group"

@@ -4,6 +4,7 @@ import {
   Route,
   // Redirect,
 } from 'react-router-dom';
+import './main.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
@@ -87,47 +88,49 @@ export default function Main() {
   };
 
   return (
-    <>
+    <div className="mainDiv">
       <Router>
         <Header />
-        <Switch>
-          <Route exact path="/">
-            <Search searchHandler={searchHandler} />
-            <Posts resultToRender={searchResult || randomSixCourses} />
-          </Route>
-          <Route exact path="/profile/user">
-            <Lk />
-          </Route>
-          <Route exact path="/profile/organization">
-            <OrgLk />
-          </Route>
-          <Route exact path="/signup">
-            <SignUpChoicePage />
-          </Route>
-          <Route exact path="/signup/user">
-            <SignUpUser />
-          </Route>
-          <Route exact path="/signup/organization">
-            <SignUpOrganization />
-          </Route>
-          <Route exact path="/signin">
-            <SignInChoisePage />
-          </Route>
-          <Route exact path="/signin/user">
-            <SignInUser />
-          </Route>
-          <Route exact path="/signin/organization">
-            <SignInOrganization />
-          </Route>
-          <Route exact path="/course/:id">
-            <CourseInfoPage />
-          </Route>
-          <Route exact path="/organization/:id">
-            <OrganizationInfoPage />
-          </Route>
-        </Switch>
+        <div className="mainBodyDiv">
+          <Switch>
+            <Route exact path="/">
+              <Search searchHandler={searchHandler} />
+              <Posts resultToRender={searchResult || randomSixCourses} />
+            </Route>
+            <Route exact path="/profile/user">
+              <Lk />
+            </Route>
+            <Route exact path="/profile/organization">
+              <OrgLk />
+            </Route>
+            <Route exact path="/signup">
+              <SignUpChoicePage />
+            </Route>
+            <Route exact path="/signup/user">
+              <SignUpUser />
+            </Route>
+            <Route exact path="/signup/organization">
+              <SignUpOrganization />
+            </Route>
+            <Route exact path="/signin">
+              <SignInChoisePage />
+            </Route>
+            <Route exact path="/signin/user">
+              <SignInUser />
+            </Route>
+            <Route exact path="/signin/organization">
+              <SignInOrganization />
+            </Route>
+            <Route exact path="/course/:id">
+              <CourseInfoPage />
+            </Route>
+            <Route exact path="/organization/:id">
+              <OrganizationInfoPage />
+            </Route>
+          </Switch>
+        </div>
         <Footer />
       </Router>
-    </>
+    </div>
   );
 }

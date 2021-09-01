@@ -18,12 +18,7 @@ export default function Header() {
     // eslint-disable-next-line no-nested-ternary
     currentUser.email ? (
       <div className="header">
-        <nav
-          className="navbar navbar-dark bg-primary"
-          style={{
-            padding: '0 55px', height: '80px', display: 'flex', justifyContent: 'space-between', position: 'absolute', left: '0', right: '0',
-          }}
-        >
+        <nav className="navbar navbar-dark bg-primary">
           <Link to="/">
             <div style={{ transform: 'scale(1)' }}>
               <svg width="320" height="55.124514580282074" viewBox="0 0 320 55.124514580282074" className="css-1j8o68f">
@@ -50,12 +45,7 @@ export default function Header() {
       </div>
     ) : currentOrganization.email ? (
       <div className="header">
-        <nav
-          className="navbar navbar-dark bg-primary"
-          style={{
-            padding: '0 55px', height: '80px', display: 'flex', justifyContent: 'space-between', position: 'absolute', left: '0', right: '0',
-          }}
-        >
+        <nav className="navbar navbar-dark bg-primary">
           <Link to="/">
             <div style={{ transform: 'scale(1)' }}>
               <svg width="320" height="55.124514580282074" viewBox="0 0 320 55.124514580282074" className="css-1j8o68f">
@@ -82,12 +72,7 @@ export default function Header() {
       </div>
     ) : (
       <div className="header">
-        <nav
-          className="navbar navbar-dark bg-primary"
-          style={{
-            padding: '0 55px', height: '80px', display: 'flex', justifyContent: 'space-between', position: 'absolute', left: '0', right: '0',
-          }}
-        >
+        <nav className="navbar navbar-dark bg-primary">
           <Link to="/">
             <div style={{ transform: 'scale(1)' }}>
               <svg width="320" height="55.124514580282074" viewBox="0 0 320 55.124514580282074" className="css-1j8o68f">

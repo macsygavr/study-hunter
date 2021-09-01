@@ -1,4 +1,5 @@
 /* eslint-disable no-nested-ternary */
+import './lk.css';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
