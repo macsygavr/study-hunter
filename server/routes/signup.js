@@ -16,6 +16,7 @@ router.post('/user', async (req, res) => {
       lastName : newUser.lastName, 
       phone: newUser.phone, 
       email: newUser.email, 
+      logo: newUser.logo,
       admin: newUser.admin,
       superadmin: newUser.superadmin,
       favorites: [], 
@@ -29,16 +30,38 @@ router.post('/organization', async (req, res) => {
   if (organization) {
     res.status(409).send();
   } else {
-    const newOrganization = await db.Organization.create({ 
+    await db.Organization.create({ 
       name, 
       phone, 
       email: email.toLowerCase(), 
       password, 
       OrganizationFormId: Number(form) 
     });
-    req.session.orgEmail = newOrganization.email;
-    req.session.orgId = newOrganization.id;
-    res.json(newOrganization);
+    const organization = await db.Organization.findOne({
+      raw: true, 
+      nest: true,
+      where: {email: email.toLowerCase()}, 
+      include: {
+        model: db.OrganizationForm
+      }});
+    const courses = await db.Course.findAll({raw: true, where: {OrganizationId: organization.id}});
+    req.session.orgEmail = organization.email;
+    req.session.orgId = organization.id;
+    console.log(organization);
+    res.json({
+      id: organization.id,
+      name: organization.name,
+      phone: organization.phone,
+      email: organization.email,
+      is_checked: organization.is_checked,
+      logo: organization.logo,
+      description: organization.description,
+      site: organization.site,
+      address: organization.address,
+      OrganizationFormId: organization.OrganizationFormId,
+      OrganizationForm: organization.OrganizationForm.form,
+      OrganizationCourses: courses,
+    })
   }
 });
 

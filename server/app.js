@@ -12,7 +12,7 @@ const indexRouter = require("./routes/index");
 const signupRouter = require("./routes/signup");
 const signinRouter = require("./routes/signin");
 const favoritesRouter = require("./routes/favorites");
-const usersPhotoRouter = require("./routes/userPhoto");
+const usersPhotoRouter = require("./routes/photoUpload");
 
 const app = express();
 const PORT = process.env.SERVER_PORT;
@@ -72,7 +72,7 @@ app.use('/', indexRouter);
 app.use('/signup', signupRouter);
 app.use('/signin', signinRouter);
 app.use('/favorites', favoritesRouter);
-app.use("/upload", usersPhotoRouter);
+app.use('/upload', usersPhotoRouter);
 
 app.listen(PORT, ()=> {
     console.log('Server has been started on PORT ' + PORT);

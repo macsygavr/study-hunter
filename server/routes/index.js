@@ -132,6 +132,7 @@ router.get('/profile/current', async (req, res) => {
       include: {
         model: db.OrganizationForm
       }});
+      const courses = await db.Course.findAll({raw: true, where: {OrganizationId: organization.id}});
     return res.status(202).json({
         id: organization.id,
         name: organization.name,
@@ -143,8 +144,9 @@ router.get('/profile/current', async (req, res) => {
         site: organization.site,
         address: organization.address,
         OrganizationFormId: organization.OrganizationFormId,
-        OrganizationForm: organization.OrganizationForm.form
-    });
+        OrganizationForm: organization.OrganizationForm.form,
+        OrganizationCourses: courses,
+    })
   }
   res.status(401).end();
 });

@@ -39,6 +39,7 @@ router.post('/organization', async (req, res) => {
       model: db.OrganizationForm
     }});
   if (organization) {
+    const courses = await db.Course.findAll({raw: true, where: {OrganizationId: organization.id}});
     req.session.orgEmail = organization.email;
     req.session.orgId = organization.id;
     res.status(202).json({
@@ -52,7 +53,8 @@ router.post('/organization', async (req, res) => {
       site: organization.site,
       address: organization.address,
       OrganizationFormId: organization.OrganizationFormId,
-      OrganizationForm: organization.OrganizationForm.form
+      OrganizationForm: organization.OrganizationForm.form,
+      OrganizationCourses: courses,
     })
   }
 });
