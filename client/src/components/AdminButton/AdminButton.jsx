@@ -27,8 +27,8 @@ export default function AdminButton(item) {
       { isChecked ? 'Заявка рассмотрена'
         : (
           <div>
-            <button type="button" onClick={() => acceptHandler(id)}>Подтвердить</button>
-            <button type="button" onClick={() => declineHandler(id)}>Отклонить</button>
+            <button className="myLinkButton" type="button" onClick={() => acceptHandler(id)}>Подтвердить</button>
+            <button className="myLinkButton" type="button" onClick={() => declineHandler(id)}>Отклонить</button>
           </div>
         )}
     </div>

@@ -51,11 +51,13 @@ function OrganizationInfoPage() {
             {currentOrganization.currentOrganization.phone}
           </p>
           <div>
-            Сайт:
-            <a href={currentOrganization.currentOrganization.site} className="postItemLink">
-              &nbsp;
-              {currentOrganization.currentOrganization.site}
-            </a>
+            <p>
+              Сайт:
+              <a href={currentOrganization.currentOrganization.site} className="postItemLink">
+                &nbsp;
+                {currentOrganization.currentOrganization.site}
+              </a>
+            </p>
           </div>
           <p>
             Почта:

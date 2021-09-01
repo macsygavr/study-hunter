@@ -54,11 +54,13 @@ export default function Lk() {
         </div>
       </div>
       {currentUser.superadmin ? (
-        <div>
+        <div className="courseInfoPageP2">
           { currentUser.admin ? <RegisterList /> : ''}
-          <h3 style={{ textAlign: 'left' }}>Назначить админа</h3>
-          <hr style={{ marginBottom: '40px' }} />
-          <UserList />
+          <h3 style={{ textAlign: 'left', marginTop: '20px' }}>Назначить админа</h3>
+          <hr style={{ marginTop: 0 }} />
+          <div>
+            <UserList />
+          </div>
         </div>
       ) : (
         <>

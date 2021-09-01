@@ -29,6 +29,7 @@ a {
   border-radius: 10px;
   background-color: rgb(41, 70, 113);
   color: rgb(255, 255, 255);
+  margin: 3px;
 }
 
 .myLinkButton:hover {
