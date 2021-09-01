@@ -63,12 +63,20 @@ export default function Lk() {
           <UserList />
         </div>
       ) : (
-        <div>
-          { currentUser.admin ? <RegisterList /> : ''}
-          <h3 style={{ textAlign: 'left' }}>Избранное</h3>
-          <hr style={{ marginBottom: '40px' }} />
-          <Posts resultToRender={currentUser.favorites} />
-        </div>
+        <>
+          <div>
+            { currentUser.admin ? <RegisterList /> : ''}
+            <h3 style={{ textAlign: 'left' }}>Избранное</h3>
+            <hr style={{ marginBottom: '40px' }} />
+            <Posts resultToRender={currentUser.favorites} />
+          </div>
+          <div>
+            { currentUser.admin ? <RegisterList /> : ''}
+            <h3 style={{ textAlign: 'left' }}>Отклики</h3>
+            <hr style={{ marginBottom: '40px' }} />
+            <Posts resultToRender={currentUser.requests} />
+          </div>
+        </>
       )}
 
     </div>
