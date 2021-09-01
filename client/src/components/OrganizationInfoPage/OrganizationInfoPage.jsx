@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 // import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
+import AdminButton from '../AdminButton/AdminButton';
 import CoursesTable from '../CoursesTable/CoursesTable';
 // import FavoritesButton from '../FavoritesButton/FavoritesButton';
 // import { useParams } from 'react-router';
@@ -17,12 +18,11 @@ function OrganizationInfoPage() {
     axios.get(`${process.env.REACT_APP_SERVER_URL}/organization/${id}`)
       .then((res) => setCurrentOrganization(res.data));
   }, []);
-
-  // console.log(currentOrganization);
-
+  // console.log(currentOrganization.currentOrganization);
   return (Object.keys(currentOrganization).length ? (
     <div className="container my-organization-container">
       <h2 className="courseInfoPageP" style={{ marginTop: '-50px' }}>{`${currentOrganization.currentOrganization.name} (${currentOrganization.currentOrganizationType.form})`}</h2>
+      {currentOrganization.currentOrganization.is_checked ? null : <AdminButton {...currentOrganization.currentOrganization} />}
       <p className="courseInfoPageP">
         Описание:
         &nbsp;
