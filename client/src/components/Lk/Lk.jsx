@@ -25,7 +25,7 @@ export default function Lk() {
     formData.append('userPhotoId', currentUser.id);
     formData.append('filedata', imagefile.files[0]);
 
-    const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/upload`, formData, { withCredentials: true });
+    const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/admin/upload`, formData, { withCredentials: true });
     // setFile(`${process.env.REACT_APP_SERVER_URL}${response.data}`);
     if (response.data) {
       setFile(response.data);
@@ -45,16 +45,18 @@ export default function Lk() {
         <div>
           <div className="container d-flex flex-column align-items-start">
             <p style={{ color: 'blue' }}>{(currentUser.admin && currentUser.superadmin) ? 'superadmin' : currentUser.admin ? 'admin' : ''}</p>
-            <h2 className="title-name">{`${currentUser.firstName} ${currentUser.lastName}`}</h2>
+            <h2 className="title-name">
+              {`${currentUser.firstName} ${currentUser.lastName}`}
+              <span>
+                &nbsp;
+                <Link to="/editUser">
+                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe0-ruYIVTiRizPu8o-RjjR1KrGv-mqXJgLQ&usqp=CAU" alt="" width="40px" />
+                </Link>
+              </span>
+            </h2>
             <p>{currentUser.phone}</p>
             <p>{currentUser.email}</p>
           </div>
-          <p>
-            <Link to="/editUser">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe0-ruYIVTiRizPu8o-RjjR1KrGv-mqXJgLQ&usqp=CAU" alt="" width="32px" />
-              Редактировать профиль
-            </Link>
-          </p>
         </div>
       </div>
       {currentUser.superadmin ? (
@@ -76,7 +78,7 @@ export default function Lk() {
             { currentUser.admin ? <RegisterList /> : ''}
             <h3 style={{ textAlign: 'left' }}>Мои отклики</h3>
             <hr style={{ marginBottom: '40px' }} />
-            <Posts resultOnRequest={currentUser.requests} />
+            <Posts resultToRender={currentUser.requests} />
           </div>
         </>
       )}

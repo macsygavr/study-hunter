@@ -8,28 +8,6 @@ function getRandomIntInclusive(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-router.patch('/changestatus', async (req, res) => {
-  if (req.body) {
-    const { id } = req.body;
-    const user = await db.User.findOne({ raw: true, where: id });
-    await db.User.update( { admin: !user.admin }, { where: { id: user.id } });
-    const newAdmin = await db.User.findOne({ raw: true, where: id });
-    res.json(newAdmin.admin);
-  } else {
-    res.sendStatus(400);
-  }
-});
-
-router.get('/bid', async (req, res) => {
-  const allRequests = await db.Organization.findAll({raw: true}, {where: {is_checked: false, is_allowed: false}});
-  console.log(allRequests);
-  const result = allRequests.map((item) => item = { 
-    id: item.id,
-    name: item.name,
-  });
-  res.json(result);
-});
-
 router.get('/options', async (req, res) => {
   const arrOfSpecialitiesOptions = await db.Speciality.findAll({ raw: true });
   const arrOfTypesOptions = await db.CourseForm.findAll({ raw: true });
@@ -60,19 +38,6 @@ router.get('/', async (req, res) => {
   res.json(randomCourses);
 });
 
-router.get('/allusers', async (req, res) => {
-  const userList = await db.User.findAll({ raw: true });
-  const result = userList.map((item) => item = { 
-    id: item.id,
-    firstName: item.firstName,
-    lastName: item.lastName,
-    admin: item.admin,
-    email: item.email,
-    superadmin: item.superadmin,
-  });
-  res.json(result);
-});
-
 router.post('/', async (req, res) => {
   const { specialityId, typeId, priceMinValue, priceMaxValue, courseNameValue } = req.body;
   const filters = {
@@ -87,8 +52,12 @@ router.post('/', async (req, res) => {
   if (courseNameValue.trim()) {
     filters.name = { [Op.iLike]: `%${courseNameValue}%` };
   }
-  const searchResult = await db.Course.findAll({ where: filters });
-  res.json(searchResult);
+  const searchResult = await db.Course.findAll({raw: true, nest: true, where: filters, include: {model: db.CourseForm} });
+  const resultData = searchResult.map(item => ({
+    ...item,
+    type: item.CourseForm.form
+  }))
+  res.json(resultData);
 });
 
 router.get('/logout', async (req, res) => {
@@ -105,12 +74,12 @@ router.get('/profile/current', async (req, res) => {
     const user = await db.User.findOne({raw: true, where: {id: isUser}});
     const favoritesFromDB = await db.Favorites.findAll({ raw: true, nest: true, where: {
       UserId: user.id,
-    }, include: {model: db.Course} });
-    const favorites = favoritesFromDB.map(course => course.Course);
+    }, include: {model: db.Course, include: db.CourseForm} });
     const requestsFromDB = await db.Request.findAll({ raw: true, nest: true, where: {
-      UserId: user.id,
-    }, include: {model: db.Course} });
-    const requests = requestsFromDB.map(course => course.Course);
+    }, include: {model: db.Course, include: db.CourseForm} });
+
+    const favorites = favoritesFromDB.map(course => ({...course.Course, type: course.Course.CourseForm.form}));
+    const requests = requestsFromDB.map(course => ({...course.Course, type: course.Course.CourseForm.form}));
 
     return res.status(201).json({
         id: user.id,
@@ -141,6 +110,7 @@ router.get('/profile/current', async (req, res) => {
         phone: organization.phone,
         email: organization.email,
         is_checked: organization.is_checked,
+        is_allowed: organization.is_allowed,
         logo: organization.logo,
         description: organization.description,
         site: organization.site,
@@ -148,9 +118,15 @@ router.get('/profile/current', async (req, res) => {
         OrganizationFormId: organization.OrganizationFormId,
         OrganizationForm: organization.OrganizationForm.form,
         OrganizationCourses: courses,
-    })
+    });
   }
   res.status(401).end();
+});
+
+router.post('/request', async (req, res) => {
+  const { userId, courseId } = req.body;
+  await db.Request.create({ UserId: userId, CourseId: courseId });
+  res.end();
 });
 
 router.get('/course/:id', async (req, res) => {
@@ -174,10 +150,18 @@ router.get('/organization/:id', async (req, res) => {
   res.json({currentOrganization, currentOrganizationCourses, currentOrganizationType});
 });
 
-router.post('/request', async (req, res) => {
-  const { userId, courseId } = req.body
-  await db.Request.create({ UserId: userId, CourseId: courseId })
-  res.end()
-})
+router.post('/newcourse', async (req, res) => {
+  const { name, speciality, price, form, description, orgId } = req.body;
+  await db.Course.create({
+    OrganizationId: Number(orgId),
+    name, 
+    SpecialityId: Number(speciality),
+    price: Number(price),
+    CourseFormId: Number(form),
+    description,
+  });
+  const organizationCourses = await db.Course.findAll({raw: true, where: {OrganizationId: Number(orgId)}});
+  res.json(organizationCourses);
+});
 
 module.exports = router;

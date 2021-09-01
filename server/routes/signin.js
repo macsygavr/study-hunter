@@ -9,12 +9,12 @@ router.post('/user', async (req, res) => {
     req.session.userid = user.id;
     const favoritesFromDB = await db.Favorites.findAll({ raw: true, nest: true, where: {
       UserId: user.id,
-    }, include: {model: db.Course} });
-    const favorites = favoritesFromDB.map(course => course.Course);
+    }, include: {model: db.Course, include: db.CourseForm} });
     const requestsFromDB = await db.Request.findAll({ raw: true, nest: true, where: {
-      UserId: user.id,
-    }, include: {model: db.Course} });
-    const requests = requestsFromDB.map(course => course.Course);
+    }, include: {model: db.Course, include: db.CourseForm} });
+
+    const favorites = favoritesFromDB.map(course => ({...course.Course, type: course.Course.CourseForm.form}));
+    const requests = requestsFromDB.map(course => ({...course.Course, type: course.Course.CourseForm.form}));
     
     res.json({
       id: user.id,
@@ -50,6 +50,7 @@ router.post('/organization', async (req, res) => {
       phone: organization.phone,
       email: organization.email,
       is_checked: organization.is_checked,
+      is_allowed: organization.is_allowed,
       logo: organization.logo,
       description: organization.description,
       site: organization.site,
@@ -57,7 +58,7 @@ router.post('/organization', async (req, res) => {
       OrganizationFormId: organization.OrganizationFormId,
       OrganizationForm: organization.OrganizationForm.form,
       OrganizationCourses: courses,
-    })
+    });
   }
 });
 

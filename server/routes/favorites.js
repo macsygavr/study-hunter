@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const db = require('../db/models');
+const course = require('../db/models/course');
 
 router.post('/', async (req, res) => {
   const { userId, courseId } = req.body;
@@ -7,8 +8,15 @@ router.post('/', async (req, res) => {
   if (newFavCourse) res.status(403).send();
   else {
     await db.Favorites.create({ UserId: userId, CourseId: courseId });
-    const userFavoritesFromDb = await db.Favorites.findAll({raw: true, nest: true, where: {UserId: userId}, include: {model: db.Course}});
-    const userFavorites = userFavoritesFromDb.map(course => course.Course);
+    const userFavoritesFromDb = await db.Favorites.findAll({
+      raw: true, 
+      nest: true, 
+      where: {UserId: userId}, 
+      include: {
+        model: db.Course, 
+        include: db.CourseForm
+      }});
+    const userFavorites = userFavoritesFromDb.map(course => ({...course.Course, type: course.Course.CourseForm.form}));
     res.json({userFavorites});
   }
 });
