@@ -28,7 +28,7 @@ function RequestsButton({ userId, courseId, courseName }) {
   return (
     <>
       {isRequested
-        ? (<div className="alert alert-primary mt-3 mb-0 mx-auto pt-2" style={{ width: '180px', height: '38px' }}>Отклик отправлен</div>)
+        ? (<div className="alert alert-primary mt-3 mb-0 mx-auto pt-2" style={{ width: '180px', height: '42px' }}>Отклик отправлен</div>)
         : Object.keys(currentUser).length
           ? (<button onClick={() => setIsReqModal(true)} type="button" className="btn btn-my-primary mt-3">Хочу здесь учиться!</button>)
           : !Object.keys(currentOrganization).length

@@ -166,7 +166,8 @@ router.get('/course/:id', async (req, res) => {
   const currentCourseOrganization = await db.Organization.findOne({where: { id: currentCourse.OrganizationId }});
   const currentCourseObj = {
     ...currentCourse,
-    organization: currentCourseOrganization.name,
+    organizationName: currentCourseOrganization.name,
+    organizationLogo: currentCourseOrganization.logo,
     form: currentCourseType.form,
   };
   res.json(currentCourseObj);

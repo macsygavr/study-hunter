@@ -20,7 +20,12 @@ function CourseInfoPage() {
 
   return (Object.keys(currentCourse).length ? (
     <div className="container my-container">
-      <h2 className="courseInfoPageP0">
+      <div className="avatarContainer2">
+        {currentCourse.organizationLogo
+          ? <img src={`${process.env.REACT_APP_SERVER_URL}${currentCourse.organizationLogo}`} alt="pic" className="avatar2" />
+          : <img src="https://www.ucheba.ru/img/userpic-empty-big.png" alt="pic" className="avatar2" />}
+      </div>
+      <h2 className="courseInfoPageP0" style={{ marginTop: '15px' }}>
         <span>
           {currentCourse.dataValues.name}
         </span>
@@ -46,7 +51,7 @@ function CourseInfoPage() {
         Учебное заведение:
         &nbsp;
         <Link className="postItemLink" to={`/organization/${currentCourse.dataValues.OrganizationId}`}>
-          {currentCourse.organization}
+          {currentCourse.organizationName}
         </Link>
       </p>
       <div className="courseInfoPageP2">

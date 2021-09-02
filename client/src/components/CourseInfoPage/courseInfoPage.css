@@ -17,3 +17,14 @@
   text-align: start;
   margin: 30px;
 }
+
+.avatar2{
+  width: 120px;
+  height: 120px;
+}
+
+.avatarContainer2{
+  display: flex;
+  padding-top: 30px;
+  padding-left: 30px;
+}
