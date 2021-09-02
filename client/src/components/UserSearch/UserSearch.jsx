@@ -16,11 +16,11 @@ function UserSearch() {
   console.log(targetUser);
   return (
     <div>
-      <form className="d-flex" onSubmit={userSearchHandler}>
-        <input type="text" className="form-control" placeholder="email пользователя" id="userSearch" />
-        <button className="myLinkButton" type="submit" style={{ backgroundColor: 'rgb(33, 57, 92)', color: 'white' }}>Найти</button>
+      <form className="d-flex align-items-center justify-content-center" onSubmit={userSearchHandler}>
+        <input style={{ width: '340px', marginRight: '6px' }} type="text" className="form-control" placeholder="email пользователя" id="userSearch" />
+        <button className="myLinkButton" type="submit">Найти</button>
       </form>
-      <div>
+      <div className="my-3">
         {targetUser.map((item) => <UserListItem key={item.id} {...item} />)}
       </div>
     </div>

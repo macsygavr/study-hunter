@@ -79,7 +79,7 @@ export default function Lk() {
           </div>
           <div className="courseInfoPageP2">
             <h3 style={{ textAlign: 'left', marginTop: '20px' }}>Поиск пользователей</h3>
-            <hr style={{ marginTop: 0 }} />
+            <hr style={{ marginTop: 0, marginBottom: '30px' }} />
             <div>
               <UserSearch />
             </div>

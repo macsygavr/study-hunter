@@ -25,11 +25,12 @@ a {
 }
 
 .myLinkButton {
-  padding: 10px;
-  border-radius: 10px;
+  padding: 7px;
+  border-radius: 5px;
   background-color: rgb(41, 70, 113);
   color: rgb(255, 255, 255);
   margin: 3px;
+  border: none;
 }
 
 .myLinkButton:hover {
