@@ -30,7 +30,6 @@ function QuickResponseForm({ courseId }) {
       });
   };
 
-  console.log(login);
   return (
     <div className="container d-flex justify-content-center my-5 p-3" style={{ width: '370px', padding: '20px' }}>
       {!login ? (
