@@ -1,5 +1,6 @@
+import './userListItem.css';
 import axios from 'axios';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 function UserListItem(item) {
   const {
@@ -18,31 +19,38 @@ function UserListItem(item) {
 
   return superadmin ? null : (
     <div>
-      <p>
+      <p className="userListItemP">
         <span>
-          {firstName}
-          &nbsp;
-        </span>
-        <span>
-          {lastName}
-          &nbsp;
+          <span>
+            {firstName}
+                &nbsp;
+          </span>
+          <span>
+            {lastName}
+                &nbsp;
+          </span>
         </span>
         <span>
           {email}
-          &nbsp;
+              &nbsp;
         </span>
         <span>
-          {isAdmin ? 'Админ' : 'Не админ'}
-          &nbsp;
+          <span>
+            {isAdmin ? 'Админ' : 'Не админ'}
+              &nbsp;
+              &nbsp;
+              &nbsp;
+          </span>
+          <button type="button" className="myLinkButton" onClick={adminHandler}>
+            {isAdmin ? 'Забрать' : 'Выдать'}
+            {' '}
+            права админа
+          </button>
         </span>
-        <button type="button" onClick={adminHandler}>
-          {isAdmin ? 'Забрать' : 'Выдать'}
-          {' '}
-          права админа
-        </button>
       </p>
+      <hr style={{ marginTop: '-15px', color: 'rgb(198, 198, 198)' }} />
     </div>
   );
 }
 
-export default UserListItem;
+export default React.memo(UserListItem);

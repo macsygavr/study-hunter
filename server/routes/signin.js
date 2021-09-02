@@ -12,10 +12,9 @@ router.post('/user', async (req, res) => {
     }, include: {model: db.Course, include: db.CourseForm} });
     const requestsFromDB = await db.Request.findAll({ raw: true, nest: true, where: {
     }, include: {model: db.Course, include: db.CourseForm} });
-
     const favorites = favoritesFromDB.map(course => ({...course.Course, type: course.Course.CourseForm.form}));
     const requests = requestsFromDB.map(course => ({...course.Course, type: course.Course.CourseForm.form}));
-    
+
     res.json({
       id: user.id,
       firstName: user.firstName, 

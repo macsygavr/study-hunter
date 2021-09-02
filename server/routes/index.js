@@ -77,10 +77,9 @@ router.get('/profile/current', async (req, res) => {
     }, include: {model: db.Course, include: db.CourseForm} });
     const requestsFromDB = await db.Request.findAll({ raw: true, nest: true, where: {
     }, include: {model: db.Course, include: db.CourseForm} });
-
     const favorites = favoritesFromDB.map(course => ({...course.Course, type: course.Course.CourseForm.form}));
     const requests = requestsFromDB.map(course => ({...course.Course, type: course.Course.CourseForm.form}));
-
+    
     return res.status(201).json({
         id: user.id,
         firstName: user.firstName, 
@@ -125,8 +124,25 @@ router.get('/profile/current', async (req, res) => {
 
 router.post('/request', async (req, res) => {
   const { userId, courseId } = req.body;
-  await db.Request.create({ UserId: userId, CourseId: courseId });
-  res.end();
+  const userRequest = await db.Request.findOne({where: {UserId: userId, CourseId: courseId}});
+  if (!userRequest) {
+    await db.Request.create({ UserId: userId, CourseId: courseId });
+  }
+  const requestsFromDB = await db.Request.findAll({ raw: true, nest: true, where: {
+    UserId: userId,
+  }, include: {model: db.Course, include: db.CourseForm} });
+  const requests = requestsFromDB.map(course => ({...course.Course, type: course.Course.CourseForm.form}));
+  res.json(requests);
+});
+
+router.delete('/request', async (req, res) => {
+  const { userId, courseId } = req.body;
+  await db.Request.destroy({where: {UserId: userId, CourseId: courseId}});
+  const requestsFromDB = await db.Request.findAll({ raw: true, nest: true, where: {
+    UserId: userId,
+  }, include: {model: db.Course, include: db.CourseForm} });
+  const requests = requestsFromDB.map(course => ({...course.Course, type: course.Course.CourseForm.form}));
+  res.json(requests);
 });
 
 router.get('/course/:id', async (req, res) => {
@@ -163,5 +179,27 @@ router.post('/newcourse', async (req, res) => {
   const organizationCourses = await db.Course.findAll({raw: true, where: {OrganizationId: Number(orgId)}});
   res.json(organizationCourses);
 });
+
+router.post('/isrequested', async (req, res) => {
+  const { userId, courseId } = req.body;
+  const isRequested = await db.Request.findOne({where: {UserId: userId, CourseId: courseId}});
+  if (isRequested) res.json(true) 
+  else res.json(false);
+});
+
+// router.get('/organizationrequests', async (req, res) => {
+//   const { orgId } = req.body;
+//   console.log(orgId);
+//   const orgRequestsFromDB = await db.Request.findAll({
+//     raw: true,
+//     nest: true,
+//     include: [{
+//       model: db.User
+//     }, {
+//       model: db.Course
+//     }]
+//   });
+//   res.json(orgRequestsFromDB);
+// });
 
 module.exports = router;

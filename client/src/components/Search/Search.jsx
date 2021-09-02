@@ -1,4 +1,5 @@
 /* eslint-disable max-len */
+import './search.css';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import SearchOption from '../SearchOption/SearchOption';
@@ -16,11 +17,8 @@ function Search({ searchHandler }) {
   }, []);
 
   return (
-    <div style={{
-      width: '100vw', paddingTop: '260px', paddingBottom: '170px', marginBottom: '60px', display: 'flex', justifyContent: 'center', backgroundImage: 'url(https://million-wallpapers.ru/wallpapers/4/36/308873093084039/nezavershennoe.jpg)',
-    }}
-    >
-      <div style={{ maxWidth: '1000px' }}>
+    <div className="searchBackgroundDiv">
+      <div className="searchInputsDiv">
         <form
           onSubmit={searchHandler}
           className="input-group"
@@ -36,7 +34,7 @@ function Search({ searchHandler }) {
           <input type="text" className="form-control" id="priceMin" placeholder="Цена от (руб.)" aria-label="Recipient's username" aria-describedby="button-addon2" />
           <input type="text" className="form-control" id="priceMax" placeholder="Цена до (руб.)" aria-label="Recipient's username" aria-describedby="button-addon2" />
           <input type="text" className="form-control" style={{ width: '155px' }} id="courseName" placeholder="Название курса" aria-label="Recipient's username" aria-describedby="button-addon2" />
-          <button className="btn btn-outline-secondary" type="submit" style={{ backgroundColor: 'rgb(49, 108, 244)', color: 'white' }}>Найти</button>
+          <button className="btn btn-outline-secondary" type="submit" style={{ backgroundColor: 'rgb(33, 57, 92)', color: 'white' }}>Найти</button>
         </form>
       </div>
     </div>

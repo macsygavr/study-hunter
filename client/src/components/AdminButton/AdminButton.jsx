@@ -3,7 +3,6 @@ import axios from 'axios';
 import { useState } from 'react';
 
 export default function AdminButton(item) {
-  console.log(item);
   const { id, is_checked } = item;
   const [isChecked, setIsChecked] = useState(is_checked);
   const acceptHandler = (OrgId) => {
@@ -27,8 +26,8 @@ export default function AdminButton(item) {
       { isChecked ? 'Заявка рассмотрена'
         : (
           <div>
-            <button type="button" onClick={() => acceptHandler(id)}>Подтвердить</button>
-            <button type="button" onClick={() => declineHandler(id)}>Отклонить</button>
+            <button className="myLinkButton" type="button" onClick={() => acceptHandler(id)}>Подтвердить</button>
+            <button className="myLinkButton" type="button" onClick={() => declineHandler(id)}>Отклонить</button>
           </div>
         )}
     </div>

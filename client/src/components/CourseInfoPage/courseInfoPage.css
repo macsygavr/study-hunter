@@ -1,12 +1,21 @@
+.my-container{
+  margin-top: 80px;
+  margin-bottom: 80px;
+  border: 1px solid rgb(207, 217, 212);
+  border-radius: 5px;
+  background-color: rgb(255, 255, 255);
+}
+
+.courseInfoPageP0 {
+  display: flex;
+  justify-content: space-between;
+  margin: 30px;
+}
+
 .courseInfoPageP {
   display: flex;
   text-align: start;
   margin: 30px;
-}
-
-.container.my-container {
-  margin-left: 150px;
-  width: 75vw;
 }
 
 .postItemLink {

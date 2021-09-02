@@ -1,4 +1,5 @@
 /* eslint-disable no-nested-ternary */
+import './orgLk.css';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -11,7 +12,6 @@ function OrgLk() {
   const [isModalOpened, setIsModalOpened] = useState(false);
 
   const { currentOrganization } = useSelector((state) => state);
-  console.log(currentOrganization);
   useEffect(() => {
     setFile(currentOrganization.logo);
   }, [currentOrganization.logo]);
@@ -35,29 +35,39 @@ function OrgLk() {
   };
 
   return (
-    <div className="lk">
-      <h4 style={{ marginBottom: '40px', width: '1000px' }}>Личный кабинет</h4>
-      <div className="lk__content">
-        <div className="lk__photo">
+    <div className="container my-container">
+      <div className="lkContainer">
+        <div className="avatarContainer">
           {file
-            ? <img src={`${process.env.REACT_APP_SERVER_URL}${file}`} alt="pic" style={{ borderRadius: '50%', height: '100%' }} />
-            : <img src="https://www.ucheba.ru/img/userpic-empty-big.png" alt="pic" />}
-          <input className="input-file" type="file" name="filedata" id="file" onChange={(e) => fileSend(e)} />
+            ? <img src={`${process.env.REACT_APP_SERVER_URL}${file}`} alt="pic" className="avatar" />
+            : <img src="https://www.ucheba.ru/img/userpic-empty-big.png" alt="pic" className="avatar" />}
+          <div>
+            <label htmlFor="file" className="btn btn-my-primary my-2">
+              Обновить фото
+              <input className="input-file form-control" type="file" name="filedata" id="file" onChange={(e) => fileSend(e)} style={{ width: '108px', margin: 'auto', display: 'none' }} />
+            </label>
+          </div>
         </div>
         <div>
-          <div className="container d-flex flex-column align-items-start">
-            {currentOrganization.is_checked
-              ? null
-              : <p style={{ color: 'red' }}>Еще не одобрено</p>}
-            <h2 className="title-name">
-              {`${currentOrganization.name} (${currentOrganization.OrganizationForm})`}
+          <div className="courseInfoPageP3">
+            <div className="title-name moderationSpan">
               <span>
-                &nbsp;
-                <Link to="/editUser">
-                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe0-ruYIVTiRizPu8o-RjjR1KrGv-mqXJgLQ&usqp=CAU" alt="" width="40px" />
-                </Link>
+                <h4>
+                  {`${currentOrganization.name} (${currentOrganization.OrganizationForm})`}
+                  <span>
+                    &nbsp;
+                    <Link to="/editUser">
+                      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe0-ruYIVTiRizPu8o-RjjR1KrGv-mqXJgLQ&usqp=CAU" alt="" width="40px" />
+                    </Link>
+                  </span>
+                </h4>
               </span>
-            </h2>
+              <span>
+                {currentOrganization.is_checked
+                  ? null
+                  : <span style={{ color: 'orange', fontSize: '15px' }}>Заявка находится на рассмотрении модератора</span>}
+              </span>
+            </div>
             <p style={{ textAlign: 'start' }}>Описание:</p>
             <p style={{ textAlign: 'start' }}>{`${currentOrganization.description ? currentOrganization.description : 'Не указано'}`}</p>
             <div style={{ textAlign: 'start' }}>
@@ -70,34 +80,40 @@ function OrgLk() {
           </div>
         </div>
       </div>
-      <div>
-        <h3 className="d-flex justify-content-between">
-          { currentOrganization.is_checked && currentOrganization.is_allowed
+      <div className="courseInfoPageP2">
+        <h3 style={{ textAlign: 'left' }}>
+          {currentOrganization.is_checked && currentOrganization.is_allowed
             ? (
-              <div>
+              <div className="addCoursesTitleDiv">
                 {' '}
                 <span>Текущие направления</span>
-                <button onClick={addCourseButtonHandler} type="button" className="btn btn-primary">Добавить направление</button>
+                <button onClick={addCourseButtonHandler} type="button" className="btn btn-my-primary">Добавить направление</button>
               </div>
             )
-            : <span>Статус регистрации</span> }
+            : <span>Статус регистрации</span>}
         </h3>
         {isModalOpened ? (
           <Modal setIsModalOpened={setIsModalOpened} orgId={currentOrganization.id} />
         ) : null}
-        <hr style={{ marginBottom: '40px' }} />
-        { currentOrganization.is_allowed
+        <hr style={{ marginTop: 0 }} />
+        {currentOrganization.is_allowed
           ? (
-            <div style={{ marginLeft: '30px' }}>
-              {Object.keys(currentOrganization).length
-                ? currentOrganization.OrganizationCourses.map((course) => (
-                  <CoursesTable
-                    key={course.id}
-                    courseName={course.name}
-                    coursePrice={course.price}
-                    courseId={course.id}
-                  />
-                )) : 'Здесь пока ничего нет' }
+            <div>
+              <div style={{ marginLeft: '30px' }}>
+                {Object.keys(currentOrganization).length
+                  ? currentOrganization.OrganizationCourses.map((course) => (
+                    <CoursesTable
+                      key={course.id}
+                      courseName={course.name}
+                      coursePrice={course.price}
+                      courseId={course.id}
+                    />
+                  )) : 'Здесь пока ничего нет' }
+              </div>
+              <div>
+                <div>Отклики пользователей</div>
+                <hr />
+              </div>
             </div>
           ) : currentOrganization.is_checked ? 'Заявка отклонена модератором' : 'Заявка находится на рассмотрении модератора'}
       </div>
