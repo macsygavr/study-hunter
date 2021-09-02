@@ -55,14 +55,11 @@ export default function Lk() {
           </div>
         </div>
         <div className="courseInfoPageP3">
-          <p style={{ color: 'blue' }}>{(currentUser.admin && currentUser.superadmin) ? 'superadmin' : currentUser.admin ? 'admin' : ''}</p>
           <h2 className="title-name">
             {`${currentUser.firstName} ${currentUser.lastName}`}
             <span>
               &nbsp;
-              <Link to="/editUser">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe0-ruYIVTiRizPu8o-RjjR1KrGv-mqXJgLQ&usqp=CAU" alt="" width="40px" />
-              </Link>
+              <span style={{ color: 'orange', fontSize: '15px' }}>{(currentUser.admin && currentUser.superadmin) ? 'superadmin' : currentUser.admin ? 'admin' : ''}</span>
             </span>
           </h2>
           <p>{currentUser.phone}</p>
