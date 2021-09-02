@@ -8,7 +8,6 @@ export default function RequestsItem({
   courseId,
   courseName,
 }) {
-  console.log(courseId);
   return (
     <>
       <div className="col">{userFirstName}</div>
