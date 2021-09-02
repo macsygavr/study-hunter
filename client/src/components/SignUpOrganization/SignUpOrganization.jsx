@@ -7,7 +7,6 @@ import { registerOrganizationStart } from '../../redux/actions/organizationsAC';
 function SignUpOrganization() {
   const dispatch = useDispatch();
   const [login, setLogin] = useState(false);
-  const [display, setDisplay] = useState('none');
   const [arrOfOrgForms, setArgOfOrgForms] = useState([]);
   const currentOrganization = useSelector((state) => state.currentOrganization);
 
@@ -30,9 +29,6 @@ function SignUpOrganization() {
       form.value.trim(),
       password.value.trim(),
     ));
-
-    if (currentOrganization?.id) setDisplay('none');
-    if (!currentOrganization?.id) setDisplay('block');
   };
 
   useEffect(() => {
@@ -67,13 +63,13 @@ function SignUpOrganization() {
           <input required name="password" type="password" className="form-control" />
         </div>
         <button type="submit" className="btn myLinkButton">Зарегистрироваться</button>
-        {login ? <Redirect to="/" /> : (
-          // eslint-disable-next-line object-shorthand
+        {login && <Redirect to="/" />}
+        {currentOrganization?.error && (
           <p style={{
-            color: 'red', display, marginTop: '15px', marginBottom: '0',
+            color: 'red', marginTop: '15px', marginBottom: '0',
           }}
           >
-            Эл.адрес должен быть уникальным!
+            Email должен быть уникальным!
           </p>
         )}
       </form>

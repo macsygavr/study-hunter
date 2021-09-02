@@ -22,10 +22,10 @@ function usersReducer(state = {}, action) {
       return action.payload;
 
     case REGISTER_USER_SUCCESS:
-      return action.payload;
+      return { ...action.payload, error: false };
 
     case REGISTER_USER_FAIL:
-      return {};
+      return { ...state, error: true };
 
     case LOGOUT_USER_SUCCESS:
       return {};
@@ -34,10 +34,10 @@ function usersReducer(state = {}, action) {
       return state;
 
     case LOGIN_USER_SUCCESS:
-      return action.payload;
+      return { ...action.payload, error: false };
 
     case LOGIN_USER_FAIL:
-      return {};
+      return { ...state, error: true };
 
     case ADD_TO_FAV_USER_SUCCESS:
       return {

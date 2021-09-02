@@ -3,11 +3,13 @@ import './requestButton.css';
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
+import PopUp from '../PopUp/PopUp';
 import { addRequestUserStart, removeRequestUserStart } from '../../redux/actions/usersAC';
 
 function RequestsButton({ userId, courseId }) {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state);
+  const [popupActive, setPopupActive] = useState(false);
   const [isRequested, setIsRequested] = useState(null);
 
   const requestHandler = () => {
@@ -27,14 +29,16 @@ function RequestsButton({ userId, courseId }) {
   }, [currentUser.requests]);
 
   return (
-    isRequested ? (
+    {isRequested ? (
       <button type="button" className="btn btn-success mt-3 mb-0" onClick={removeRequestHandler}>Отклик отправлен</button>
     ) : (Object.keys(currentUser).length
       ? (
         <button onClick={requestHandler} type="button" className="btn btn-my-primary mt-3">Хочу здесь учиться!</button>
-      ) : null
-    )
+      ) : <button onClick={() => setPopupActive(true)} type="button" className="btn btn-primary mt-3 open-btn">Откликнуться!</button>
+    )}
+     <PopUp active={popupActive} setActive={setPopupActive} />
   );
 }
+
 
 export default React.memo(RequestsButton);

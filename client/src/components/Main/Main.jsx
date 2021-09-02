@@ -21,8 +21,8 @@ import SignInOrganization from '../SignInOrganization/SignInOrganization';
 import SignInChoisePage from '../SignInChoicePage/SignInChoicePage';
 import Search from '../Search/Search';
 import Posts from '../Posts/Posts';
-import { loginUserFail, loginUserSuccess } from '../../redux/actions/usersAC';
-import { loginOrganizationFail, loginOrganizationSuccess } from '../../redux/actions/organizationsAC';
+import { loginUserSuccess } from '../../redux/actions/usersAC';
+import { loginOrganizationSuccess } from '../../redux/actions/organizationsAC';
 import CourseInfoPage from '../CourseInfoPage/CourseInfoPage';
 import OrganizationInfoPage from '../OrganizationInfoPage/OrganizationInfoPage';
 // import { useSelector } from 'react-redux';
@@ -49,8 +49,8 @@ export default function Main() {
           } else dispatch(loginOrganizationSuccess(response.data));
         })
         .catch(() => {
-          dispatch(loginUserFail());
-          dispatch(loginOrganizationFail());
+          // dispatch(loginUserFail());
+          // dispatch(loginOrganizationFail());
         });
     }
   }, []);
