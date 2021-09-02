@@ -136,7 +136,7 @@ router.get('/profile/current', async (req, res) => {
         OrganizationRequests: requests,
     });
   }
-  res.status(301).end();
+  res.status(401).end();
 });
 
 router.post('/request', async (req, res) => {

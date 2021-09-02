@@ -14,7 +14,7 @@ function PostsItem(props) {
 
   const { currentUser } = useSelector((state) => state);
 
-  return (currentUser.superadmin ? (
+  return (currentUser?.superadmin ? (
     <>
       <div className="card-body card-my-style">
         <Link className="postItemHomeLink" to={`/course/${id}`}>
@@ -41,7 +41,7 @@ function PostsItem(props) {
       <>
         <div className="card-body card-my-style">
           <div>
-            {Object.keys(currentUser).length
+            {currentUser
               ? (
                 <div className="favoriteButtonDiv">
                   <FavoritesButton userId={currentUser.id} courseId={id} />
@@ -67,7 +67,7 @@ function PostsItem(props) {
             </Link>
           </div>
           <div>
-            <RequestsButton userId={currentUser.id} courseId={id} courseName={name} />
+            <RequestsButton userId={currentUser?.id} courseId={id} courseName={name} />
           </div>
         </div>
       </>

@@ -24,7 +24,7 @@ function organizationsReducer(state = {}, action) {
       return { ...state, error: true };
 
     case LOGOUT_ORGANIZATION_SUCCESS:
-      return {};
+      return null;
 
     case LOGOUT_ORGANIZATION_FAIL:
       return state;

@@ -30,33 +30,26 @@ import OrganizationInfoPage from '../OrganizationInfoPage/OrganizationInfoPage';
 
 export default function Main() {
   const [randomSixCourses, setRandomSixCourses] = useState([]);
-
-  const dispatch = useDispatch();
   const [searchResult, setSearchResult] = useState();
 
-  const { currentUser, currentOrganization } = useSelector((state) => state);
-
-  // useEffect(() => {
-  //   console.log('useffect');
-  //   axios.get(`${process.env.REACT_APP_SERVER_URL}/profile/current`, { withCredentials: true })
-  //     .then((response) => {
-  //       console.log(response.data);
-  //       if (response.status === 201) {
-  //         dispatch(loginUserSuccess(response.data));
-  //       } else dispatch(loginOrganizationSuccess(response.data));
-  //     });
-  // }, []);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_SERVER_URL}`) // env variable
-      .then((res) => setRandomSixCourses(res.data));
     axios.get(`${process.env.REACT_APP_SERVER_URL}/profile/current`, { withCredentials: true })
       .then((response) => {
         console.log(response.data);
         if (response.status === 201) {
           dispatch(loginUserSuccess(response.data));
-        } else dispatch(loginOrganizationSuccess(response.data));
+        }
+        if (response.status === 202) {
+          dispatch(loginOrganizationSuccess(response.data));
+        }
       });
+  }, []);
+
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_SERVER_URL}`) // env variable
+      .then((res) => setRandomSixCourses(res.data));
   }, []);
 
   const searchHandler = (e) => {
@@ -74,7 +67,7 @@ export default function Main() {
     if (e.target.priceMax.value.trim()) {
       priceMaxValue = e.target.priceMax.value;
     } else {
-      priceMaxValue = 1e50;
+      priceMaxValue = Number.MAX_SAFE_INTEGER;
     }
     axios.post(`${process.env.REACT_APP_SERVER_URL}`, { // env variable
       specialityId,

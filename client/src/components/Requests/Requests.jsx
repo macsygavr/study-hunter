@@ -1,14 +1,15 @@
+import React from 'react';
 import RequestsItem from '../RequestsItem/RequestsItem';
 
 export default function Requests({ requestsToRender }) {
   const renderRequests = () => (requestsToRender && requestsToRender.length
     ? requestsToRender.map((request) => (
-      <>
+      <React.Fragment key={`${request.userFirstName}-${request.userPhone}`}>
         <div className="row row-cols-5 align-items-center" key={request.userId + request.courseId}>
           <RequestsItem {...request} />
         </div>
         <hr style={{ color: 'rgb(198, 198, 198)' }} />
-      </>
+      </React.Fragment>
     ))
     : (<div>Здесь пока нет откликов</div>));
 

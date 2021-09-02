@@ -9,7 +9,7 @@ function QuickResponseForm({ courseId }) {
   const dispatch = useDispatch();
   const [login, setLogin] = useState(false);
   const currentUser = useSelector((state) => state.currentUser);
-
+  console.log(currentUser);
   const submitHandler = (event) => {
     event.preventDefault();
     const {
@@ -32,7 +32,7 @@ function QuickResponseForm({ courseId }) {
 
   return (
     <div className="container d-flex justify-content-center my-5 p-3" style={{ width: '370px', backgroundColor: 'rgb(233, 233, 233)' }}>
-      {!login ? (
+      {!currentUser ? (
         <form id="userSignUpForm" onSubmit={submitHandler}>
           <div className="mb-2 d-flex flex-column align-items-start">
             <p className="mb-1">Имя</p>

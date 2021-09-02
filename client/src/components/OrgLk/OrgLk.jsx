@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import CoursesTable from '../CoursesTable/CoursesTable';
 import Modal from '../Modal/Modal';
 import Requests from '../Requests/Requests';
+import phoneMask from '../../utils/phoneMask';
 
 function OrgLk() {
   const [file, setFile] = useState(null);
@@ -13,12 +14,14 @@ function OrgLk() {
   const [toggleState, setToogleState] = useState(1);
 
   const { currentOrganization } = useSelector((state) => state);
-  console.log(currentOrganization.OrganizationRequests);
   useEffect(() => {
-    setFile(currentOrganization.logo);
-  }, [currentOrganization.logo]);
+    if (currentOrganization?.logo) {
+      setFile(currentOrganization.logo);
+    }
+  }, [currentOrganization]);
 
   const fileSend = async (e) => {
+    if (!currentOrganization) return;
     e.preventDefault();
     const formData = new FormData();
     const imagefile = document.querySelector('#file');
@@ -36,13 +39,15 @@ function OrgLk() {
     setIsModalOpened((state) => !state);
   };
 
+  if (!currentOrganization) {
+    return null;
+  }
+
   return (
     <div className="container my-container">
       <div className="lkContainer">
         <div className="avatarContainer">
-          {file
-            ? <img src={`${process.env.REACT_APP_SERVER_URL}${file}`} alt="pic" className="avatar" />
-            : <img src="https://www.ucheba.ru/img/userpic-empty-big.png" alt="pic" className="avatar" />}
+          <img src={file ? `${process.env.REACT_APP_SERVER_URL}${file}` : 'https://www.ucheba.ru/img/userpic-empty-big.png'} alt="pic" className="avatar" />
           <div>
             <label htmlFor="file" className="btn btn-my-primary my-2">
               Обновить фото
@@ -70,7 +75,7 @@ function OrgLk() {
           <div style={{ textAlign: 'start' }}>
             <p>Контакты:</p>
             <p>{`Адрес: ${currentOrganization.address ? currentOrganization.address : 'Не указано'}`}</p>
-            <p>{`Тел.: ${currentOrganization.phone}`}</p>
+            <p>{`Телeфон: ${phoneMask(currentOrganization.phone)}`}</p>
             <p>{`Сайт: ${currentOrganization.site ? currentOrganization.site : 'Не указано'}`}</p>
             <p>{`Почта: ${currentOrganization.email}`}</p>
           </div>
@@ -101,8 +106,8 @@ function OrgLk() {
                     <Modal setIsModalOpened={setIsModalOpened} orgId={currentOrganization.id} />
                   ) : null}
                   <div style={{ marginTop: '-28px' }}>
-                    {Object.keys(currentOrganization).length
-                      ? currentOrganization.OrganizationCourses.map((course) => (
+                    {currentOrganization
+                      ? currentOrganization.OrganizationCourses?.map((course) => (
                         <CoursesTable
                           key={course.id}
                           courseName={course.name}
