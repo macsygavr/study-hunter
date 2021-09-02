@@ -80,7 +80,6 @@ router.get('/profile/current', async (req, res) => {
     }, include: {model: db.Course, include: db.CourseForm} });
     const favorites = favoritesFromDB.map(course => ({...course.Course, type: course.Course.CourseForm.form}));
     const requests = requestsFromDB.map(course => ({...course.Course, type: course.Course.CourseForm.form}));
-    
     return res.status(201).json({
         id: user.id,
         firstName: user.firstName, 
@@ -103,7 +102,20 @@ router.get('/profile/current', async (req, res) => {
       include: {
         model: db.OrganizationForm
       }});
-      const courses = await db.Course.findAll({raw: true, where: {OrganizationId: organization.id}});
+    const courses = await db.Course.findAll({raw: true, where: {OrganizationId: organization.id}});
+    
+    let requestsFromDB = await db.Request.findAll({raw: true, nest: true, include: [{model: db.User}, {model: db.Course} ]}); 
+    requestsFromDB = requestsFromDB.filter(item => item.Course.OrganizationId === organization.id);
+    const requests = requestsFromDB.map(request => ({
+      userId: request.User.id,
+      userFirstName: request.User.firstName,
+      userLastName: request.User.lastName,
+      userPhone: request.User.phone,
+      userEmail: request.User.email,
+      courseId: request.Course.id,
+      courseName: request.Course.name,
+    }));
+
     return res.status(202).json({
         id: organization.id,
         name: organization.name,
@@ -118,6 +130,7 @@ router.get('/profile/current', async (req, res) => {
         OrganizationFormId: organization.OrganizationFormId,
         OrganizationForm: organization.OrganizationForm.form,
         OrganizationCourses: courses,
+        OrganizationRequests: requests,
     });
   }
   res.status(401).end();
@@ -187,20 +200,5 @@ router.post('/isrequested', async (req, res) => {
   if (isRequested) res.json(true) 
   else res.json(false);
 });
-
-// router.get('/organizationrequests', async (req, res) => {
-//   const { orgId } = req.body;
-//   console.log(orgId);
-//   const orgRequestsFromDB = await db.Request.findAll({
-//     raw: true,
-//     nest: true,
-//     include: [{
-//       model: db.User
-//     }, {
-//       model: db.Course
-//     }]
-//   });
-//   res.json(orgRequestsFromDB);
-// });
 
 module.exports = router;

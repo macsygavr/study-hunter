@@ -67,7 +67,7 @@ function PostsItem(props) {
             </Link>
           </div>
           <div>
-            <RequestsButton userId={currentUser.id} courseId={id} />
+            <RequestsButton userId={currentUser.id} courseId={id} courseName={name} />
           </div>
         </div>
       </>
