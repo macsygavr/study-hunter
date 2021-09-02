@@ -23,7 +23,7 @@ function SignInOrganization() {
   }, [currentOrganization]);
 
   return (
-    <div className="container d-flex justify-content-center my-5" style={{ width: '270px' }}>
+    <div className="container my-5" style={{ width: '370px' }}>
       <form id="organizationSignUpForm" onSubmit={loginHandler}>
         <div className="mb-2 d-flex flex-column align-items-start">
           <p className="mb-1">Email организации</p>
