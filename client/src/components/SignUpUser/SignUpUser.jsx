@@ -28,7 +28,7 @@ function SignUpUser() {
   }, [currentUser]);
 
   return (
-    <div className="container d-flex justify-content-center my-5 bg-light p-4 border border-4 rounded" style={{ width: '270px' }}>
+    <div className="container d-flex justify-content-center my-5" style={{ width: '270px' }}>
       <form id="userSignUpForm" onSubmit={submitHandler}>
         <div className="mb-2 d-flex flex-column align-items-start">
           <p className="mb-1">Имя</p>
@@ -50,9 +50,9 @@ function SignUpUser() {
           <p className="mb-1">Пароль</p>
           <input required name="password" type="password" className="form-control" />
         </div>
-        <button type="submit" className="btn btn-my-primary">Зарегистрироваться</button>
+        <button type="submit" className="btn myLinkButton">Зарегистрироваться</button>
         {login ? <Redirect to="/" /> : (
-        // eslint-disable-next-line object-shorthand
+          // eslint-disable-next-line object-shorthand
           <p style={{
             color: 'red', display, marginTop: '15px', marginBottom: '0',
           }}

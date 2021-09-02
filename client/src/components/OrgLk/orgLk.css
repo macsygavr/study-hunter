@@ -45,7 +45,14 @@
   padding: 25px;
 }
 
-.ButtonDreamSearchDiv{
+.moderationSpan{
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.addCoursesTitleDiv{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

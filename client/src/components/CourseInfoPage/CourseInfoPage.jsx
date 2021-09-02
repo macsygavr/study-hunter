@@ -59,7 +59,7 @@ function CourseInfoPage() {
             {currentCourse.dataValues.description}
           </p>
         </div>
-      </p>
+      </div>
     </div>
   ) : (
     null

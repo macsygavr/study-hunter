@@ -21,7 +21,7 @@ function OrganizationInfoPage() {
     <div className="container my-organization-container">
       <h2 className="courseInfoPageP">{`${currentOrganization.currentOrganization.name} (${currentOrganization.currentOrganizationType.form})`}</h2>
       {currentOrganization.currentOrganization.is_checked ? null : currentUser.admin ? <AdminButton {...currentOrganization.currentOrganization} /> : null}
-      <p className="courseInfoPageP2">
+      <div className="courseInfoPageP2">
         <h3 style={{ textAlign: 'left' }}>Описание</h3>
         <hr style={{ marginTop: 0 }} />
         <div className="courseInfoPageP3">
@@ -30,7 +30,7 @@ function OrganizationInfoPage() {
             {currentOrganization.currentOrganization.description}
           </p>
         </div>
-      </p>
+      </div>
       <div className="courseInfoPageP2">
         <h3 style={{ textAlign: 'left' }}>Курсы</h3>
         <hr style={{ marginTop: 0 }} />
@@ -50,13 +50,15 @@ function OrganizationInfoPage() {
             &nbsp;
             {currentOrganization.currentOrganization.phone}
           </p>
-          <p>
-            Сайт:
-            <a href={currentOrganization.currentOrganization.site} className="postItemLink">
-              &nbsp;
-              {currentOrganization.currentOrganization.site}
-            </a>
-          </p>
+          <div>
+            <p>
+              Сайт:
+              <a href={currentOrganization.currentOrganization.site} className="postItemLink">
+                &nbsp;
+                {currentOrganization.currentOrganization.site}
+              </a>
+            </p>
+          </div>
           <p>
             Почта:
             &nbsp;
