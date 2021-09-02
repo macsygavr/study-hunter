@@ -7,7 +7,7 @@ import { addRequestUserStart, removeRequestUserStart } from '../../redux/actions
 
 function RequestsButton({ userId, courseId }) {
   const dispatch = useDispatch();
-  const { currentUser, currentOrganization } = useSelector((state) => state);
+  const { currentUser } = useSelector((state) => state);
   const [isRequested, setIsRequested] = useState(null);
 
   const requestHandler = () => {
@@ -32,8 +32,6 @@ function RequestsButton({ userId, courseId }) {
     ) : (Object.keys(currentUser).length
       ? (
         <button onClick={requestHandler} type="button" className="btn btn-my-primary mt-3">Хочу здесь учиться!</button>
-      ) : !Object.keys(currentOrganization).length ? (
-        <p className="mt-3 mb-2" style={{ fontStyle: 'italic', fontSize: '13px', color: 'gray' }}>Для возможности отправки заявки - войдите</p>
       ) : null
     )
   );
