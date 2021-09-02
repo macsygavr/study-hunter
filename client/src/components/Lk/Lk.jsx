@@ -71,7 +71,6 @@ export default function Lk() {
       ) : (
         <>
           <div className="courseInfoPageP2">
-            { currentUser.admin ? <RegisterList /> : ''}
             <h3 style={{ textAlign: 'left' }}>Избранное</h3>
             <hr style={{ marginTop: 0 }} />
             {currentUser.favorites ? (
