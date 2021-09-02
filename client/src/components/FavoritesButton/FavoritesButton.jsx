@@ -9,6 +9,7 @@ function FavoritesButton({ userId, courseId, styleProp }) {
   const dispatch = useDispatch();
 
   const { favorites } = useSelector((state) => state.currentUser);
+  // eslint-disable-next-line max-len
   const [currentFavorite] = favorites ? favorites.filter((course) => course.id === courseId) : null;
 
   const addToFavHandler = () => {
