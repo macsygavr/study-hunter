@@ -45,3 +45,11 @@ a {
 .postItemLink:hover {
   color: rgb(0, 0, 179);
 }
+
+.postItemLink2 {
+  color: rgb(26, 43, 70);
+}
+
+.postItemLink2:hover {
+  color: rgb(26, 43, 70);
+}
