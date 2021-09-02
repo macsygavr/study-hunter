@@ -53,3 +53,7 @@ a {
 .postItemLink2:hover {
   color: rgb(26, 43, 70);
 }
+
+.popup__content {
+  background-color: rgb(233, 233, 233) !important;
+}

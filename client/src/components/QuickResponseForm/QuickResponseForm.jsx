@@ -31,7 +31,7 @@ function QuickResponseForm({ courseId }) {
   };
 
   return (
-    <div className="container d-flex justify-content-center my-5 p-3" style={{ width: '370px', padding: '20px' }}>
+    <div className="container d-flex justify-content-center my-5 p-3" style={{ width: '370px', backgroundColor: 'rgb(233, 233, 233)' }}>
       {!login ? (
         <form id="userSignUpForm" onSubmit={submitHandler}>
           <div className="mb-2 d-flex flex-column align-items-start">
