@@ -23,7 +23,7 @@ export default function Lk() {
     formData.append('userPhotoId', currentUser.id);
     formData.append('filedata', imagefile.files[0]);
 
-    const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/admin/upload`, formData, { withCredentials: true });
+    const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/upload`, formData, { withCredentials: true });
     // setFile(`${process.env.REACT_APP_SERVER_URL}${response.data}`);
     if (response.data) {
       setFile(response.data);
@@ -35,9 +35,14 @@ export default function Lk() {
       <div className="lkContainer">
         <div className="avatarContainer">
           {file
-            ? <img className="avatar" src={`${process.env.REACT_APP_SERVER_URL}${file}`} alt="pic" />
-            : <img className="avatar" src="https://www.ucheba.ru/img/userpic-empty-big.png" alt="pic" />}
-          <input type="file" name="filedata" id="file" onChange={(e) => fileSend(e)} />
+            ? <img src={`${process.env.REACT_APP_SERVER_URL}${file}`} alt="pic" className="avatar" />
+            : <img src="https://www.ucheba.ru/img/userpic-empty-big.png" alt="pic" className="avatar" />}
+          <div>
+            <label htmlFor="file" className="btn btn-my-primary my-2">
+              Обновить фото
+              <input className="input-file form-control" type="file" name="filedata" id="file" onChange={(e) => fileSend(e)} style={{ width: '108px', margin: 'auto', display: 'none' }} />
+            </label>
+          </div>
         </div>
         <div className="courseInfoPageP3">
           <p style={{ color: 'blue' }}>{(currentUser.admin && currentUser.superadmin) ? 'superadmin' : currentUser.admin ? 'admin' : ''}</p>
@@ -66,6 +71,7 @@ export default function Lk() {
       ) : (
         <>
           <div className="courseInfoPageP2">
+            { currentUser.admin ? <RegisterList /> : ''}
             <h3 style={{ textAlign: 'left' }}>Избранное</h3>
             <hr style={{ marginTop: 0 }} />
             {currentUser.favorites ? (

@@ -85,7 +85,7 @@ export default function Modal({ setIsModalOpened, orgId }) {
               <div className="alert alert-primary">
                 Ваш курс был успешно добавлен!
               </div>
-              <button type="button" className="btn myLinkButton w-25" onClick={() => setIsModalOpened((state) => !state)}>OK</button>
+              <button type="button" className="btn btn-my-primary w-25" onClick={() => setIsModalOpened((state) => !state)}>OK</button>
             </div>
           )
           : (
@@ -128,7 +128,7 @@ export default function Modal({ setIsModalOpened, orgId }) {
                 <p className="mb-1">Описание</p>
                 <textarea placeholder="Добавьте описание" name="description" style={{ width: '100%' }} />
               </div>
-              <button type="button" className="btn myLinkButton" onClick={addCourseHandler}>Добавить</button>
+              <button type="button" className="btn btn-my-primary" onClick={addCourseHandler}>Добавить</button>
               <button type="button" className="btn btn-danger position-fixed top-0 end-0" onClick={() => setIsModalOpened((state) => !state)}>Х</button>
             </form>
           )}

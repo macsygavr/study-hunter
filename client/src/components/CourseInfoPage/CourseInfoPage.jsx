@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import FavoritesButton from '../FavoritesButton/FavoritesButton';
+import RequestsButton from '../RequestsButton/RequestsButton';
 import './courseInfoPage.css';
 
 function CourseInfoPage() {
@@ -48,7 +49,8 @@ function CourseInfoPage() {
           {currentCourse.organization}
         </Link>
       </p>
-      <div className="courseInfoPageP2">
+      <RequestsButton userId={currentUser.id} courseId={currentCourse.dataValues.id} />
+      <p className="courseInfoPageP2">
         <h3 style={{ textAlign: 'left' }}>Описание</h3>
         <hr style={{ marginTop: 0 }} />
         <div className="courseInfoPageP3">
