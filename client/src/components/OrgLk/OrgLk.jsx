@@ -118,7 +118,17 @@ function OrgLk() {
                 </div>
               </div>
             </div>
-          ) : currentOrganization.is_checked ? 'Заявка отклонена модератором' : 'Заявка на регистрацию на рассмотрении у модератора'}
+          ) : currentOrganization.is_checked ? (
+            <>
+              <span>Заявка отклонена модератором</span>
+              <br />
+              <span>
+                <a className="postItemLink" href="email:sa@sh.ru">sa@sh.ru</a>
+                {' '}
+                - для связи с модератором
+              </span>
+            </>
+          ) : 'Заявка на регистрацию на находится рассмотрении у модератора'}
       </div>
     </div>
   );
