@@ -25,7 +25,7 @@ export default function AdminButton(item) {
     <div>
       { isChecked ? 'Заявка рассмотрена'
         : (
-          <div>
+          <div style={{ display: 'flex' }}>
             <button className="myLinkButton" type="button" onClick={() => acceptHandler(id)}>Подтвердить</button>
             <button style={{ marginLeft: '6px' }} className="myLinkButton" type="button" onClick={() => declineHandler(id)}>Отклонить</button>
           </div>
