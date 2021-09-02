@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import Posts from '../Posts/Posts';
 import UserList from '../UserList/UserList';
 import RegisterList from '../RegisterList/RegisterList';
+import UserSearch from '../UserSearch/UserSearch';
 
 export default function Lk() {
   const [file, setFile] = useState(null);
@@ -67,12 +68,21 @@ export default function Lk() {
         </div>
       </div>
       {currentUser.superadmin ? (
-        <div className="courseInfoPageP2">
-          { currentUser.admin ? <RegisterList /> : ''}
-          <h3 style={{ textAlign: 'left', marginTop: '20px' }}>Администраторы</h3>
-          <hr style={{ marginTop: 0 }} />
-          <div>
-            <UserList />
+        <div>
+          <div className="courseInfoPageP2">
+            { currentUser.admin ? <RegisterList /> : ''}
+            <h3 style={{ textAlign: 'left', marginTop: '20px' }}>Администраторы</h3>
+            <hr style={{ marginTop: 0 }} />
+            <div>
+              <UserList />
+            </div>
+          </div>
+          <div className="courseInfoPageP2">
+            <h3 style={{ textAlign: 'left', marginTop: '20px' }}>Поиск пользователей</h3>
+            <hr style={{ marginTop: 0 }} />
+            <div>
+              <UserSearch />
+            </div>
           </div>
         </div>
       ) : (
