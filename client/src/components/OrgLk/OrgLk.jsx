@@ -11,7 +11,6 @@ function OrgLk() {
   const [isModalOpened, setIsModalOpened] = useState(false);
 
   const { currentOrganization } = useSelector((state) => state);
-  console.log(currentOrganization);
   useEffect(() => {
     setFile(currentOrganization.logo);
   }, [currentOrganization.logo]);
@@ -42,7 +41,12 @@ function OrgLk() {
           {file
             ? <img src={`${process.env.REACT_APP_SERVER_URL}${file}`} alt="pic" style={{ borderRadius: '50%', height: '100%' }} />
             : <img src="https://www.ucheba.ru/img/userpic-empty-big.png" alt="pic" />}
-          <input className="input-file" type="file" name="filedata" id="file" onChange={(e) => fileSend(e)} />
+          <div>
+            <label htmlFor="file" className="btn btn-my-primary my-2">
+              Обновить фото
+              <input className="input-file form-control" type="file" name="filedata" id="file" onChange={(e) => fileSend(e)} style={{ width: '108px', margin: 'auto', display: 'none' }} />
+            </label>
+          </div>
         </div>
         <div>
           <div className="container d-flex flex-column align-items-start">
@@ -77,7 +81,7 @@ function OrgLk() {
               <div>
                 {' '}
                 <span>Текущие направления</span>
-                <button onClick={addCourseButtonHandler} type="button" className="btn btn-primary">Добавить направление</button>
+                <button onClick={addCourseButtonHandler} type="button" className="btn btn-my-primary">Добавить направление</button>
               </div>
             )
             : <span>Статус регистрации</span> }
@@ -88,16 +92,22 @@ function OrgLk() {
         <hr style={{ marginBottom: '40px' }} />
         { currentOrganization.is_allowed
           ? (
-            <div style={{ marginLeft: '30px' }}>
-              {Object.keys(currentOrganization).length
-                ? currentOrganization.OrganizationCourses.map((course) => (
-                  <CoursesTable
-                    key={course.id}
-                    courseName={course.name}
-                    coursePrice={course.price}
-                    courseId={course.id}
-                  />
-                )) : 'Здесь пока ничего нет' }
+            <div>
+              <div style={{ marginLeft: '30px' }}>
+                {Object.keys(currentOrganization).length
+                  ? currentOrganization.OrganizationCourses.map((course) => (
+                    <CoursesTable
+                      key={course.id}
+                      courseName={course.name}
+                      coursePrice={course.price}
+                      courseId={course.id}
+                    />
+                  )) : 'Здесь пока ничего нет' }
+              </div>
+              <div>
+                <div>Отклики пользователей</div>
+                <hr />
+              </div>
             </div>
           ) : currentOrganization.is_checked ? 'Заявка отклонена модератором' : 'Заявка находится на рассмотрении модератора'}
       </div>

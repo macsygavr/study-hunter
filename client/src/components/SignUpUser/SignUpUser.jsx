@@ -50,7 +50,7 @@ function SignUpUser() {
           <p className="mb-1">Пароль</p>
           <input required name="password" type="password" className="form-control" />
         </div>
-        <button type="submit" className="btn btn-primary">Зарегистрироваться</button>
+        <button type="submit" className="btn btn-my-primary">Зарегистрироваться</button>
         {login ? <Redirect to="/" /> : (
         // eslint-disable-next-line object-shorthand
           <p style={{

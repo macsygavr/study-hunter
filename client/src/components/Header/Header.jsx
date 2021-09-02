@@ -36,7 +36,7 @@ export default function Header() {
           </Link>
           <div>
             <Link className="headerLinkButton" to="/profile/user">{`${currentUser.firstName} ${currentUser.lastName}`}</Link>
-            <img alt="" className="logoImg" src={currentUser.logo ? `${process.env.REACT_APP_SERVER_URL}${currentUser.logo}` : 'https://www.ucheba.ru/img/userpic-empty-big.png'} />
+            <img alt="" className="logoImg" src={currentUser.logo ? `${process.env.REACT_APP_SERVER_URL}${currentUser.logo}` : 'https://www.ucheba.ru/img/userpic-empty-big.png'} style={{ width: '40px', height: '40px' }} />
             <Link onClick={UserLogoutHandler} className="headerLinkButton" to="/">
               Выход
             </Link>
@@ -63,7 +63,7 @@ export default function Header() {
           </Link>
           <div>
             <Link className="headerLinkButton" to="/profile/organization">{`${currentOrganization.name}`}</Link>
-            <img alt="" className="logoImg" src={currentOrganization.logo ? `${process.env.REACT_APP_SERVER_URL}${currentOrganization.logo}` : 'https://www.ucheba.ru/img/userpic-empty-big.png'} />
+            <img alt="" className="logoImg" src={currentOrganization.logo ? `${process.env.REACT_APP_SERVER_URL}${currentOrganization.logo}` : 'https://www.ucheba.ru/img/userpic-empty-big.png'} style={{ width: '40px', height: '40px' }} />
             <Link onClick={OrgLogoutHandler} className="headerLinkButton" to="/">
               Выход
             </Link>

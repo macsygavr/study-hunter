@@ -66,9 +66,11 @@ function PostsItem(props) {
               </p>
             </Link>
           </div>
-          <div>
-            <RequestsButton userId={currentUser.id} courseId={id} />
-          </div>
+          {Object.keys(currentUser).length ? (
+            <div>
+              <RequestsButton userId={currentUser.id} courseId={id} />
+            </div>
+          ) : null}
         </div>
       </>
     )
