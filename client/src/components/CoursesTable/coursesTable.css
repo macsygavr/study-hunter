@@ -1,12 +1,5 @@
-.CoursesTableP {
+.CoursesTableP1 {
   display: flex;
   justify-content: space-between;
-}
-
-.postItemLink {
-  color: rgb(0, 0, 179);
-}
-
-.postItemLink:hover {
-  color: rgb(0, 0, 179);
+  align-items: center;
 }

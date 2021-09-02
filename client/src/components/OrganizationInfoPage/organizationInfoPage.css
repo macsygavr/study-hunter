@@ -24,10 +24,10 @@
   align-items: flex-start;
 }
 
-.postItemLink {
-  color: rgb(0, 0, 179);
-}
-
-.postItemLink:hover {
-  color: rgb(0, 0, 179);
+.courseInfoPageP4 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: start;
+  margin: 30px;
 }

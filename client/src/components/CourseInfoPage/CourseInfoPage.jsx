@@ -49,7 +49,6 @@ function CourseInfoPage() {
           {currentCourse.organization}
         </Link>
       </p>
-      <RequestsButton userId={currentUser.id} courseId={currentCourse.dataValues.id} />
       <div className="courseInfoPageP2">
         <h3 style={{ textAlign: 'left' }}>Описание</h3>
         <hr style={{ marginTop: 0 }} />
@@ -59,6 +58,9 @@ function CourseInfoPage() {
             {currentCourse.dataValues.description}
           </p>
         </div>
+        <p>
+          <RequestsButton userId={currentUser.id} courseId={currentCourse.dataValues.id} />
+        </p>
       </div>
     </div>
   ) : (
