@@ -99,7 +99,7 @@ function OrgLk() {
         {currentOrganization.is_allowed
           ? (
             <div>
-              <div style={{ marginLeft: '30px' }}>
+              <div>
                 {Object.keys(currentOrganization).length
                   ? currentOrganization.OrganizationCourses.map((course) => (
                     <CoursesTable
@@ -110,10 +110,12 @@ function OrgLk() {
                     />
                   )) : 'Здесь пока ничего нет' }
               </div>
-              <div>
-                <div>Отклики пользователей</div>
-                <hr />
-                <Requests requestsToRender={currentOrganization.OrganizationRequests} />
+              <div className="courseInfoPageP1">
+                <h3 style={{ textAlign: 'left', marginTop: '30px' }}>Отклики пользователей</h3>
+                <hr style={{ marginTop: 0 }} />
+                <div>
+                  <Requests requestsToRender={currentOrganization.OrganizationRequests} />
+                </div>
               </div>
             </div>
           ) : currentOrganization.is_checked ? 'Заявка отклонена модератором' : 'Заявка на регистрацию на рассмотрении у модератора'}

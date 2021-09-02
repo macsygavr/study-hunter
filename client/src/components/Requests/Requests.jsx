@@ -3,12 +3,17 @@ import RequestsItem from '../RequestsItem/RequestsItem';
 export default function Requests({ requestsToRender }) {
   const renderRequests = () => (requestsToRender && requestsToRender.length
     ? requestsToRender.map((request) => (
-      <div className="row row-cols-5 align-items-center" key={request.userId + request.courseId}><RequestsItem {...request} /></div>
+      <>
+        <div className="row row-cols-5 align-items-center" key={request.userId + request.courseId}>
+          <RequestsItem {...request} />
+        </div>
+        <hr style={{ color: 'rgb(198, 198, 198)' }} />
+      </>
     ))
     : (<div>Здесь пока нет откликов</div>));
 
   return (
-    <div className="container mb-5">
+    <div className="mb-5">
       {requestsToRender && requestsToRender.length
         ? (
           <>
@@ -19,7 +24,7 @@ export default function Requests({ requestsToRender }) {
               <strong className="col">Email</strong>
               <strong className="col">Направление</strong>
             </div>
-            <hr style={{ color: 'rgb(198, 198, 198)' }} />
+            <hr style={{ color: 'rgb(198, 198, 198)', marginTop: '5px' }} />
           </>
         )
         : null}
