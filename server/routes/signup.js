@@ -24,6 +24,38 @@ router.post('/user', async (req, res) => {
   }
 });
 
+router.post('/quickuser', async (req, res) => {
+  const { firstName, lastName, phone, email, password, courseId } = req.body;
+  const user = await db.User.findOne({ where: { email: email.toLowerCase() } });
+  if (user) {
+      res.sendStatus(404);
+    } else {
+    const newUser = await db.User.create({ firstName, lastName, phone, email: email.toLowerCase(), password });
+    const userRequest = await db.Request.findOne({where: {UserId: newUser.id, CourseId: courseId}});
+    if (!userRequest) {
+      await db.Request.create({ UserId: newUser.id, CourseId: courseId });
+    }
+    const requestsFromDB = await db.Request.findAll({ raw: true, nest: true, where: {
+      UserId: newUser.id,
+    }, include: {model: db.Course, include: db.CourseForm} });
+    const requests = requestsFromDB.map(course => ({...course.Course, type: course.Course.CourseForm.form}));
+
+    req.session.userEmail = newUser.email;
+    req.session.userid = newUser.id;
+    res.json({
+      id: newUser.id,
+      firstName: newUser.firstName, 
+      lastName : newUser.lastName, 
+      phone: newUser.phone, 
+      email: newUser.email, 
+      logo: newUser.logo,
+      admin: newUser.admin,
+      superadmin: newUser.superadmin,
+      favorites: [], 
+      requests: requests || []});
+  }
+});
+
 router.post('/organization', async (req, res) => {
   const {name, phone, email, form, password} = req.body;
   const organization = await db.Organization.findOne({ where: { email: email.toLowerCase() } });
