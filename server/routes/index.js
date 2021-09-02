@@ -70,6 +70,9 @@ router.get('/logout', async (req, res) => {
 router.get('/profile/current', async (req, res) => {
   const isUser = req.session.userid;
   const isOrg = req.session.orgId;
+
+  console.log(isUser, isOrg);
+
   if (isUser) {
     const user = await db.User.findOne({raw: true, where: {id: isUser}});
     const favoritesFromDB = await db.Favorites.findAll({ raw: true, nest: true, where: {

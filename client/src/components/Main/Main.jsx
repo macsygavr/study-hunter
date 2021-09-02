@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {
   BrowserRouter as Router,
   Switch,
@@ -35,24 +36,15 @@ export default function Main() {
 
   const { currentUser, currentOrganization } = useSelector((state) => state);
 
-  // useEffect для подгрузки пользователя, если он зашел под собой
   useEffect(() => {
-    if (!Object.keys(currentUser).length || !Object.keys(currentOrganization)) {
-      axios(`${process.env.REACT_APP_SERVER_URL}/profile/current`, {
-        method: 'get',
-        withCredentials: true,
-      })
-        .then((response) => {
-          // console.log(response.data);
-          if (response.status === 201) {
-            dispatch(loginUserSuccess(response.data));
-          } else dispatch(loginOrganizationSuccess(response.data));
-        })
-        .catch(() => {
-          // dispatch(loginUserFail());
-          // dispatch(loginOrganizationFail());
-        });
-    }
+    console.log('useffect');
+    axios.get(`${process.env.REACT_APP_SERVER_URL}/profile/current`, { withCredentials: true })
+      .then((response) => {
+        console.log(response.data);
+        if (response.status === 201) {
+          dispatch(loginUserSuccess(response.data));
+        } else dispatch(loginOrganizationSuccess(response.data));
+      });
   }, []);
 
   useEffect(() => {
