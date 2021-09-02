@@ -6,16 +6,12 @@ import { loginUserStart } from '../../redux/actions/usersAC';
 function SignInUser() {
   const dispatch = useDispatch();
   const [login, setLogin] = useState(false);
-  const [display, setDisplay] = useState('none');
   const currentUser = useSelector((state) => state.currentUser);
 
   const loginHandler = (event) => {
     event.preventDefault();
     const { email, password } = event.target;
     dispatch(loginUserStart(email.value, password.value));
-
-    if (currentUser?.id) setDisplay('none');
-    if (!currentUser?.id) setDisplay('block');
   };
 
   useEffect(() => {
@@ -34,13 +30,13 @@ function SignInUser() {
           <input required name="password" type="password" className="form-control" />
         </div>
         <button type="submit" className="btn myLinkButton">Войти</button>
-        {login ? <Redirect to="/" /> : (
-          // eslint-disable-next-line object-shorthand
+        {login && <Redirect to="/" />}
+        {currentUser?.error && (
           <p style={{
-            color: 'red', display, marginTop: '15px', marginBottom: '0',
+            color: 'red', marginTop: '15px', marginBottom: '0',
           }}
           >
-            Введите корректный пароль!
+            Введите корректный эл.адрес/пароль!
           </p>
         )}
       </form>
