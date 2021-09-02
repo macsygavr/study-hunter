@@ -46,14 +46,14 @@ function QuickResponseForm() {
           <input required name="password" type="password" className="form-control" />
         </div>
         <p>Вы будете автоматически зарегистрированы.</p>
-        <button type="submit" className="btn btn-primary">Откликнуться!</button>
+        <button type="submit" className="btn btn-my-primary mt-3">Откликнуться!</button>
         {login && <Redirect to="/" />}
         {currentUser?.error && (
           <p style={{
             color: 'red', marginTop: '15px', marginBottom: '0',
           }}
           >
-            Эл.адрес должен быть уникальным!
+            Email должен быть уникальным!
           </p>
         )}
       </form>
