@@ -59,7 +59,7 @@ function OrganizationInfoPage() {
           <div>
             <p>
               Сайт:
-              <a href={currentOrganization.currentOrganization.site} className="postItemLink">
+              <a target="_blank" href={currentOrganization.currentOrganization.site} className="postItemLink" rel="noreferrer">
                 &nbsp;
                 {currentOrganization.currentOrganization.site}
               </a>
