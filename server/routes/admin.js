@@ -25,8 +25,12 @@ router.get('/bid', async (req, res) => {
   res.json(result);
 });
 
-router.get('/allusers', async (req, res) => {
-  const userList = await db.User.findAll({ raw: true });
+router.get('/alladmins', async (req, res) => {
+  const userList = await db.User.findAll({ where: {
+    superadmin: false,
+    admin: true,
+  } });
+  console.log(userList);
   const result = userList.map((item) => item = { 
     id: item.id,
     firstName: item.firstName,
