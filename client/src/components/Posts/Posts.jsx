@@ -12,7 +12,7 @@ function Posts({ resultToRender }) {
     : (<div>Здесь пока нет постов</div>));
 
   return (
-    <div className="container mb-5">
+    <div className="container mb-5 p-0">
       <div className="row">
         {renderPosts()}
       </div>

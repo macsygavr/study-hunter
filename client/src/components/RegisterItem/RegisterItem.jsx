@@ -16,7 +16,7 @@ export default function RegisterItem(item) {
         </Link>
         <AdminButton {...item} />
       </div>
-      <hr style={{ marginTop: '0px', color: 'rgb(198, 198, 198)' }} />
+      <hr style={{ marginTop: '6px', marginBottom: '6px', color: 'rgb(198, 198, 198)' }} />
     </>
   );
 }

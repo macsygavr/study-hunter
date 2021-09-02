@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import Posts from '../Posts/Posts';
 import UserList from '../UserList/UserList';
 import RegisterList from '../RegisterList/RegisterList';
+import UserSearch from '../UserSearch/UserSearch';
 
 export default function Lk() {
   const [file, setFile] = useState(null);
@@ -55,14 +56,11 @@ export default function Lk() {
           </div>
         </div>
         <div className="courseInfoPageP3">
-          <p style={{ color: 'blue' }}>{(currentUser.admin && currentUser.superadmin) ? 'superadmin' : currentUser.admin ? 'admin' : ''}</p>
           <h2 className="title-name">
             {`${currentUser.firstName} ${currentUser.lastName}`}
             <span>
               &nbsp;
-              <Link to="/editUser">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe0-ruYIVTiRizPu8o-RjjR1KrGv-mqXJgLQ&usqp=CAU" alt="" width="40px" />
-              </Link>
+              <span style={{ color: 'orange', fontSize: '15px' }}>{(currentUser.admin && currentUser.superadmin) ? 'superadmin' : currentUser.admin ? 'admin' : ''}</span>
             </span>
           </h2>
           <p>{currentUser.phone}</p>
@@ -70,12 +68,21 @@ export default function Lk() {
         </div>
       </div>
       {currentUser.superadmin ? (
-        <div className="courseInfoPageP2">
-          { currentUser.admin ? <RegisterList /> : ''}
-          <h3 style={{ textAlign: 'left', marginTop: '20px' }}>Назначить админа</h3>
-          <hr style={{ marginTop: 0 }} />
-          <div>
-            <UserList />
+        <div>
+          <div className="courseInfoPageP2">
+            { currentUser.admin ? <RegisterList /> : ''}
+            <h3 style={{ textAlign: 'left', marginTop: '20px' }}>Администраторы</h3>
+            <hr style={{ marginTop: 0 }} />
+            <div>
+              <UserList />
+            </div>
+          </div>
+          <div className="courseInfoPageP2">
+            <h3 style={{ textAlign: 'left', marginTop: '20px' }}>Поиск пользователей</h3>
+            <hr style={{ marginTop: 0, marginBottom: '30px' }} />
+            <div>
+              <UserSearch />
+            </div>
           </div>
         </div>
       ) : (
@@ -101,9 +108,20 @@ export default function Lk() {
           <div className="courseInfoPageP2">
             <h3 style={{ textAlign: 'left' }}>Отклики</h3>
             <hr style={{ marginTop: 0 }} />
-            <div className="courseInfoPageP3">
-              <Posts resultToRender={currentUser.requests} />
-            </div>
+            {currentUser.requests ? (
+              currentUser.requests.length ? (
+                <div className="courseInfoPageP3">
+                  <Posts resultToRender={currentUser.requests} />
+                </div>
+              )
+                : (
+                  <div className="ButtonDreamSearchDiv">
+                    <Link to="/">
+                      <button type="button" className="myLinkButton">Найти курс мечты!</button>
+                    </Link>
+                  </div>
+                )
+            ) : null }
             { currentUser.admin ? <RegisterList /> : ''}
           </div>
         </>

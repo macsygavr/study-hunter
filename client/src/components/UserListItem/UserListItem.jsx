@@ -19,7 +19,7 @@ function UserListItem(item) {
 
   return superadmin ? null : (
     <div>
-      <p className="userListItemP">
+      <p className="userListItemP mb-0">
         <span>
           <span>
             {firstName}
@@ -48,7 +48,7 @@ function UserListItem(item) {
           </button>
         </span>
       </p>
-      <hr style={{ marginTop: '-15px', color: 'rgb(198, 198, 198)' }} />
+      <hr style={{ marginTop: '6px', marginBottom: '6px', color: 'rgb(198, 198, 198)' }} />
     </div>
   );
 }

@@ -4,10 +4,6 @@
   border-radius: 50%;
 }
 
-.avatar:hover{
-  transition: 0.5s;
-}
-
 .my-container{
   margin-top: 80px;
   margin-bottom: 80px;
@@ -42,7 +38,8 @@
 .avatarContainer{
   display: flex;
   flex-direction: column;
-  padding: 25px;
+  padding: 8px;
+  padding-right: 42px;
 }
 
 .ButtonDreamSearchDiv{

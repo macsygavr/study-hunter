@@ -25,14 +25,23 @@ a {
 }
 
 .myLinkButton {
-  padding: 10px;
-  border-radius: 10px;
+  padding: 7px;
+  border-radius: 5px;
   background-color: rgb(41, 70, 113);
   color: rgb(255, 255, 255);
   margin: 3px;
+  border: none;
 }
 
 .myLinkButton:hover {
   background-color: rgb(33, 57, 92);
   color: rgb(255, 255, 255)
+}
+
+.postItemLink {
+  color: rgb(0, 0, 179);
+}
+
+.postItemLink:hover {
+  color: rgb(0, 0, 179);
 }

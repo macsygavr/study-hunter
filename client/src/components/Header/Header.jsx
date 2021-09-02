@@ -20,7 +20,7 @@ export default function Header() {
       <div className="header">
         <nav className="navbar navbar-dark bg-my-primary">
           <Link to="/">
-            <div style={{ transform: 'scale(1)' }}>
+            <div style={{ transform: 'scale(0.8)' }}>
               <svg width="320" height="55.124514580282074" viewBox="0 0 320 55.124514580282074" className="css-1j8o68f">
                 <defs id="SvgjsDefs1001" />
                 <g id="SvgjsG1007" featurekey="symbolFeature-0" transform="matrix(1.0016125509682108,0,0,1.0016125509682108,-0.08113062432982315,-22.51925478473415)" fill="#eeeeee">
@@ -47,7 +47,7 @@ export default function Header() {
       <div className="header">
         <nav className="navbar navbar-dark bg-my-primary">
           <Link to="/">
-            <div style={{ transform: 'scale(1)' }}>
+            <div style={{ transform: 'scale(0.8)' }}>
               <svg width="320" height="55.124514580282074" viewBox="0 0 320 55.124514580282074" className="css-1j8o68f">
                 <defs id="SvgjsDefs1001" />
                 <g id="SvgjsG1007" featurekey="symbolFeature-0" transform="matrix(1.0016125509682108,0,0,1.0016125509682108,-0.08113062432982315,-22.51925478473415)" fill="#eeeeee">
@@ -74,7 +74,7 @@ export default function Header() {
       <div className="header">
         <nav className="navbar navbar-dark bg-my-primary">
           <Link to="/">
-            <div style={{ transform: 'scale(1)' }}>
+            <div style={{ transform: 'scale(0.8)' }}>
               <svg width="320" height="55.124514580282074" viewBox="0 0 320 55.124514580282074" className="css-1j8o68f">
                 <defs id="SvgjsDefs1001" />
                 <g id="SvgjsG1007" featurekey="symbolFeature-0" transform="matrix(1.0016125509682108,0,0,1.0016125509682108,-0.08113062432982315,-22.51925478473415)" fill="#eeeeee">

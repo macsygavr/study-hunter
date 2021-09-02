@@ -19,8 +19,14 @@ function OrganizationInfoPage() {
   }, []);
   return (Object.keys(currentOrganization).length ? (
     <div className="container my-organization-container">
-      <h2 className="courseInfoPageP">{`${currentOrganization.currentOrganization.name} (${currentOrganization.currentOrganizationType.form})`}</h2>
-      {currentOrganization.currentOrganization.is_checked ? null : currentUser.admin ? <AdminButton {...currentOrganization.currentOrganization} /> : null}
+      <div className="courseInfoPageP4">
+        <h2>
+          {`${currentOrganization.currentOrganization.name} (${currentOrganization.currentOrganizationType.form})`}
+        </h2>
+        <div>
+          {currentOrganization.currentOrganization.is_checked ? null : currentUser.admin ? <AdminButton {...currentOrganization.currentOrganization} /> : null}
+        </div>
+      </div>
       <div className="courseInfoPageP2">
         <h3 style={{ textAlign: 'left' }}>Описание</h3>
         <hr style={{ marginTop: 0 }} />
@@ -33,7 +39,7 @@ function OrganizationInfoPage() {
       </div>
       <div className="courseInfoPageP2">
         <h3 style={{ textAlign: 'left' }}>Курсы</h3>
-        <hr style={{ marginTop: 0 }} />
+        <hr style={{ marginTop: 0, marginBottom: '20px' }} />
         {currentOrganization.currentOrganizationCourses.map((item) => <CoursesTable key={item.id} courseName={item.name} coursePrice={item.price} courseId={item.id} />)}
       </div>
       <div className="courseInfoPageP2">
@@ -53,7 +59,7 @@ function OrganizationInfoPage() {
           <div>
             <p>
               Сайт:
-              <a href={currentOrganization.currentOrganization.site} className="postItemLink">
+              <a target="_blank" href={currentOrganization.currentOrganization.site} className="postItemLink" rel="noreferrer">
                 &nbsp;
                 {currentOrganization.currentOrganization.site}
               </a>

@@ -5,7 +5,7 @@ import './coursesTable.css';
 function CoursesTable({ courseName, coursePrice, courseId }) {
   return (
     <>
-      <p className="CoursesTableP">
+      <div className="CoursesTableP1 mb-0">
         <Link className="postItemLink" to={`/course/${courseId}`}>
           <span>{courseName}</span>
         </Link>
@@ -16,8 +16,8 @@ function CoursesTable({ courseName, coursePrice, courseId }) {
           {' '}
           руб.
         </span>
-      </p>
-      <hr style={{ marginTop: '-15px', color: 'rgb(198, 198, 198)' }} />
+      </div>
+      <hr style={{ color: 'rgb(198, 198, 198)', marginBottom: '10px', marginTop: '10px' }} />
     </>
   );
 }

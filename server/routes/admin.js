@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const db = require("../db/models");
-// const { Op } = require("sequelize");
+const { Op } = require("sequelize");
 
 router.patch('/changestatus', async (req, res) => {
   if (req.body) {
@@ -25,8 +25,12 @@ router.get('/bid', async (req, res) => {
   res.json(result);
 });
 
-router.get('/allusers', async (req, res) => {
-  const userList = await db.User.findAll({ raw: true });
+router.get('/alladmins', async (req, res) => {
+  const userList = await db.User.findAll({ where: {
+    superadmin: false,
+    admin: true,
+  } });
+  console.log(userList);
   const result = userList.map((item) => item = { 
     id: item.id,
     firstName: item.firstName,
@@ -56,6 +60,16 @@ router.patch('/changebid', async (req, res) => {
     console.log(newStatus);
     res.json(newStatus.is_checked);
 }
+});
+
+router.post('/usersearch', async (req, res) => {
+  const { email } = req.body;
+  const result = await db.User.findAll({where: {
+    email: {
+      [Op.like]: `%${email.toLowerCase()}%`,
+    }
+  }});
+  res.json(result);
 });
 
 module.exports = router;

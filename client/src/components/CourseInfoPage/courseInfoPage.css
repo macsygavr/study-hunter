@@ -17,11 +17,3 @@
   text-align: start;
   margin: 30px;
 }
-
-.postItemLink {
-  color: rgb(0, 0, 179);
-}
-
-.postItemLink:hover {
-  color: rgb(0, 0, 179);
-}
