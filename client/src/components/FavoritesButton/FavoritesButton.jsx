@@ -10,7 +10,7 @@ function FavoritesButton({ userId, courseId, styleProp }) {
 
   const { currentUser } = useSelector((state) => state);
   // eslint-disable-next-line max-len
-  const [currentFavorite] = currentUser.length ? currentUser.favorites.filter((course) => course.id === courseId) : [''];
+  const [currentFavorite] = currentUser.favorites.length ? currentUser.favorites.filter((course) => course.id === courseId) : [''];
   const addToFavHandler = () => {
     dispatch(addToFavUserStart(userId, courseId));
   };
@@ -18,7 +18,7 @@ function FavoritesButton({ userId, courseId, styleProp }) {
   const removeFromFavHandler = () => {
     dispatch(removeFromFavUserStart(userId, courseId));
   };
-
+  console.log(currentFavorite);
   const renderButton = () => {
     if (currentFavorite) {
       return (
