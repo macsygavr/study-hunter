@@ -101,9 +101,20 @@ export default function Lk() {
           <div className="courseInfoPageP2">
             <h3 style={{ textAlign: 'left' }}>Отклики</h3>
             <hr style={{ marginTop: 0 }} />
-            <div className="courseInfoPageP3">
-              <Posts resultToRender={currentUser.requests} />
-            </div>
+            {currentUser.requests ? (
+              currentUser.requests.length ? (
+                <div className="courseInfoPageP3">
+                  <Posts resultToRender={currentUser.requests} />
+                </div>
+              )
+                : (
+                  <div className="ButtonDreamSearchDiv">
+                    <Link to="/">
+                      <button type="button" className="myLinkButton">Найти курс мечты!</button>
+                    </Link>
+                  </div>
+                )
+            ) : null }
             { currentUser.admin ? <RegisterList /> : ''}
           </div>
         </>
