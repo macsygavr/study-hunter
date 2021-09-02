@@ -12,6 +12,7 @@ export default function Header() {
   };
   const OrgLogoutHandler = () => {
     dispatch(logoutOrganizationStart());
+    window.location.assign('/');
   };
 
   return (

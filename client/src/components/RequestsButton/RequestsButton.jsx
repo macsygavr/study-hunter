@@ -17,13 +17,12 @@ function RequestsButton({ userId, courseId, courseName }) {
   // const requestHandler = () => {
   //   dispatch(addRequestUserStart(userId, courseId));
   // };
-
   useEffect(() => {
     if (Object.keys(currentUser).length) {
       axios.post(`${process.env.REACT_APP_SERVER_URL}/isrequested`, { userId, courseId }, { withCredentials: true })
         .then((response) => setIsRequested(response.data));
-    }
-  }, [currentUser.requests]);
+    } else setIsRequested(null);
+  }, [currentUser]);
 
   return (
     <>
@@ -34,7 +33,7 @@ function RequestsButton({ userId, courseId, courseName }) {
           : !Object.keys(currentOrganization).length
             ? (<button onClick={() => setPopupActive(true)} type="button" className="btn btn-my-primary mt-3">Откликнуться!</button>)
             : null}
-      <PopUp active={popupActive} setActive={setPopupActive} />
+      <PopUp active={popupActive} setActive={setPopupActive} courseId={courseId} />
       {isReqModal ? <ModalRequest setIsReqModal={setIsReqModal} userId={userId} courseId={courseId} courseName={courseName} /> : null}
     </>
   );
