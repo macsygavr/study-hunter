@@ -10,7 +10,7 @@ import './courseInfoPage.css';
 
 function CourseInfoPage() {
   const { id } = useParams();
-  const [currentCourse, setCurrentCourse] = useState([]);
+  const [currentCourse, setCurrentCourse] = useState(null);
   const { currentUser } = useSelector((state) => state);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ function CourseInfoPage() {
       .then((res) => setCurrentCourse(res.data));
   }, []);
 
-  return (Object.keys(currentCourse).length ? (
+  return currentCourse ? (
     <div className="container my-container">
       <div className="avatarContainer2">
         {currentCourse.organizationLogo
@@ -29,11 +29,7 @@ function CourseInfoPage() {
         <span>
           {currentCourse.dataValues.name}
         </span>
-        <span>
-          {Object.keys(currentUser).length
-            ? <FavoritesButton userId={currentUser.id} courseId={currentCourse.dataValues.id} />
-            : null}
-        </span>
+        {currentUser && <FavoritesButton userId={currentUser.id} courseId={currentCourse.dataValues.id} />}
       </h2>
       <h4 className="courseInfoPageP">
         Стоимость обучения:
@@ -50,7 +46,7 @@ function CourseInfoPage() {
       <p className="courseInfoPageP">
         Учебное заведение:
         &nbsp;
-        <Link className="postItemLink" to={`/organization/${currentCourse.dataValues.OrganizationId}`}>
+        <Link className="postItemLink" to={`/organization/${currentCourse.dataValues?.OrganizationId}`}>
           {currentCourse.organizationName}
         </Link>
       </p>
@@ -63,14 +59,13 @@ function CourseInfoPage() {
             {currentCourse.dataValues.description}
           </p>
         </div>
-        <p>
-          <RequestsButton userId={currentUser.id} courseId={currentCourse.dataValues.id} />
-        </p>
+        <div>
+          <RequestsButton userId={currentUser?.id} courseId={currentCourse.dataValues?.id} />
+        </div>
       </div>
     </div>
   ) : (
     null
-  )
   );
 }
 

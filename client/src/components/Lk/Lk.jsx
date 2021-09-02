@@ -11,23 +11,29 @@ import RegisterList from '../RegisterList/RegisterList';
 import UserSearch from '../UserSearch/UserSearch';
 
 export default function Lk() {
-  const [file, setFile] = useState(null);
   const currentUser = useSelector((state) => state.currentUser);
+  const initialToggleState = currentUser?.superadmin ? 3 : 1;
+  const [file, setFile] = useState(null);
   const [currentFavorites, setCurrentFavorites] = useState([]);
-  const [isUser, setIsUser] = useState(false);
-  const [toggleState, setToogleState] = useState(currentUser.superadmin ? 3 : 1);
+  const [toggleState, setToogleState] = useState(initialToggleState);
+  console.log({ toggleState }, currentUser);
   useEffect(() => {
-    setCurrentFavorites(currentUser.favorites);
-  }, [isUser]);
-
+    setToogleState(initialToggleState);
+  }, [currentUser]);
   useEffect(() => {
-    if (Object.keys(currentUser).length) setIsUser(true);
+    if (currentUser?.favorites) {
+      setCurrentFavorites(currentUser.favorites);
+    }
   }, [currentUser]);
 
   useEffect(() => {
-    setFile(currentUser.logo);
-  }, [currentUser.logo]);
+    if (currentUser?.logo) {
+      setFile(currentUser.logo);
+    }
+  }, [currentUser]);
+
   const fileSend = async (e) => {
+    if (!currentUser) return;
     e.preventDefault();
     const formData = new FormData();
     const imagefile = document.querySelector('#file');
@@ -42,13 +48,15 @@ export default function Lk() {
     }
   };
 
+  if (!currentUser) {
+    return null;
+  }
+
   return (
     <div className="container my-container">
       <div className="lkContainer">
         <div className="avatarContainer">
-          {file
-            ? <img src={`${process.env.REACT_APP_SERVER_URL}${file}`} alt="pic" className="avatar" />
-            : <img src="https://www.ucheba.ru/img/userpic-empty-big.png" alt="pic" className="avatar" />}
+          <img src={file ? `${process.env.REACT_APP_SERVER_URL}${file}` : 'https://www.ucheba.ru/img/userpic-empty-big.png'} alt="pic" className="avatar" />
           <div>
             <label htmlFor="file" className="btn btn-my-primary my-2">
               Обновить фото
@@ -97,21 +105,25 @@ export default function Lk() {
           <div className="tab-content" id="nav-tabContent">
             <div className={toggleState === 1 ? 'tab-pane fade show active' : 'tab-pane fade'} id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
               <div className="courseInfoPageP2">
-                <h3 style={{ textAlign: 'left' }}>Избранное</h3>
-                <hr style={{ marginTop: 0 }} />
-                {currentUser.favorites ? (
-                  currentUser.favorites.length ? (
-                    <div className="courseInfoPageP3">
-                      <Posts resultToRender={currentFavorites} />
-                    </div>
-                  )
-                    : (
-                      <div className="ButtonDreamSearchDiv">
-                        <Link to="/">
-                          <button type="button" className="myLinkButton">Найти курс мечты!</button>
-                        </Link>
-                      </div>
-                    )
+                { !currentUser.superadmin ? (
+                  <>
+                    <h3 style={{ textAlign: 'left' }}>Избранное</h3>
+                    <hr style={{ marginTop: 0 }} />
+                    {currentUser?.favorites ? (
+                      currentUser.favorites.length ? (
+                        <div className="courseInfoPageP3">
+                          <Posts resultToRender={currentFavorites} />
+                        </div>
+                      )
+                        : (
+                          <div className="ButtonDreamSearchDiv">
+                            <Link to="/">
+                              <button type="button" className="myLinkButton">Найти курс мечты!</button>
+                            </Link>
+                          </div>
+                        )
+                    ) : null }
+                  </>
                 ) : null }
               </div>
             </div>

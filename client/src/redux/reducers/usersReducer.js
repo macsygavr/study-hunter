@@ -28,7 +28,7 @@ function usersReducer(state = {}, action) {
       return { ...state, error: true };
 
     case LOGOUT_USER_SUCCESS:
-      return {};
+      return null;
 
     case LOGOUT_USER_FAIL:
       return state;

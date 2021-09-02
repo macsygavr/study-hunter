@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import phoneMask from '../../utils/phoneMask';
 
 export default function RequestsItem({
   userFirstName,
@@ -12,7 +13,7 @@ export default function RequestsItem({
     <>
       <div className="col">{userFirstName}</div>
       <div className="col">{userLastName}</div>
-      <div className="col">{userPhone}</div>
+      <div className="col">{phoneMask(userPhone)}</div>
       <div className="col">{userEmail}</div>
       <Link to={`/course/${courseId}`} className="col postItemLink">{courseName}</Link>
     </>

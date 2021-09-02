@@ -18,7 +18,7 @@ function RequestsButton({ userId, courseId, courseName }) {
   //   dispatch(addRequestUserStart(userId, courseId));
   // };
   useEffect(() => {
-    if (Object.keys(currentUser).length) {
+    if (currentUser) {
       axios.post(`${process.env.REACT_APP_SERVER_URL}/isrequested`, { userId, courseId }, { withCredentials: true })
         .then((response) => setIsRequested(response.data));
     } else setIsRequested(null);
@@ -28,9 +28,9 @@ function RequestsButton({ userId, courseId, courseName }) {
     <>
       {isRequested
         ? (<div className="alert alert-primary mt-3 mb-0 mx-auto pt-2" style={{ width: '180px', height: '42px' }}>Отклик отправлен</div>)
-        : Object.keys(currentUser).length
+        : currentUser
           ? (<button onClick={() => setIsReqModal(true)} type="button" className="btn btn-my-primary mt-3">Хочу здесь учиться!</button>)
-          : !Object.keys(currentOrganization).length
+          : !currentOrganization
             ? (<button onClick={() => setPopupActive(true)} type="button" className="btn btn-my-primary mt-3">Откликнуться!</button>)
             : null}
       <PopUp active={popupActive} setActive={setPopupActive} courseId={courseId} />
@@ -40,7 +40,3 @@ function RequestsButton({ userId, courseId, courseName }) {
 }
 
 export default React.memo(RequestsButton);
-
-// <div className="alert alert-primary mt-3 mb-0 mx-auto pt-2" style={{ width: '180px', height: '38px' }}>Отклик отправлен</div>
-// <button onClick={() => setIsReqModal(true)} type="button" className="btn btn-my-primary mt-3">Хочу здесь учиться!</button>
-// <button onClick={() => setPopupActive(true)} type="button" className="btn btn-my-primary mt-3">Откликнуться!</button>
