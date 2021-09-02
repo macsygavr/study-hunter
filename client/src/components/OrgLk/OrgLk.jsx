@@ -48,35 +48,33 @@ function OrgLk() {
             </label>
           </div>
         </div>
-        <div>
-          <div className="courseInfoPageP3">
-            <div className="title-name moderationSpan">
-              <span>
-                <h4>
-                  {`${currentOrganization.name} (${currentOrganization.OrganizationForm})`}
-                  <span>
+        <div className="courseInfoPageP3">
+          <div className="title-name moderationSpan">
+            <span>
+              <h4>
+                {`${currentOrganization.name} (${currentOrganization.OrganizationForm})`}
+                <span>
                     &nbsp;
-                    <Link to="/editUser">
-                      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe0-ruYIVTiRizPu8o-RjjR1KrGv-mqXJgLQ&usqp=CAU" alt="" width="40px" />
-                    </Link>
-                  </span>
-                </h4>
-              </span>
-              <span>
-                {currentOrganization.is_checked
-                  ? null
-                  : <span style={{ color: 'orange', fontSize: '15px' }}>Заявка находится на рассмотрении модератора</span>}
-              </span>
-            </div>
-            <p style={{ textAlign: 'start' }}>Описание:</p>
-            <p style={{ textAlign: 'start' }}>{`${currentOrganization.description ? currentOrganization.description : 'Не указано'}`}</p>
-            <div style={{ textAlign: 'start' }}>
-              <p>Контакты:</p>
-              <p>{`Адрес: ${currentOrganization.address ? currentOrganization.address : 'Не указано'}`}</p>
-              <p>{`Тел.: ${currentOrganization.phone}`}</p>
-              <p>{`Сайт: ${currentOrganization.site ? currentOrganization.site : 'Не указано'}`}</p>
-              <p>{`Почта: ${currentOrganization.email}`}</p>
-            </div>
+                  <Link to="/editUser">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe0-ruYIVTiRizPu8o-RjjR1KrGv-mqXJgLQ&usqp=CAU" alt="" width="40px" />
+                  </Link>
+                </span>
+              </h4>
+            </span>
+            <span>
+              {currentOrganization.is_checked
+                ? null
+                : <span style={{ color: 'orange', fontSize: '15px' }}>Заявка на регистрацию на рассмотрении у модератора</span>}
+            </span>
+          </div>
+          <p style={{ textAlign: 'start' }}>Описание:</p>
+          <p style={{ textAlign: 'start' }}>{`${currentOrganization.description ? currentOrganization.description : 'Не указано'}`}</p>
+          <div style={{ textAlign: 'start' }}>
+            <p>Контакты:</p>
+            <p>{`Адрес: ${currentOrganization.address ? currentOrganization.address : 'Не указано'}`}</p>
+            <p>{`Тел.: ${currentOrganization.phone}`}</p>
+            <p>{`Сайт: ${currentOrganization.site ? currentOrganization.site : 'Не указано'}`}</p>
+            <p>{`Почта: ${currentOrganization.email}`}</p>
           </div>
         </div>
       </div>
@@ -115,7 +113,7 @@ function OrgLk() {
                 <hr />
               </div>
             </div>
-          ) : currentOrganization.is_checked ? 'Заявка отклонена модератором' : 'Заявка находится на рассмотрении модератора'}
+          ) : currentOrganization.is_checked ? 'Заявка отклонена модератором' : 'Заявка на регистрацию на рассмотрении у модератора'}
       </div>
     </div>
   );
