@@ -12,6 +12,16 @@ import RegisterList from '../RegisterList/RegisterList';
 export default function Lk() {
   const [file, setFile] = useState(null);
   const currentUser = useSelector((state) => state.currentUser);
+  const [currentFavorites, setCurrentFavorites] = useState([]);
+  const [isUser, setIsUser] = useState(false);
+  useEffect(() => {
+    setCurrentFavorites(currentUser.favorites);
+  }, [isUser]);
+
+  useEffect(() => {
+    if (Object.keys(currentUser).length) setIsUser(true);
+  }, [currentUser]);
+
   useEffect(() => {
     setFile(currentUser.logo);
   }, [currentUser.logo]);
@@ -76,7 +86,7 @@ export default function Lk() {
             {currentUser.favorites ? (
               currentUser.favorites.length ? (
                 <div className="courseInfoPageP3">
-                  <Posts resultToRender={currentUser.favorites} />
+                  <Posts resultToRender={currentFavorites} />
                 </div>
               )
                 : (
