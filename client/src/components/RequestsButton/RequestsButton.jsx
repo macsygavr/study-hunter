@@ -3,7 +3,7 @@ import './requestButton.css';
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
-import { addRequestUserStart, removeRequestUserStart } from '../../redux/actions/usersAC';
+import { addRequestUserStart } from '../../redux/actions/usersAC';
 
 function RequestsButton({ userId, courseId }) {
   const dispatch = useDispatch();
@@ -12,11 +12,6 @@ function RequestsButton({ userId, courseId }) {
 
   const requestHandler = () => {
     dispatch(addRequestUserStart(userId, courseId));
-  };
-
-  const removeRequestHandler = () => {
-    dispatch(removeRequestUserStart(userId, courseId));
-    setIsRequested((prev) => !prev);
   };
 
   useEffect(() => {
@@ -28,7 +23,7 @@ function RequestsButton({ userId, courseId }) {
 
   return (
     isRequested ? (
-      <button type="button" className="btn btn-success mt-3 mb-0" onClick={removeRequestHandler}>Отклик отправлен</button>
+      <div className="alert alert-primary mt-3 mb-0 w-50 m-auto">Отклик отправлен</div>
     ) : (Object.keys(currentUser).length
       ? (
         <button onClick={requestHandler} type="button" className="btn btn-my-primary mt-3">Хочу здесь учиться!</button>
