@@ -13,7 +13,7 @@ export default function Requests({ requestsToRender }) {
     : (<div>Здесь пока нет откликов</div>));
 
   return (
-    <div className="mb-5">
+    <div>
       {requestsToRender && requestsToRender.length
         ? (
           <>
@@ -24,7 +24,7 @@ export default function Requests({ requestsToRender }) {
               <strong className="col">Email</strong>
               <strong className="col">Направление</strong>
             </div>
-            <hr style={{ color: 'rgb(198, 198, 198)', marginTop: '5px' }} />
+            <hr style={{ color: 'rgb(198, 198, 198)', marginTop: '15px' }} />
           </>
         )
         : null}

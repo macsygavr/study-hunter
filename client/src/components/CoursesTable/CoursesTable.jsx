@@ -17,7 +17,7 @@ function CoursesTable({ courseName, coursePrice, courseId }) {
           руб.
         </span>
       </div>
-      <hr style={{ color: 'rgb(198, 198, 198)', marginBottom: '10px', marginTop: '10px' }} />
+      <hr style={{ color: 'rgb(198, 198, 198)', marginBottom: '17px', marginTop: '17px' }} />
     </>
   );
 }

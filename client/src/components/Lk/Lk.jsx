@@ -15,6 +15,7 @@ export default function Lk() {
   const currentUser = useSelector((state) => state.currentUser);
   const [currentFavorites, setCurrentFavorites] = useState([]);
   const [isUser, setIsUser] = useState(false);
+  const [toggleState, setToogleState] = useState(currentUser.superadmin ? 3 : 1);
   useEffect(() => {
     setCurrentFavorites(currentUser.favorites);
   }, [isUser]);
@@ -67,65 +68,101 @@ export default function Lk() {
           <p>{currentUser.email}</p>
         </div>
       </div>
-      {currentUser.superadmin ? (
-        <div>
-          <div className="courseInfoPageP2">
-            { currentUser.admin ? <RegisterList /> : ''}
-            <h3 style={{ textAlign: 'left', marginTop: '20px' }}>Администраторы</h3>
-            <hr style={{ marginTop: 0 }} />
-            <div>
-              <UserList />
+      <div className="courseInfoPageP2">
+        <div className="tabs">
+          <nav>
+            <div className="nav nav-tabs" id="nav-tab" role="tablist">
+              {currentUser.superadmin ? (
+                <>
+                  <button className={toggleState === 3 ? 'nav-link active postItemLink2' : 'nav-link postItemLink2'} onClick={() => setToogleState(3)} type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Заявки учебных заведений</button>
+                  <button className={toggleState === 4 ? 'nav-link active postItemLink2' : 'nav-link postItemLink2'} onClick={() => setToogleState(4)} type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Администраторы</button>
+                  <button className={toggleState === 5 ? 'nav-link active postItemLink2' : 'nav-link postItemLink2'} onClick={() => setToogleState(5)} type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Поиск пользователей</button>
+                </>
+              ) : (
+                currentUser.admin ? (
+                  <>
+                    <button className={toggleState === 1 ? 'nav-link active postItemLink2' : 'nav-link postItemLink2'} onClick={() => setToogleState(1)} type="button" role="tab" aria-controls="nav-home" aria-selected="true">Избранное</button>
+                    <button className={toggleState === 2 ? 'nav-link active postItemLink2' : 'nav-link postItemLink2'} onClick={() => setToogleState(2)} type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Отклики</button>
+                    <button className={toggleState === 3 ? 'nav-link active postItemLink2' : 'nav-link postItemLink2'} onClick={() => setToogleState(3)} type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Заявки учебных заведений</button>
+                  </>
+                ) : (
+                  <>
+                    <button className={toggleState === 1 ? 'nav-link active postItemLink2' : 'nav-link postItemLink2'} onClick={() => setToogleState(1)} type="button" role="tab" aria-controls="nav-home" aria-selected="true">Избранное</button>
+                    <button className={toggleState === 2 ? 'nav-link active postItemLink2' : 'nav-link postItemLink2'} onClick={() => setToogleState(2)} type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Отклики</button>
+                  </>
+                )
+              )}
             </div>
-          </div>
-          <div className="courseInfoPageP2">
-            <h3 style={{ textAlign: 'left', marginTop: '20px' }}>Поиск пользователей</h3>
-            <hr style={{ marginTop: 0, marginBottom: '30px' }} />
-            <div>
-              <UserSearch />
+          </nav>
+          <div className="tab-content" id="nav-tabContent">
+            <div className={toggleState === 1 ? 'tab-pane fade show active' : 'tab-pane fade'} id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+              <div className="courseInfoPageP2">
+                <h3 style={{ textAlign: 'left' }}>Избранное</h3>
+                <hr style={{ marginTop: 0 }} />
+                {currentUser.favorites ? (
+                  currentUser.favorites.length ? (
+                    <div className="courseInfoPageP3">
+                      <Posts resultToRender={currentFavorites} />
+                    </div>
+                  )
+                    : (
+                      <div className="ButtonDreamSearchDiv">
+                        <Link to="/">
+                          <button type="button" className="myLinkButton">Найти курс мечты!</button>
+                        </Link>
+                      </div>
+                    )
+                ) : null }
+              </div>
+            </div>
+            <div className={toggleState === 2 ? 'tab-pane fade show active' : 'tab-pane fade'} id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+              <div className="courseInfoPageP2">
+                <h3 style={{ textAlign: 'left' }}>Отклики</h3>
+                <hr style={{ marginTop: 0 }} />
+                {currentUser.requests ? (
+                  currentUser.requests.length ? (
+                    <div className="courseInfoPageP3">
+                      <Posts resultToRender={currentUser.requests} />
+                    </div>
+                  )
+                    : (
+                      <div className="ButtonDreamSearchDiv">
+                        <Link to="/">
+                          <button type="button" className="myLinkButton">Найти курс мечты!</button>
+                        </Link>
+                      </div>
+                    )
+                ) : null }
+              </div>
+            </div>
+            <div className={toggleState === 3 ? 'tab-pane fade show active' : 'tab-pane fade'} id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+              <div className="courseInfoPageP2">
+                { currentUser.admin ? <RegisterList /> : ''}
+              </div>
+            </div>
+            <div className={toggleState === 4 ? 'tab-pane fade show active' : 'tab-pane fade'} id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+              <div className="courseInfoPageP2">
+                <h3 style={{ textAlign: 'left' }}>Администраторы</h3>
+                <hr style={{ marginTop: 0 }} />
+                <div>
+                  <UserList />
+                </div>
+              </div>
+            </div>
+            <div className={toggleState === 5 ? 'tab-pane fade show active' : 'tab-pane fade'} id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+              <div>
+                <div className="courseInfoPageP2">
+                  <h3 style={{ textAlign: 'left' }}>Поиск пользователей</h3>
+                  <hr style={{ marginTop: 0, marginBottom: '30px' }} />
+                  <div>
+                    <UserSearch />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      ) : (
-        <>
-          <div className="courseInfoPageP2">
-            <h3 style={{ textAlign: 'left' }}>Избранное</h3>
-            <hr style={{ marginTop: 0 }} />
-            {currentUser.favorites ? (
-              currentUser.favorites.length ? (
-                <div className="courseInfoPageP3">
-                  <Posts resultToRender={currentFavorites} />
-                </div>
-              )
-                : (
-                  <div className="ButtonDreamSearchDiv">
-                    <Link to="/">
-                      <button type="button" className="myLinkButton">Найти курс мечты!</button>
-                    </Link>
-                  </div>
-                )
-            ) : null }
-          </div>
-          <div className="courseInfoPageP2">
-            <h3 style={{ textAlign: 'left' }}>Отклики</h3>
-            <hr style={{ marginTop: 0 }} />
-            {currentUser.requests ? (
-              currentUser.requests.length ? (
-                <div className="courseInfoPageP3">
-                  <Posts resultToRender={currentUser.requests} />
-                </div>
-              )
-                : (
-                  <div className="ButtonDreamSearchDiv">
-                    <Link to="/">
-                      <button type="button" className="myLinkButton">Найти курс мечты!</button>
-                    </Link>
-                  </div>
-                )
-            ) : null }
-            { currentUser.admin ? <RegisterList /> : ''}
-          </div>
-        </>
-      )}
+      </div>
     </div>
   );
 }
