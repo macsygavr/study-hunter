@@ -27,7 +27,7 @@ function RequestsButton({ userId, courseId }) {
   return (
     <>
       {isRequested ? (
-        <div className="alert alert-primary mt-3 mb-0 w-50 mx-auto">Отклик отправлен</div>
+        <div className="alert alert-primary mt-3 mb-0 mx-auto pt-2" style={{ width: '180px', height: '38px' }}>Отклик отправлен</div>
       ) : Object.keys(currentUser).length
         ? (
           <button onClick={requestHandler} type="button" className="btn btn-my-primary mt-3">Хочу здесь учиться!</button>

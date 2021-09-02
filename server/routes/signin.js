@@ -11,6 +11,7 @@ router.post('/user', async (req, res) => {
       UserId: user.id,
     }, include: {model: db.Course, include: db.CourseForm} });
     const requestsFromDB = await db.Request.findAll({ raw: true, nest: true, where: {
+      UserId: user.id
     }, include: {model: db.Course, include: db.CourseForm} });
     const favorites = favoritesFromDB.map(course => ({...course.Course, type: course.Course.CourseForm.form}));
     const requests = requestsFromDB.map(course => ({...course.Course, type: course.Course.CourseForm.form}));
@@ -41,8 +42,22 @@ router.post('/organization', async (req, res) => {
     }});
   if (organization) {
     const courses = await db.Course.findAll({raw: true, where: {OrganizationId: organization.id}});
+    
+    let requestsFromDB = await db.Request.findAll({raw: true, nest: true, include: [{model: db.User}, {model: db.Course} ]}); 
+    requestsFromDB = requestsFromDB.filter(item => item.Course.OrganizationId === organization.id);
+    const requests = requestsFromDB.map(request => ({
+      userId: request.User.id,
+      userFirstName: request.User.firstName,
+      userLastName: request.User.lastName,
+      userPhone: request.User.phone,
+      userEmail: request.User.email,
+      courseId: request.Course.id,
+      courseName: request.Course.name,
+    }));
+
     req.session.orgEmail = organization.email;
     req.session.orgId = organization.id;
+    
     res.status(202).json({
       id: organization.id,
       name: organization.name,
@@ -57,6 +72,7 @@ router.post('/organization', async (req, res) => {
       OrganizationFormId: organization.OrganizationFormId,
       OrganizationForm: organization.OrganizationForm.form,
       OrganizationCourses: courses,
+      OrganizationRequests: requests,
     });
   }
 });

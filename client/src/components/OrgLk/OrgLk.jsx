@@ -6,12 +6,14 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import CoursesTable from '../CoursesTable/CoursesTable';
 import Modal from '../Modal/Modal';
+import Requests from '../Requests/Requests';
 
 function OrgLk() {
   const [file, setFile] = useState(null);
   const [isModalOpened, setIsModalOpened] = useState(false);
 
   const { currentOrganization } = useSelector((state) => state);
+  console.log(currentOrganization.OrganizationRequests);
   useEffect(() => {
     setFile(currentOrganization.logo);
   }, [currentOrganization.logo]);
@@ -113,6 +115,7 @@ function OrgLk() {
               <div>
                 <div>Отклики пользователей</div>
                 <hr />
+                <Requests requestsToRender={currentOrganization.OrganizationRequests} />
               </div>
             </div>
           ) : currentOrganization.is_checked ? 'Заявка отклонена модератором' : 'Заявка находится на рассмотрении модератора'}
