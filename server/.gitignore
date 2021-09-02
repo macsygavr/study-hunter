@@ -40,7 +40,6 @@ build/Release
 
 # Dependency directories
 node_modules/
-public/
 sessions/
 jspm_packages/
 
