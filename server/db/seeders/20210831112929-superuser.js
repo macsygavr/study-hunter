@@ -10,6 +10,7 @@ module.exports = {
       password: 'study',
       admin: true,
       superadmin: true,
+      logo: '/userPhotos/3bcb5bb7-3784-4c0c-9651-0f04ac08d107-icon.png',
       createdAt: new Date(),
       updatedAt: new Date(),
      }], {});
