@@ -12,7 +12,6 @@ export default function RegisterList() {
       .then((res) => setRegister(res.data));
   }, []);
   const arrOfBil = register.filter((item) => item.is_checked === false);
-  console.log(arrOfBil.length);
   return (
     <div>
       <h3 style={{ textAlign: 'left' }}>Заявки учебных заведений</h3>

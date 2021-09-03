@@ -27,7 +27,7 @@ const OVERLAY_STYLES = {
 };
 
 export default function Modal({ setIsModalOpened, orgId }) {
-  const { currentOrganization } = useSelector((state) => state);
+  const currentOrganization = useSelector((state) => state.currentOrganization);
   const [currentCourses] = useState(currentOrganization.OrganizationCourses);
   const [isAdded, setIsAdded] = useState(false);
 

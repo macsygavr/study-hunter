@@ -33,7 +33,7 @@ export default function ModalRequest({
   setIsReqModal, courseName, courseId, userId,
 }) {
   const dispatch = useDispatch();
-  const { currentUser } = useSelector((state) => state);
+  const currentUser = useSelector((state) => state.currentUser);
   const [isRequested, setIsRequested] = useState(false);
   const [currentUserRequests] = useState(currentUser.requests);
 

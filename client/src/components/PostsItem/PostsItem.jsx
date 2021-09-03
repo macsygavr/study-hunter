@@ -12,7 +12,7 @@ function PostsItem(props) {
     id, name, price, type,
   } = props;
 
-  const { currentUser } = useSelector((state) => state);
+  const currentUser = useSelector((state) => state.currentUser);
 
   return (currentUser?.superadmin ? (
     <>

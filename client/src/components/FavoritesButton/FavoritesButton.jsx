@@ -8,8 +8,7 @@ import renderStarIconFilled from './renderStarIconFilled';
 function FavoritesButton({ userId, courseId, styleProp }) {
   const dispatch = useDispatch();
 
-  const { currentUser } = useSelector((state) => state);
-  // eslint-disable-next-line max-len
+  const currentUser = useSelector((state) => state.currentUser);
   const currentFavorite = currentUser?.favorites?.find((course) => course.id === courseId) ?? '';
   const addToFavHandler = () => {
     dispatch(addToFavUserStart(userId, courseId));

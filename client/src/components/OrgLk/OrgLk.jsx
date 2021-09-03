@@ -13,7 +13,7 @@ function OrgLk() {
   const [isModalOpened, setIsModalOpened] = useState(false);
   const [toggleState, setToogleState] = useState(1);
 
-  const { currentOrganization } = useSelector((state) => state);
+  const currentOrganization = useSelector((state) => state.currentOrganization);
   useEffect(() => {
     if (currentOrganization?.logo) {
       setFile(currentOrganization.logo);

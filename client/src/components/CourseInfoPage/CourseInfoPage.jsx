@@ -11,7 +11,7 @@ import './courseInfoPage.css';
 function CourseInfoPage() {
   const { id } = useParams();
   const [currentCourse, setCurrentCourse] = useState(null);
-  const { currentUser } = useSelector((state) => state);
+  const currentUser = useSelector((state) => state.currentUser);
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_SERVER_URL}/course/${id}`)

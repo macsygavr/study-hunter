@@ -10,7 +10,8 @@ import ModalRequest from '../ModalRequest/ModalRequest';
 
 function RequestsButton({ userId, courseId, courseName }) {
   // const dispatch = useDispatch();
-  const { currentUser, currentOrganization } = useSelector((state) => state);
+  const currentUser = useSelector((state) => state.currentUser);
+  const currentOrganization = useSelector((state) => state.currentOrganization);
   const [popupActive, setPopupActive] = useState(false);
   const [isReqModal, setIsReqModal] = useState(false);
   const [isRequested, setIsRequested] = useState(null);
