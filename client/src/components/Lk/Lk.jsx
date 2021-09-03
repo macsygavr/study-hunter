@@ -9,17 +9,18 @@ import Posts from '../Posts/Posts';
 import UserList from '../UserList/UserList';
 import RegisterList from '../RegisterList/RegisterList';
 import UserSearch from '../UserSearch/UserSearch';
+import phoneMask from '../../utils/phoneMask';
 
 export default function Lk() {
   const currentUser = useSelector((state) => state.currentUser);
-  const initialToggleState = currentUser?.superadmin ? 3 : 1;
+  // const initialToggleState = currentUser?.superadmin ? 3 : 1;
   const [file, setFile] = useState(null);
   const [currentFavorites, setCurrentFavorites] = useState([]);
-  const [toggleState, setToogleState] = useState(initialToggleState);
+  const [toggleState, setToogleState] = useState(currentUser?.superadmin ? 3 : 1);
   console.log({ toggleState }, currentUser);
-  useEffect(() => {
-    setToogleState(initialToggleState);
-  }, [currentUser]);
+  // useEffect(() => {
+  //   setToogleState(currentUser?.superadmin ? 3 : 1);
+  // }, [currentUser]);
   useEffect(() => {
     if (currentUser?.favorites) {
       setCurrentFavorites(currentUser.favorites);
@@ -72,7 +73,7 @@ export default function Lk() {
               <span style={{ color: 'orange', fontSize: '15px' }}>{(currentUser.admin && currentUser.superadmin) ? 'superadmin' : currentUser.admin ? 'admin' : ''}</span>
             </span>
           </h2>
-          <p>{currentUser.phone}</p>
+          <p>{phoneMask(currentUser.phone)}</p>
           <p>{currentUser.email}</p>
         </div>
       </div>
